@@ -1,24 +1,33 @@
 from colorama import init, Fore
 init()
 
-# INPUTS HANDLING
+# INPUT HANDLING
 
-def boolInput(request: str, addedChars=" [Y/n]: ") -> dict:
-	output = {}
+def boolInput(boolHandler={}) -> dict:
+	handler = {}
+
+	handler["request"] = ""
+	handler["addedChars"] = " [Y/n]: "
+
+	if boolHandler == {}:
+		return handler
+
+	handler.update(boolHandler)
+
 	errorString = ""
 
 	while True:
 		try:
-			output["raw"] = input(errorString + request + addedChars).lower()
+			handler["raw"] = input(errorString + handler["request"] + handler["addedChars"]).lower()
 			
-			if output["raw"] in ["y", "t", ""]:
-				output["answer"] = True
+			if handler["raw"] in ["y", "t", ""]:
+				handler["answer"] = True
 				
-			elif output["raw"] in ["n", "f"]:
-				output["answer"] = False
+			elif handler["raw"] in ["n", "f"]:
+				handler["answer"] = False
 
-			if "answer" in output:
-				return output
+			if "answer" in handler:
+				return handler
 			
 			errorString = Fore.RED + "SYNTAX ERROR " + Fore.RESET
 
@@ -28,39 +37,51 @@ def boolInput(request: str, addedChars=" [Y/n]: ") -> dict:
 		except:
 			errorString = Fore.RED + "ERROR " + Fore.RESET
 			
-def stringInput(request: str, addedChars=": ", allowedChars=[], blockedAnswers=[], allowedAnswers=[]) -> dict:
-	output = {}
+def stringInput(stringHandler={}) -> dict:
+	handler = {}
+
+	handler["request"] = ""
+	handler["addedChars"] = ": "
+	handler["allowedChars"] = []
+	handler["allowedAnswers"] = []
+	handler["blockedAnswers"] = []
+
+	if stringHandler == {}:
+		return handler
+
+	handler.update(stringHandler)
+
 	errorString = ""
 
 	charactersRange = list(range(0, 48)) + list(range(58, 65)) + list(range(91, 97)) + list(range(123, 256))
 	charactersRange.remove(32)
 	blockedChars = [chr(char) for char in charactersRange]
 
-	for char in allowedChars:
+	for char in handler["allowedChars"]:
 		blockedChars.remove(char)
 
 	while True:
 		try:
-			output["answer"] = str(input(errorString + request + addedChars)).lower()
+			handler["answer"] = str(input(errorString + handler["request"] + handler["addedChars"])).lower()
 			
 			reloadFlag = False
 
 			for char in blockedChars:
-				if char in output["answer"]:
+				if char in handler["answer"]:
 					errorString = Fore.RED + "CHARACTER ERROR " + Fore.RESET
 					reloadFlag = True
 					break
 
-			if output["answer"] in blockedAnswers:
+			if handler["answer"] in handler["blockedAnswers"]:
 				errorString = Fore.RED + "ANSWER ERROR " + Fore.RESET
 				reloadFlag = True
 
 			if reloadFlag:
 				continue
 
-			if output["answer"] != "":
-				if allowedAnswers == [] or output["answer"] in allowedAnswers:
-					return output
+			if handler["answer"] != "":
+				if handler["allowedAnswers"] == [] or handler["answer"] in handler["allowedAnswers"]:
+					return handler
 			
 			errorString = Fore.RED + "SYNTAX ERROR " + Fore.RESET
 
@@ -70,40 +91,50 @@ def stringInput(request: str, addedChars=": ", allowedChars=[], blockedAnswers=[
 		except:
 			errorString = Fore.RED + "ERROR " + Fore.RESET
 			
-def numberInput(request: str, addedChars=": ", allowedRange=[]) -> dict:
+def numberInput(numberHandler={}) -> dict:
 	# Automatically recognizes wether the input is a float or an integer.
 
-	output = {}
+	handler = {}
+
+	handler["request"] = ""
+	handler["addedChars"] = ": "
+	handler["allowedRange"] = []
+
+	if numberHandler == {}:
+		return handler
+
+	handler.update(numberHandler)
+
 	errorString = ""
 	rangeString = ""
 
 	try:
-		if len(allowedRange) == 2:
-			if allowedRange[0] > allowedRange[1]:
-				allowedRange = []
+		if len(handler["allowedRange"]) == 2:
+			if handler["allowedRange"][0] > handler["allowedRange"][1]:
+				handler["allowedRange"] = []
 
 			else:
-				rangeString = Fore.CYAN + "[" + str(allowedRange[0]) + ", " + str(allowedRange[1]) + "] " + Fore.RESET
+				rangeString = Fore.CYAN + "[" + str(handler["allowedRange"][0]) + ", " + str(handler["allowedRange"][1]) + "] " + Fore.RESET
 
 	except(IndexError, TypeError):
-		allowedRange = []
+		handler["allowedRange"] = []
 
 	while True:
 		try:
-			output["raw"] = input(errorString + rangeString + request + addedChars)
+			handler["raw"] = input(errorString + rangeString + handler["request"] + handler["addedChars"])
 			
-			if output["raw"] != "":
-				output["answer"] = float(output["raw"])
+			if handler["raw"] != "":
+				handler["answer"] = float(handler["raw"])
 
-				if len(allowedRange) == 2:
-					if output["answer"] < allowedRange[0] or output["answer"] > allowedRange[1]:
+				if len(handler["allowedRange"]) == 2:
+					if handler["answer"] < handler["allowedRange"][0] or handler["answer"] > handler["allowedRange"][1]:
 						errorString = Fore.RED + "RANGE ERROR " + Fore.RESET
 						continue
 				
-				if int(output["answer"]) == output["answer"]:
-					output["answer"] = int(output["answer"])
+				if int(handler["answer"]) == handler["answer"]:
+					handler["answer"] = int(handler["answer"])
 				
-				return output
+				return handler
 			
 			errorString = Fore.RED + "SYNTAX ERROR " + Fore.RESET
 				
@@ -118,24 +149,32 @@ def numberInput(request: str, addedChars=": ", allowedRange=[]) -> dict:
 
 # LISTS HANDLING
 
-def listChoice(choiceList: list) -> dict:
-	output = {}
-	output["list"] = choiceList
+def listChoice(listHandler={}) -> dict:
+	handler = {}
 
-	if len(choiceList) == 0:
-		output["answer"] = None
+	handler["list"] = []
+
+	if listHandler == {}:
+		return handler
+
+	handler.update(listHandler)
+
+	if len(handler["list"]) == 0:
+		handler["answer"] = None
 		
-	elif len(choiceList) == 1:
-		output["answer"] = choiceList[0]
+	elif len(handler["list"]) == 1:
+		handler["answer"] = handler["list"][0]
 	
 	else:
-		for singleItem in choiceList:
-			print("\n" + str(choiceList.index(singleItem)) + ": " + str(singleItem))
+		for singleItem in handler["list"]:
+			print(str(handler["list"].index(singleItem)) + ": " + str(singleItem))
 			
-		while True:
-			choice = numberInput("\nChoose from list")
-			
-			if choice["answer"] in range(len(choiceList)):
-				output["answer"] = choiceList[choice["answer"]]
+		numberHandler = numberInput()
+		numberHandler["request"] = "Choose from list"
+		numberHandler["allowedRange"] = [0, len(handler["list"]) - 1]
 
-	return output
+		numberHandler = numberInput(numberHandler)
+		
+		handler["answer"] = handler["list"][numberHandler["answer"]]
+			
+	return handler

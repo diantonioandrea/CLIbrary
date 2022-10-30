@@ -3,23 +3,32 @@ init()
 
 # COMMANDS HANDLING
 
-def getCommand(commandString: str) -> dict:
-	output = {}
+def getCommand(commandHandler={}) -> dict:
+	handler = {}
+
+	handler["string"] = ""
+	handler["addedChars"] = ": "
+
+	if commandHandler == {}:
+		return handler
+
+	handler.update(commandHandler)
+
 	errorString = ""
 
 	while True:
 		try: 
 
-			output["raw"] = " ".join(input(errorString + commandString).split()).lower()
-			instructions = output["raw"].split(" ")
+			handler["raw"] = " ".join(input(errorString + handler["string"]).split()).lower()
+			instructions = handler["raw"].split(" ")
 
 			# OPTIONS: SINGLE DASH [[-key1, value1], ...] AND DOUBLE DASH [--key1, ...]
 
-			output["sdOpts"] = []
-			output["ddOpts"] = []
+			handler["sdOpts"] = []
+			handler["ddOpts"] = []
 
 			if "_" not in instructions[0]:
-				output["command"] = instructions[0]
+				handler["command"] = instructions[0]
 
 			else:
 				errorString = Fore.RED + "\nSYNTAX ERROR " + Fore.RESET
@@ -27,7 +36,7 @@ def getCommand(commandString: str) -> dict:
 
 			for inst in instructions:
 				if "--" in inst:
-					output["ddOpts"].append(inst)
+					handler["ddOpts"].append(inst)
 				
 				elif "-" in inst:
 					try:
@@ -35,7 +44,7 @@ def getCommand(commandString: str) -> dict:
 							pass
 
 					except(ValueError):
-						output["sdOpts"].append([inst, instructions[instructions.index(inst) + 1]])
+						handler["sdOpts"].append([inst, instructions[instructions.index(inst) + 1]])
 		
 		except(IndexError):
 			errorString = Fore.RED + "\nSYNTAX ERROR " + Fore.RESET
@@ -45,4 +54,4 @@ def getCommand(commandString: str) -> dict:
 			errorString = Fore.RED + "\nKEYBOARD ERROR " + Fore.RESET
 			continue
 			
-		return output
+		return handler
