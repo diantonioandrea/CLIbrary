@@ -46,7 +46,7 @@ def strIn(stringHandler={}) -> str: # String input.
 		try:
 			if allowedString != "":
 				print(allowedString)
-				
+
 			rawAnswer = str(input(errorString + handler["request"] + handler["addedChars"]))
 
 			if handler["verbose"]:
@@ -93,7 +93,7 @@ def boolIn(boolHandler={}) -> bool: # Bool input.
 	strHandler = {}
 	strHandler["request"] = handler["request"]
 	strHandler["addedChars"] = handler["addedChars"]
-	strHandler["allowedAnswers"] = ["y", "t", "n", "f", ""]
+	strHandler["allowedAnswers"] = ["y", "t", "n", "f"]
 	answer = strIn(strHandler)
 
 	if handler["verbose"]:
