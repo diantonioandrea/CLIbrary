@@ -23,3 +23,16 @@ or by directly cloning it:
 CLIbrary can be normally imported by:
 
 	import CLIbrary
+
+and its functions can be used as, for example:
+
+	stringHandler = {}
+	stringHandler["request"] = "Input a string"
+	stringHandler["allowedChars"] = [",", "!"]
+	stringHandler = CLIbrary.strIn(stringHandler)
+	print(stringHandler["answer"])
+
+which would result in:
+
+	Input a string: hello, world!
+	hello, world!
