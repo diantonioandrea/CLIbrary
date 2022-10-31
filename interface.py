@@ -3,7 +3,7 @@ init()
 
 # COMMANDS HANDLING
 
-def getCommand(commandHandler={}) -> dict:
+def cmdIn(commandHandler={}) -> dict: # Command input.
 	handler = {}
 
 	handler["request"] = ""

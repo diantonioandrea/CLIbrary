@@ -3,7 +3,7 @@ init()
 
 # INPUT HANDLING
 
-def boolInput(boolHandler={}) -> dict:
+def boolIn(boolHandler={}) -> dict: # Bool input.
 	handler = {}
 
 	handler["request"] = ""
@@ -47,7 +47,7 @@ def boolInput(boolHandler={}) -> dict:
 		except:
 			errorString = handler["errorStyle"] + "ERROR" + Style.RESET_ALL + " "
 			
-def stringInput(stringHandler={}) -> dict:
+def strIn(stringHandler={}) -> dict: # String input.
 	handler = {}
 
 	handler["request"] = ""
@@ -111,7 +111,7 @@ def stringInput(stringHandler={}) -> dict:
 		except:
 			errorString = handler["errorStyle"] + "ERROR" + Style.RESET_ALL + " "
 			
-def numberInput(numberHandler={}) -> dict:
+def numIn(numberHandler={}) -> dict: # Number input.
 	# Automatically recognizes wether the input is a float or an integer.
 
 	handler = {}
@@ -177,7 +177,7 @@ def numberInput(numberHandler={}) -> dict:
 
 # LISTS HANDLING
 
-def listChoice(listHandler={}) -> dict:
+def listCh(listHandler={}) -> dict: # List choice.
 	handler = {}
 
 	handler["list"] = []
@@ -199,11 +199,11 @@ def listChoice(listHandler={}) -> dict:
 		for singleItem in handler["list"]:
 			print(str(handler["list"].index(singleItem)) + ": " + str(singleItem))
 			
-		numberHandler = numberInput()
+		numberHandler = numIn()
 		numberHandler["request"] = "Choose from list"
 		numberHandler["allowedRange"] = [0, len(handler["list"]) - 1]
 
-		numberHandler = numberInput(numberHandler)
+		numberHandler = numIn(numberHandler)
 		
 		handler["answer"] = handler["list"][numberHandler["answer"]]
 			

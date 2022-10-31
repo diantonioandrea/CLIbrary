@@ -4,7 +4,7 @@ init()
 
 # FILES HANDLING
 
-def autoload(fileHandler: dict) -> dict:
+def aLoad(fileHandler: dict) -> dict: # Automatic loading.
 	handler = {}
 
 	handler["path"] = ""
@@ -37,7 +37,7 @@ def autoload(fileHandler: dict) -> dict:
 
 	return handler
 	
-def autodump(fileHandler: dict) -> dict:
+def aDump(fileHandler: dict) -> dict: # Automatic dumping.
 	handler = {}
 
 	handler["path"] = ""
