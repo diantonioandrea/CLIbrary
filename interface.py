@@ -24,9 +24,8 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 	errorString = ""
 
 	while True:
-		try: 
-
-			rawAnswer = str(input(errorString + handler["style"] + handler["request"] + handler["addedChars"] + Style.RESET_ALL))
+		try:
+			rawAnswer = str(input(errorString + handler["style"] + handler["request"] + Style.RESET_ALL + handler["addedChars"]))
 			
 			if handler["verbose"]:
 				print(handler["verboseStyle"] + "VERBOSE, INPUT: " + rawAnswer + Style.RESET_ALL)
