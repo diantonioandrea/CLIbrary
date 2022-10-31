@@ -1,4 +1,4 @@
-from colorama import init, Fore, Style
+from colorama import init, Fore, Back, Style
 from pickle import load, dump
 init()
 
@@ -10,7 +10,10 @@ def autoload(fileHandler: dict) -> dict:
 	handler["path"] = ""
 	handler["type"] = "pickle"
 
-	handler["errorStyle"] = Fore.RED
+	handler["errorStyle"] = Back.RED + Fore.WHITE
+
+	handler["verbose"] = False
+	handler["verboseStyle"] = Fore.CYAN
 
 	handler.update(fileHandler)
 
@@ -25,11 +28,11 @@ def autoload(fileHandler: dict) -> dict:
 		handler["data"] = data
 		
 	except(FileNotFoundError):
-		print(handler["errorStyle"] + "fileHandler \'" + fileHandler["path"] + "\' NOT FOUND ERROR " + Style.RESET_ALL)
+		print(handler["errorStyle"] + "fileHandler \'" + fileHandler["path"] + "\' NOT FOUND ERROR" + Style.RESET_ALL)
 		handler["data"] = None
 
 	except:
-		print(handler["errorStyle"] + "ERROR " + Style.RESET_ALL)
+		print(handler["errorStyle"] + "ERROR" + Style.RESET_ALL)
 		handler["data"] = None
 
 	return handler
@@ -41,7 +44,10 @@ def autodump(fileHandler: dict) -> dict:
 	handler["data"] = None
 	handler["type"] = "pickle"
 
-	handler["errorStyle"] = Fore.RED
+	handler["errorStyle"] = Back.RED + Fore.WHITE
+
+	handler["verbose"] = False
+	handler["verboseStyle"] = Fore.CYAN
 
 	handler.update(fileHandler)
 
@@ -57,6 +63,6 @@ def autodump(fileHandler: dict) -> dict:
 		handler["success"] = True
 	
 	except:
-		print(handler["errorStyle"] + "ERROR " + Style.RESET_ALL)
+		print(handler["errorStyle"] + "ERROR" + Style.RESET_ALL)
 
 	return handler

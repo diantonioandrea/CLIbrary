@@ -1,4 +1,4 @@
-from colorama import init, Fore, Style
+from colorama import init, Fore, Back, Style
 init()
 
 # COMMANDS HANDLING
@@ -6,11 +6,14 @@ init()
 def getCommand(commandHandler={}) -> dict:
 	handler = {}
 
-	handler["string"] = ""
+	handler["request"] = ""
 	handler["addedChars"] = ": "
 
 	handler["style"] = ""
-	handler["errorStyle"] = Fore.RED
+	handler["errorStyle"] = Back.RED + Fore.WHITE
+
+	handler["verbose"] = False
+	handler["verboseStyle"] = Fore.CYAN
 
 	if commandHandler == {}:
 		return handler
@@ -22,7 +25,13 @@ def getCommand(commandHandler={}) -> dict:
 	while True:
 		try: 
 
-			handler["raw"] = " ".join(input(errorString + handler["style"] + handler["string"] + Style.RESET_ALL).split()).lower()
+			handler["raw"] = str(input(errorString + handler["style"] + handler["request"] + handler["addedChars"] + Style.RESET_ALL))
+			
+			if handler["verbose"]:
+				print(handler["verboseStyle"] + "VERBOSE, INPUT: " + handler["raw"] + Style.RESET_ALL)
+
+			handler["raw"] = " ".join(handler["raw"].split()).lower() # type: ignore
+
 			instructions = handler["raw"].split(" ")
 
 			# OPTIONS: SINGLE DASH [[-key1, value1], ...] AND DOUBLE DASH [--key1, ...]
@@ -34,7 +43,7 @@ def getCommand(commandHandler={}) -> dict:
 				handler["command"] = instructions[0]
 
 			else:
-				errorString = handler["errorStyle"] + "\nSYNTAX ERROR " + Style.RESET_ALL
+				errorString = handler["errorStyle"] + "SYNTAX ERROR" + Style.RESET_ALL + " "
 				continue
 
 			for inst in instructions:
@@ -50,11 +59,11 @@ def getCommand(commandHandler={}) -> dict:
 						handler["sdOpts"].append([inst, instructions[instructions.index(inst) + 1]])
 		
 		except(IndexError):
-			errorString = handler["errorStyle"] + "\nSYNTAX ERROR " + Style.RESET_ALL
+			errorString = handler["errorStyle"] + "SYNTAX ERROR" + Style.RESET_ALL + " "
 			continue
 
 		except(EOFError, KeyboardInterrupt):
-			errorString = handler["errorStyle"] + "\nKEYBOARD ERROR " + Style.RESET_ALL
+			errorString = handler["errorStyle"] + "\nKEYBOARD ERROR" + Style.RESET_ALL + " "
 			continue
 			
 		return handler
