@@ -83,7 +83,7 @@ def boolIn(boolHandler={}) -> bool: # Bool input.
 	handler = {}
 
 	handler["request"] = "Insert a boolean state"
-	handler["addedChars"] = " [Y/n]: "
+	handler["addedChars"] = " [y/n]: "
 
 	handler["verbose"] = False
 	handler["verboseStyle"] = Fore.CYAN
