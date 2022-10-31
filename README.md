@@ -29,8 +29,7 @@ and its functions can be used as, for example:
 	stringHandler = {}
 	stringHandler["request"] = "Input a string"
 	stringHandler["allowedChars"] = [",", "!"]
-	stringHandler = CLIbrary.strIn(stringHandler)
-	print(stringHandler["answer"])
+	print(CLIbrary.strIn(stringHandler))
 
 which would result in:
 
