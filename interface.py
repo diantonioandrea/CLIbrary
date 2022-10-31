@@ -16,16 +16,18 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 	handler["verbose"] = False
 	handler["verboseStyle"] = Back.YELLOW
 
-	if commandHandler == {}:
-		return handler
+	handler["allowedCommands"] = ["exit"]
 
 	handler.update(commandHandler)
+
+	if "exit" not in handler["allowedCommands"]:
+		handler["allowedCommands"].append("exit")
 
 	errorString = ""
 
 	while True:
 		try:
-			rawAnswer = str(input(errorString + handler["style"] + handler["request"] + Style.RESET_ALL + handler["addedChars"]))
+			rawAnswer = str(input(errorString + handler["style"] + handler["request"] + Style.RESET_ALL + handler["addedChars"] + Style.RESET_ALL))
 			
 			if handler["verbose"]:
 				print(handler["verboseStyle"] + "VERBOSE, INPUT: " + rawAnswer + Style.RESET_ALL)
@@ -39,11 +41,15 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 			sdOpts = []
 			ddOpts = []
 
-			if "_" not in instructions[0]:
+			if "-" not in instructions[0]:
 				answer["command"] = instructions[0]
 
 			else:
 				errorString = handler["errorStyle"] + "SYNTAX ERROR" + Style.RESET_ALL + " "
+				continue
+
+			if answer["command"] not in handler["allowedCommands"] and rawAnswer != "":
+				errorString = handler["errorStyle"] + "UNKNOWN COMMAND" + Style.RESET_ALL + " "
 				continue
 
 			for inst in instructions:
