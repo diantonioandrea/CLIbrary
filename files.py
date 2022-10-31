@@ -4,53 +4,59 @@ init()
 
 # FILES HANDLING
 
-def autoload(file: dict) -> dict:
-	loadFile = {}
+def autoload(fileHandler: dict) -> dict:
+	handler = {}
 
-	loadFile["path"] = ""
+	handler["path"] = ""
+	handler["type"] = "pickle"
 
-	loadFile.update(file)
+	handler["errorColor"] = Fore.RED
 
-	if file == {}:
-		return loadFile
+	handler.update(fileHandler)
+
+	if fileHandler == {}:
+		return handler
 
 	try:
-		dataFile = open(loadFile["path"], "rb")
+		dataFile = open(handler["path"], "rb")
 		data = load(dataFile)
 		dataFile.close()
 		
-		loadFile["data"] = data
+		handler["data"] = data
 		
 	except(FileNotFoundError):
-		print(Fore.RED + "FILE \'" + file["path"] + "\' NOT FOUND ERROR " + Fore.RESET)
-		loadFile["data"] = None
+		print(handler["errorColor"] + "fileHandler \'" + fileHandler["path"] + "\' NOT FOUND ERROR " + Fore.RESET)
+		handler["data"] = None
 
 	except:
-		print(Fore.RED + "ERROR " + Fore.RESET)
-		loadFile["data"] = None
+		print(handler["errorColor"] + "ERROR " + Fore.RESET)
+		handler["data"] = None
 
-	return loadFile
+	return handler
 	
-def autodump(file: dict) -> dict:
-	dumpFile = {}
+def autodump(fileHandler: dict) -> dict:
+	handler = {}
 
-	dumpFile["path"] = ""
-	dumpFile["data"] = None
+	handler["path"] = ""
+	handler["data"] = None
+	handler["type"] = "pickle"
 
-	dumpFile.update(file)
+	handler["errorColor"] = Fore.RED
 
-	if file == {}:
-		return dumpFile
+	handler.update(fileHandler)
 
-	dumpFile["success"] = False
+	if fileHandler == {}:
+		return handler
+
+	handler["success"] = False
 
 	try:
-		dataFile = open(dumpFile["path"], "wb")
-		dump(dumpFile["data"], dataFile)
+		dataFile = open(handler["path"], "wb")
+		dump(handler["data"], dataFile)
 		dataFile.close()
-		dumpFile["success"] = True
+		handler["success"] = True
 	
 	except:
-		print(Fore.RED + "ERROR " + Fore.RESET)
+		print(handler["errorColor"] + "ERROR " + Fore.RESET)
 
-	return dumpFile
+	return handler

@@ -1,4 +1,4 @@
-from colorama import init, Fore
+from colorama import init, Fore, Style
 init()
 
 # COMMANDS HANDLING
@@ -8,6 +8,9 @@ def getCommand(commandHandler={}) -> dict:
 
 	handler["string"] = ""
 	handler["addedChars"] = ": "
+
+	handler["style"] = ""
+	handler["errorColor"] = Fore.RED
 
 	if commandHandler == {}:
 		return handler
@@ -19,7 +22,7 @@ def getCommand(commandHandler={}) -> dict:
 	while True:
 		try: 
 
-			handler["raw"] = " ".join(input(errorString + handler["string"]).split()).lower()
+			handler["raw"] = " ".join(input(errorString + handler["style"] + handler["string"] + Style.RESET_ALL).split()).lower()
 			instructions = handler["raw"].split(" ")
 
 			# OPTIONS: SINGLE DASH [[-key1, value1], ...] AND DOUBLE DASH [--key1, ...]
@@ -31,7 +34,7 @@ def getCommand(commandHandler={}) -> dict:
 				handler["command"] = instructions[0]
 
 			else:
-				errorString = Fore.RED + "\nSYNTAX ERROR " + Fore.RESET
+				errorString = handler["errorColor"] + "\nSYNTAX ERROR " + Fore.RESET
 				continue
 
 			for inst in instructions:
@@ -47,11 +50,11 @@ def getCommand(commandHandler={}) -> dict:
 						handler["sdOpts"].append([inst, instructions[instructions.index(inst) + 1]])
 		
 		except(IndexError):
-			errorString = Fore.RED + "\nSYNTAX ERROR " + Fore.RESET
+			errorString = handler["errorColor"] + "\nSYNTAX ERROR " + Fore.RESET
 			continue
 
 		except(EOFError, KeyboardInterrupt):
-			errorString = Fore.RED + "\nKEYBOARD ERROR " + Fore.RESET
+			errorString = handler["errorColor"] + "\nKEYBOARD ERROR " + Fore.RESET
 			continue
 			
 		return handler
