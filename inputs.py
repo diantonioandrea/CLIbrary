@@ -14,6 +14,8 @@ def strIn(stringHandler={}) -> str: # String input.
 	handler["allowedStyle"] = Back.WHITE + Fore.CYAN
 	handler["blockedAnswers"] = []
 
+	handler["verification"] = False
+
 	handler["errorStyle"] = Back.RED + Fore.WHITE
 
 	handler["verbose"] = False
@@ -70,7 +72,20 @@ def strIn(stringHandler={}) -> str: # String input.
 				continue
 
 			if handler["allowedAnswers"] == [] or answer in handler["allowedAnswers"]:
-				return answer
+				if not handler["verification"]:
+					return answer
+
+				else:
+					verificationHandler = handler
+					verificationHandler["verification"] = False
+					verificationHandler["request"] = "Verification"
+					
+					if answer == strIn(verificationHandler):
+						return answer
+					
+					else:
+						errorString = handler["errorStyle"] + "VERIFICATION ERROR" + Style.RESET_ALL + " "
+						continue
 			
 			errorString = handler["errorStyle"] + "SYNTAX ERROR" + Style.RESET_ALL + " "
 
