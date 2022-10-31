@@ -37,7 +37,7 @@ def strIn(stringHandler={}) -> str: # String input.
 
 	if handler["allowedAnswers"] != []:
 		try:
-			allowedString += handler["allowedStyle"] + ", ".join(handler["allowedAnswers"]) + Style.RESET_ALL
+			allowedString += handler["allowedStyle"] + ", ".join(handler["allowedAnswers"]) + Style.RESET_ALL + " "
 		except(TypeError):
 			allowedString = ""
 			handler["allowedAnswers"] = []
