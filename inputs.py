@@ -9,7 +9,9 @@ def strIn(stringHandler={}) -> str: # String input.
 	handler["request"] = "Insert a string"
 	handler["addedChars"] = ": "
 	handler["allowedChars"] = []
+
 	handler["allowedAnswers"] = []
+	handler["allowedStyle"] = Back.WHITE + Fore.CYAN
 	handler["blockedAnswers"] = []
 
 	handler["errorStyle"] = Back.RED + Fore.WHITE
@@ -26,10 +28,25 @@ def strIn(stringHandler={}) -> str: # String input.
 	blockedChars = [chr(char) for char in charactersRange]
 
 	for char in handler["allowedChars"]:
-		blockedChars.remove(char)
+		try:
+			blockedChars.remove(char)
+		except(ValueError):
+			pass
+
+	allowedString = ""
+
+	if handler["allowedAnswers"] != []:
+		try:
+			allowedString += handler["allowedStyle"] + ", ".join(handler["allowedAnswers"]) + Style.RESET_ALL
+		except(TypeError):
+			allowedString = ""
+			handler["allowedAnswers"] = []
 
 	while True:
 		try:
+			if allowedString != "":
+				print(allowedString)
+				
 			rawAnswer = str(input(errorString + handler["request"] + handler["addedChars"]))
 
 			if handler["verbose"]:
