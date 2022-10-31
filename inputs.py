@@ -1,4 +1,4 @@
-from colorama import init, Fore
+from colorama import init, Fore, Style
 init()
 
 # INPUT HANDLING
@@ -9,7 +9,7 @@ def boolInput(boolHandler={}) -> dict:
 	handler["request"] = ""
 	handler["addedChars"] = " [Y/n]: "
 
-	handler["errorColor"] = Fore.RED
+	handler["errorStyle"] = Fore.RED
 
 	if boolHandler == {}:
 		return handler
@@ -31,13 +31,13 @@ def boolInput(boolHandler={}) -> dict:
 			if "answer" in handler:
 				return handler
 			
-			errorString = handler["errorColor"] + "SYNTAX ERROR " + Fore.RESET
+			errorString = handler["errorStyle"] + "SYNTAX ERROR " + Style.RESET_ALL
 
 		except(EOFError, KeyboardInterrupt):
-			errorString = handler["errorColor"] + "\nKEYBOARD ERROR " + Fore.RESET
+			errorString = handler["errorStyle"] + "\nKEYBOARD ERROR " + Style.RESET_ALL
 		
 		except:
-			errorString = handler["errorColor"] + "ERROR " + Fore.RESET
+			errorString = handler["errorStyle"] + "ERROR " + Style.RESET_ALL
 			
 def stringInput(stringHandler={}) -> dict:
 	handler = {}
@@ -48,7 +48,7 @@ def stringInput(stringHandler={}) -> dict:
 	handler["allowedAnswers"] = []
 	handler["blockedAnswers"] = []
 
-	handler["errorColor"] = Fore.RED
+	handler["errorStyle"] = Fore.RED
 
 	if stringHandler == {}:
 		return handler
@@ -72,12 +72,12 @@ def stringInput(stringHandler={}) -> dict:
 
 			for char in blockedChars:
 				if char in handler["answer"]:
-					errorString = handler["errorColor"] + "CHARACTER ERROR " + Fore.RESET
+					errorString = handler["errorStyle"] + "CHARACTER ERROR " + Style.RESET_ALL
 					reloadFlag = True
 					break
 
 			if handler["answer"] in handler["blockedAnswers"]:
-				errorString = handler["errorColor"] + "ANSWER ERROR " + Fore.RESET
+				errorString = handler["errorStyle"] + "ANSWER ERROR " + Style.RESET_ALL
 				reloadFlag = True
 
 			if reloadFlag:
@@ -87,13 +87,13 @@ def stringInput(stringHandler={}) -> dict:
 				if handler["allowedAnswers"] == [] or handler["answer"] in handler["allowedAnswers"]:
 					return handler
 			
-			errorString = handler["errorColor"] + "SYNTAX ERROR " + Fore.RESET
+			errorString = handler["errorStyle"] + "SYNTAX ERROR " + Style.RESET_ALL
 
 		except(EOFError, KeyboardInterrupt):
-			errorString = handler["errorColor"] + "\nKEYBOARD ERROR " + Fore.RESET
+			errorString = handler["errorStyle"] + "\nKEYBOARD ERROR " + Style.RESET_ALL
 		
 		except:
-			errorString = handler["errorColor"] + "ERROR " + Fore.RESET
+			errorString = handler["errorStyle"] + "ERROR " + Style.RESET_ALL
 			
 def numberInput(numberHandler={}) -> dict:
 	# Automatically recognizes wether the input is a float or an integer.
@@ -104,7 +104,7 @@ def numberInput(numberHandler={}) -> dict:
 	handler["addedChars"] = ": "
 	handler["allowedRange"] = []
 
-	handler["errorColor"] = Fore.RED
+	handler["errorStyle"] = Fore.RED
 
 	if numberHandler == {}:
 		return handler
@@ -120,7 +120,7 @@ def numberInput(numberHandler={}) -> dict:
 				handler["allowedRange"] = []
 
 			else:
-				rangeString = Fore.CYAN + "[" + str(handler["allowedRange"][0]) + ", " + str(handler["allowedRange"][1]) + "] " + Fore.RESET
+				rangeString = Fore.CYAN + "[" + str(handler["allowedRange"][0]) + ", " + str(handler["allowedRange"][1]) + "] " + Style.RESET_ALL
 
 	except(IndexError, TypeError):
 		handler["allowedRange"] = []
@@ -134,7 +134,7 @@ def numberInput(numberHandler={}) -> dict:
 
 				if len(handler["allowedRange"]) == 2:
 					if handler["answer"] < handler["allowedRange"][0] or handler["answer"] > handler["allowedRange"][1]:
-						errorString = handler["errorColor"] + "RANGE ERROR " + Fore.RESET
+						errorString = handler["errorStyle"] + "RANGE ERROR " + Style.RESET_ALL
 						continue
 				
 				if int(handler["answer"]) == handler["answer"]:
@@ -142,16 +142,16 @@ def numberInput(numberHandler={}) -> dict:
 				
 				return handler
 			
-			errorString = handler["errorColor"] + "SYNTAX ERROR " + Fore.RESET
+			errorString = handler["errorStyle"] + "SYNTAX ERROR " + Style.RESET_ALL
 				
 		except(ValueError):
-			errorString = handler["errorColor"] + "VALUE ERROR " + Fore.RESET
+			errorString = handler["errorStyle"] + "VALUE ERROR " + Style.RESET_ALL
 
 		except(EOFError, KeyboardInterrupt):
-			errorString = handler["errorColor"] + "\nKEYBOARD ERROR " + Fore.RESET
+			errorString = handler["errorStyle"] + "\nKEYBOARD ERROR " + Style.RESET_ALL
 
 		except:
-			errorString = handler["errorColor"] + "ERROR " + Fore.RESET
+			errorString = handler["errorStyle"] + "ERROR " + Style.RESET_ALL
 
 # LISTS HANDLING
 
@@ -160,7 +160,7 @@ def listChoice(listHandler={}) -> dict:
 
 	handler["list"] = []
 
-	handler["errorColor"] = Fore.RED
+	handler["errorStyle"] = Fore.RED
 
 	if listHandler == {}:
 		return handler

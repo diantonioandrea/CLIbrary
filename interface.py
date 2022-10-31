@@ -10,7 +10,7 @@ def getCommand(commandHandler={}) -> dict:
 	handler["addedChars"] = ": "
 
 	handler["style"] = ""
-	handler["errorColor"] = Fore.RED
+	handler["errorStyle"] = Fore.RED
 
 	if commandHandler == {}:
 		return handler
@@ -34,7 +34,7 @@ def getCommand(commandHandler={}) -> dict:
 				handler["command"] = instructions[0]
 
 			else:
-				errorString = handler["errorColor"] + "\nSYNTAX ERROR " + Fore.RESET
+				errorString = handler["errorStyle"] + "\nSYNTAX ERROR " + Style.RESET_ALL
 				continue
 
 			for inst in instructions:
@@ -50,11 +50,11 @@ def getCommand(commandHandler={}) -> dict:
 						handler["sdOpts"].append([inst, instructions[instructions.index(inst) + 1]])
 		
 		except(IndexError):
-			errorString = handler["errorColor"] + "\nSYNTAX ERROR " + Fore.RESET
+			errorString = handler["errorStyle"] + "\nSYNTAX ERROR " + Style.RESET_ALL
 			continue
 
 		except(EOFError, KeyboardInterrupt):
-			errorString = handler["errorColor"] + "\nKEYBOARD ERROR " + Fore.RESET
+			errorString = handler["errorStyle"] + "\nKEYBOARD ERROR " + Style.RESET_ALL
 			continue
 			
 		return handler
