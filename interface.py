@@ -14,7 +14,7 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 	handler["errorStyle"] = Back.RED + Fore.WHITE
 
 	handler["verbose"] = False
-	handler["verboseStyle"] = Fore.CYAN
+	handler["verboseStyle"] = Back.YELLOW
 
 	if commandHandler == {}:
 		return handler

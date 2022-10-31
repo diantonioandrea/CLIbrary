@@ -17,7 +17,7 @@ def strIn(stringHandler={}) -> str: # String input.
 	handler["errorStyle"] = Back.RED + Fore.WHITE
 
 	handler["verbose"] = False
-	handler["verboseStyle"] = Fore.CYAN
+	handler["verboseStyle"] = Back.YELLOW
 
 	handler.update(stringHandler)
 
@@ -41,9 +41,14 @@ def strIn(stringHandler={}) -> str: # String input.
 		except(TypeError):
 			handler["allowedAnswers"] = []
 
+	typeString = ""
+
+	if handler["verbose"]:
+		typeString = Back.YELLOW + "STRING" + Style.RESET_ALL + " "
+
 	while True:
 		try:
-			rawAnswer = str(input(errorString + allowedString + handler["request"] + handler["addedChars"]))
+			rawAnswer = str(input(errorString + typeString + allowedString + handler["request"] + handler["addedChars"]))
 
 			if handler["verbose"]:
 				print(handler["verboseStyle"] + "VERBOSE, INPUT: " + rawAnswer + Style.RESET_ALL)
@@ -82,7 +87,7 @@ def boolIn(boolHandler={}) -> bool: # Bool input.
 	handler["addedChars"] = " [y/n]: "
 
 	handler["verbose"] = False
-	handler["verboseStyle"] = Fore.CYAN
+	handler["verboseStyle"] = Back.YELLOW
 
 	handler.update(boolHandler)
 
@@ -114,7 +119,7 @@ def numIn(numberHandler={}): # Number input.
 	handler["errorStyle"] = Back.RED + Fore.WHITE
 
 	handler["verbose"] = False
-	handler["verboseStyle"] = Fore.CYAN
+	handler["verboseStyle"] = Back.YELLOW
 
 	handler.update(numberHandler)
 
@@ -140,9 +145,14 @@ def numIn(numberHandler={}): # Number input.
 	if handler["allowedTypes"] == []:
 		handler["allowedTypes"] = ["int", "float"]
 
+	typeString = ""
+
+	if handler["verbose"]:
+		typeString = Back.YELLOW + "NUMBER" + Style.RESET_ALL + " "
+
 	while True:
 		try:
-			rawAnswer = str(input(errorString + rangeString + handler["request"] + handler["addedChars"]))
+			rawAnswer = str(input(errorString + typeString + rangeString + handler["request"] + handler["addedChars"]))
 
 			if handler["verbose"]:
 				print(handler["verboseStyle"] + "VERBOSE, INPUT: " + rawAnswer + Style.RESET_ALL)

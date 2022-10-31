@@ -13,7 +13,7 @@ def aLoad(fileHandler: dict) -> dict: # Automatic loading.
 	handler["errorStyle"] = Back.RED + Fore.WHITE
 
 	handler["verbose"] = False
-	handler["verboseStyle"] = Fore.CYAN
+	handler["verboseStyle"] = Back.YELLOW
 
 	handler.update(fileHandler)
 
@@ -47,7 +47,7 @@ def aDump(fileHandler: dict) -> dict: # Automatic dumping.
 	handler["errorStyle"] = Back.RED + Fore.WHITE
 
 	handler["verbose"] = False
-	handler["verboseStyle"] = Fore.CYAN
+	handler["verboseStyle"] = Back.YELLOW
 
 	handler.update(fileHandler)
 
