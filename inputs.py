@@ -46,7 +46,7 @@ def strIn(stringHandler={}) -> str: # String input.
 	typeString = ""
 
 	if handler["verbose"]:
-		typeString = Back.YELLOW + "STRING" + Style.RESET_ALL + " "
+		typeString = handler["verboseStyle"] + "STRING" + Style.RESET_ALL + " "
 
 	while True:
 		try:
@@ -163,7 +163,7 @@ def numIn(numberHandler={}): # Number input.
 	typeString = ""
 
 	if handler["verbose"]:
-		typeString = Back.YELLOW + "NUMBER" + Style.RESET_ALL + " "
+		typeString = handler["verboseStyle"] + "NUMBER" + Style.RESET_ALL + " "
 
 	while True:
 		try:
@@ -173,7 +173,7 @@ def numIn(numberHandler={}): # Number input.
 				print(handler["verboseStyle"] + "VERBOSE, INPUT: " + rawAnswer + Style.RESET_ALL)
 			
 			if rawAnswer != "":
-				answer = float(handler["raw"])
+				answer = float(rawAnswer)
 
 				if len(handler["allowedRange"]) == 2:
 					if answer < handler["allowedRange"][0] or answer > handler["allowedRange"][1]:
@@ -183,7 +183,7 @@ def numIn(numberHandler={}): # Number input.
 				if int(answer) == answer and "int" in handler["allowedTypes"]:
 					return int(answer)
 				
-				if "float" in handler["allowedTypes"]:
+				elif "float" in handler["allowedTypes"]:
 					return answer
 			
 			errorString = handler["errorStyle"] + "SYNTAX ERROR" + Style.RESET_ALL + " "
@@ -192,7 +192,7 @@ def numIn(numberHandler={}): # Number input.
 			errorString = handler["errorStyle"] + "VALUE ERROR" + Style.RESET_ALL + " "
 
 		except(EOFError, KeyboardInterrupt):
-			errorString = handler["errorStyle"] + "\nKEYBOARD ERROR" + Style.RESET_ALL + " "
+			errorString = "\n" + handler["errorStyle"] + "KEYBOARD ERROR" + Style.RESET_ALL + " "
 
 		except:
 			errorString = handler["errorStyle"] + "ERROR" + Style.RESET_ALL + " "
