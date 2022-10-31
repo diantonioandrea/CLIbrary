@@ -5,8 +5,9 @@ init()
 
 def cmdIn(commandHandler={}) -> dict: # Command input.
 	handler = {}
+	answer = {}
 
-	handler["request"] = ""
+	handler["request"] = "command"
 	handler["addedChars"] = ": "
 
 	handler["style"] = ""
@@ -25,22 +26,22 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 	while True:
 		try: 
 
-			handler["raw"] = str(input(errorString + handler["style"] + handler["request"] + handler["addedChars"] + Style.RESET_ALL))
+			rawAnswer = str(input(errorString + handler["style"] + handler["request"] + handler["addedChars"] + Style.RESET_ALL))
 			
 			if handler["verbose"]:
-				print(handler["verboseStyle"] + "VERBOSE, INPUT: " + handler["raw"] + Style.RESET_ALL)
+				print(handler["verboseStyle"] + "VERBOSE, INPUT: " + rawAnswer + Style.RESET_ALL)
 
-			handler["raw"] = " ".join(handler["raw"].split()).lower() # type: ignore
+			rawAnswer = " ".join(rawAnswer.split()).lower() # type: ignore
 
-			instructions = handler["raw"].split(" ")
+			instructions = rawAnswer.split(" ")
 
 			# OPTIONS: SINGLE DASH [[-key1, value1], ...] AND DOUBLE DASH [--key1, ...]
 
-			handler["sdOpts"] = []
-			handler["ddOpts"] = []
+			sdOpts = []
+			ddOpts = []
 
 			if "_" not in instructions[0]:
-				handler["command"] = instructions[0]
+				answer["command"] = instructions[0]
 
 			else:
 				errorString = handler["errorStyle"] + "SYNTAX ERROR" + Style.RESET_ALL + " "
@@ -48,7 +49,7 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 
 			for inst in instructions:
 				if "--" in inst:
-					handler["ddOpts"].append(inst)
+					ddOpts.append(inst)
 				
 				elif "-" in inst:
 					try:
@@ -56,7 +57,7 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 							pass
 
 					except(ValueError):
-						handler["sdOpts"].append([inst, instructions[instructions.index(inst) + 1]])
+						sdOpts.append([inst, instructions[instructions.index(inst) + 1]])
 		
 		except(IndexError):
 			errorString = handler["errorStyle"] + "SYNTAX ERROR" + Style.RESET_ALL + " "
@@ -66,4 +67,6 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 			errorString = handler["errorStyle"] + "\nKEYBOARD ERROR" + Style.RESET_ALL + " "
 			continue
 			
-		return handler
+		answer["sdOpts"] = sdOpts
+		answer["ddOpts"] = ddOpts
+		return answer
