@@ -14,7 +14,7 @@ and updated by:
 
 	git submodule update
 
-or by directly cloning it inside your project:
+or by directly cloning it:
 
 	git clone https://github.com/diantonioandrea/CLIbrary
 
