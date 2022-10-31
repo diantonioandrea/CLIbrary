@@ -33,7 +33,7 @@ def strIn(stringHandler={}) -> str: # String input.
 			rawAnswer = str(input(errorString + handler["request"] + handler["addedChars"]))
 
 			if handler["verbose"]:
-				print(handler["verboseStyle"] + "VERBOSE, INPUT: " + handler["raw"] + Style.RESET_ALL)
+				print(handler["verboseStyle"] + "VERBOSE, INPUT: " + rawAnswer + Style.RESET_ALL)
 
 			answer = rawAnswer.lower()
 			reloadFlag = False
@@ -73,11 +73,11 @@ def boolIn(boolHandler={}) -> bool: # Bool input.
 
 	handler.update(boolHandler)
 
-	stringHandler = {}
-	stringHandler["request"] = handler["request"]
-	stringHandler["addedChars"] = handler["addedChars"]
-	stringHandler["allowedAnswers"] = ["y", "t", "n", "f", ""]
-	answer = strIn(stringHandler)
+	strHandler = {}
+	strHandler["request"] = handler["request"]
+	strHandler["addedChars"] = handler["addedChars"]
+	strHandler["allowedAnswers"] = ["y", "t", "n", "f", ""]
+	answer = strIn(strHandler)
 
 	if handler["verbose"]:
 		print(handler["verboseStyle"] + "VERBOSE, INPUT: " + answer + Style.RESET_ALL)
