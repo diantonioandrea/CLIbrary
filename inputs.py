@@ -94,13 +94,13 @@ def boolIn(boolHandler={}) -> bool: # Bool input.
 	strHandler = {}
 	strHandler["request"] = handler["request"]
 	strHandler["addedChars"] = handler["addedChars"]
-	strHandler["allowedAnswers"] = ["y", "t", "n", "f"]
+	strHandler["allowedAnswers"] = ["y", "n"]
 	answer = strIn(strHandler)
 
 	if handler["verbose"]:
 		print(handler["verboseStyle"] + "VERBOSE, INPUT: " + answer + Style.RESET_ALL)
 	
-	if answer in ["y", "t", ""]:
+	if answer == "y":
 		return True
 		
 	else:
