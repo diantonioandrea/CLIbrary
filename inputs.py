@@ -44,10 +44,7 @@ def strIn(stringHandler={}) -> str: # String input.
 
 	while True:
 		try:
-			if allowedString != "":
-				print(allowedString)
-
-			rawAnswer = str(input(errorString + handler["request"] + handler["addedChars"]))
+			rawAnswer = str(input(errorString + allowedString + handler["request"] + handler["addedChars"]))
 
 			if handler["verbose"]:
 				print(handler["verboseStyle"] + "VERBOSE, INPUT: " + rawAnswer + Style.RESET_ALL)
