@@ -4,7 +4,7 @@ init()
 
 # FILES HANDLING
 
-def aLoad(fileHandler: dict) -> dict: # Automatic loading.
+def aLoad(fileHandler: dict): # Automatic loading.
 	handler = {}
 
 	handler["path"] = ""
@@ -17,27 +17,22 @@ def aLoad(fileHandler: dict) -> dict: # Automatic loading.
 
 	handler.update(fileHandler)
 
-	if fileHandler == {}:
-		return handler
-
 	try:
 		dataFile = open(handler["path"], "rb")
 		data = load(dataFile)
 		dataFile.close()
-		
-		handler["data"] = data
-		
+				
 	except(FileNotFoundError):
-		print(handler["errorStyle"] + "fileHandler \'" + fileHandler["path"] + "\' NOT FOUND ERROR" + Style.RESET_ALL)
-		handler["data"] = None
+		print(handler["errorStyle"] + "\'" + fileHandler["path"] + "\' NOT FOUND ERROR" + Style.RESET_ALL)
+		data = None
 
 	except:
-		print(handler["errorStyle"] + "ERROR" + Style.RESET_ALL)
-		handler["data"] = None
+		print(handler["errorStyle"] + "FILE ERROR" + Style.RESET_ALL)
+		data = None
 
-	return handler
+	return data
 	
-def aDump(fileHandler: dict) -> dict: # Automatic dumping.
+def aDump(fileHandler: dict) -> None: # Automatic dumping.
 	handler = {}
 
 	handler["path"] = ""
@@ -51,18 +46,10 @@ def aDump(fileHandler: dict) -> dict: # Automatic dumping.
 
 	handler.update(fileHandler)
 
-	if fileHandler == {}:
-		return handler
-
-	handler["success"] = False
-
 	try:
 		dataFile = open(handler["path"], "wb")
 		dump(handler["data"], dataFile)
 		dataFile.close()
-		handler["success"] = True
 	
 	except:
-		print(handler["errorStyle"] + "ERROR" + Style.RESET_ALL)
-
-	return handler
+		print(handler["errorStyle"] + "FILE ERROR" + Style.RESET_ALL)

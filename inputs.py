@@ -13,6 +13,7 @@ def strIn(stringHandler={}) -> str: # String input.
 	handler["allowedAnswers"] = []
 	handler["allowedStyle"] = Back.WHITE + Fore.CYAN
 	handler["blockedAnswers"] = []
+	handler["noSpace"] = False
 
 	handler["verification"] = False
 
@@ -26,7 +27,8 @@ def strIn(stringHandler={}) -> str: # String input.
 	errorString = ""
 
 	charactersRange = list(range(0, 48)) + list(range(58, 65)) + list(range(91, 97)) + list(range(123, 256))
-	charactersRange.remove(32)
+	if not handler["noSpace"]:
+		charactersRange.remove(32)
 	blockedChars = [chr(char) for char in charactersRange]
 
 	for char in handler["allowedChars"]:
