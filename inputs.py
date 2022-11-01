@@ -1,3 +1,4 @@
+from ast import For
 from colorama import init, Fore, Back, Style
 init()
 
@@ -14,6 +15,7 @@ def strIn(stringHandler={}) -> str: # String input.
 	handler["allowedStyle"] = Back.WHITE + Fore.CYAN
 	handler["blockedAnswers"] = []
 	handler["noSpace"] = False
+	handler["fixedLength"] = 0
 
 	handler["verification"] = False
 
@@ -49,17 +51,27 @@ def strIn(stringHandler={}) -> str: # String input.
 
 	if handler["verbose"]:
 		typeString = handler["verboseStyle"] + "STRING" + Style.RESET_ALL + " "
+	
+	try:
+		if handler["fixedLength"] > 0:
+			lengthString = Back.GREEN + Fore.MAGENTA + "[" + str(handler["fixedLength"]) + "] "
+	except:
+		handler["fixedLength"] = 0
 
 	while True:
 		try:
-			rawAnswer = str(input(errorString + typeString + allowedString + handler["request"] + handler["addedChars"]))
+			rawAnswer = str(input(errorString + typeString + allowedString + lengthString + handler["request"] + handler["addedChars"]))
 
 			if handler["verbose"]:
 				print(handler["verboseStyle"] + "VERBOSE, INPUT: " + rawAnswer + Style.RESET_ALL)
 
 			answer = rawAnswer.lower()
-			reloadFlag = False
 
+			if handler["fixedLength"] != 0 and len(answer) != handler["fixedLength"]:
+				errorString = handler["errorStyle"] + "LENGTH ERROR" + Style.RESET_ALL + " "
+				continue
+
+			reloadFlag = False
 			for char in blockedChars:
 				if char in answer:
 					errorString = handler["errorStyle"] + "CHARACTER ERROR" + Style.RESET_ALL + " "
