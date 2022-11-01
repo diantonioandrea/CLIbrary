@@ -1,4 +1,3 @@
-from ast import For
 from colorama import init, Fore, Back, Style
 init()
 
