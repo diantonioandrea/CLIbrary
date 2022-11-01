@@ -6,7 +6,7 @@ A standardized collection of CLI utilities written in Python to handle commands,
 
 ### Adding CLIbrary to a project
 
-CLIbrary can added as a git submodule by:
+**CLIbrary** can added as a git submodule by:
 
 	git submodule add https://github.com/diantonioandrea/CLIbrary
 
@@ -20,7 +20,7 @@ or directly cloned by:
 
 ### Using CLIbrary
 
-CLIbrary can be normally imported by:
+**CLIbrary** can be normally imported by:
 
 	import CLIbrary
 
