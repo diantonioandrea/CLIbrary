@@ -38,7 +38,7 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 
 			# OPTIONS: SINGLE DASH [[-key1, value1], ...] AND DOUBLE DASH [--key1, ...]
 
-			sdOpts = []
+			sdOpts = {}
 			ddOpts = []
 
 			if "-" not in instructions[0]:
@@ -62,7 +62,7 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 							pass
 
 					except(ValueError):
-						sdOpts.append([inst, instructions[instructions.index(inst) + 1]])
+						sdOpts[inst.replace("-", "")] = instructions[instructions.index(inst) + 1]
 		
 		except(IndexError):
 			errorString = handler["errorStyle"] + "SYNTAX ERROR" + Style.RESET_ALL + " "

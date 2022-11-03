@@ -51,6 +51,8 @@ def strIn(stringHandler={}) -> str: # String input.
 	if handler["verbose"]:
 		typeString = handler["verboseStyle"] + "STRING" + Style.RESET_ALL + " "
 	
+	lengthString = ""
+
 	try:
 		if handler["fixedLength"] > 0:
 			lengthString = Back.GREEN + Fore.MAGENTA + "[" + str(handler["fixedLength"]) + "] "
