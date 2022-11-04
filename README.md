@@ -1,4 +1,5 @@
-![License](https://img.shields.io/github/license/diantonioandrea/CLIbrary)
+[![GitHub license](https://img.shields.io/github/license/diantonioandrea/CLIbrary)](https://github.com/diantonioandrea/CLIbrary/blob/main/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/diantonioandrea/CLIbrary)](https://github.com/diantonioandrea/CLIbrary/stargazers)
 
 # CLIbrary
 
