@@ -1,4 +1,5 @@
 from colorama import init, Fore, Back, Style
+import json
 init()
 
 # COMMANDS HANDLING
@@ -6,6 +7,8 @@ init()
 def cmdIn(commandHandler={}) -> dict: # Command input.
 	handler = {}
 	answer = {}
+
+	answer["output"] = ""
 
 	handler["request"] = "command"
 	handler["addedChars"] = ": "
@@ -16,12 +19,17 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 	handler["verbose"] = False
 	handler["verboseStyle"] = Back.YELLOW
 
-	handler["allowedCommands"] = ["exit"]
+	handler["allowedCommands"] = []
+
+	handler["helpPath"] = ""
 
 	handler.update(commandHandler)
 
 	if "exit" not in handler["allowedCommands"]:
 		handler["allowedCommands"].append("exit")
+	
+	if "help" not in handler["allowedCommands"] and handler["helpPath"] != "":
+		handler["allowedCommands"].append("help")
 
 	errorString = ""
 
@@ -52,6 +60,15 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 				errorString = handler["errorStyle"] + "UNKNOWN COMMAND" + Style.RESET_ALL + " "
 				continue
 
+			if answer["command"] == "help":
+				helpDict = genHelp(handler)
+
+				if helpDict["errorString"] != "":
+					errorString = helpDict["errorString"]
+					continue
+				
+				answer["output"] = helpDict["helpString"]
+
 			for inst in instructions:
 				if "--" in inst:
 					ddOpts.append(inst)
@@ -75,3 +92,41 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 		answer["sdOpts"] = sdOpts
 		answer["ddOpts"] = ddOpts
 		return answer
+
+def genHelp(handler={}) -> dict:
+	helpDict = {}
+
+	helpDict["helpString"] = ""
+	helpDict["errorString"] = ""
+
+	try:
+		helpFile = open(handler["helpPath"], "r")
+		helpJson = json.load(helpFile)
+		helpFile.close()
+
+		helpElements = []
+
+		for key in helpJson:
+			helpString = handler["style"] + key + Style.RESET_ALL
+			helpString += "\n\t" + helpJson[key]["description"]
+			
+			if "mandatoryOptions" in helpJson[key] or "options" in helpJson[key]:
+				helpString += "\n\tOptions:" + "\n"
+
+				if "mandatoryOptions" in helpJson[key]:
+					helpString += "\t\t" + Fore.RED + helpJson[key]["mandatoryOptions"] + Style.RESET_ALL
+					
+				if "options" in helpJson[key]:
+					helpString += "\t\t" + helpJson[key]["options"]
+			
+			helpElements.append(helpString)
+		
+		helpDict["helpString"] = "\n".join(helpElements)
+
+	except(FileNotFoundError):
+		helpDict["errorString"] = handler["errorStyle"] + "\nHELP FILE ERROR" + Style.RESET_ALL + " "
+	
+	except:
+		helpDict["errorString"] = handler["errorStyle"] + "\nHELP ERROR" + Style.RESET_ALL + " "
+	
+	return helpDict
