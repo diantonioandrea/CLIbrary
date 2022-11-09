@@ -71,7 +71,7 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 
 			for inst in instructions:
 				if "--" in inst:
-					ddOpts.append(inst)
+					ddOpts.append(inst.replace("--", ""))
 				
 				elif "-" in inst:
 					try:
