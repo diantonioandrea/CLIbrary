@@ -23,9 +23,11 @@ def strIn(stringHandler={}) -> str: # String input.
 	handler["verbose"] = False
 	handler["verboseStyle"] = Back.YELLOW
 
+	handler["startingError"] = "" # For date input errors
+
 	handler.update(stringHandler)
 
-	errorString = ""
+	errorString = handler["errorStyle"] + handler["startingError"] + Style.RESET_ALL + " "
 
 	charactersRange = list(range(0, 48)) + list(range(58, 65)) + list(range(91, 97)) + list(range(123, 256))
 	if not handler["noSpace"]:
@@ -55,7 +57,7 @@ def strIn(stringHandler={}) -> str: # String input.
 
 	try:
 		if handler["fixedLength"] > 0:
-			lengthString = Back.GREEN + Fore.MAGENTA + "[" + str(handler["fixedLength"]) + "] "
+			lengthString = Back.GREEN + Fore.MAGENTA + "[" + str(handler["fixedLength"]) + "]" + Style.RESET_ALL + " "
 	except:
 		handler["fixedLength"] = 0
 
@@ -109,7 +111,56 @@ def strIn(stringHandler={}) -> str: # String input.
 		
 		except:
 			errorString = handler["errorStyle"] + "ERROR" + Style.RESET_ALL + " "
-			
+
+def dateIn(dateHandler={}) -> str: # Date input.
+	handler = {}
+
+	handler["request"] = "Insert a date"
+	handler["addedChars"] = " [YYYY-MM-DD]: "
+
+	handler["verbose"] = False
+	handler["verboseStyle"] = Back.YELLOW
+
+	handler.update(dateHandler)
+
+	strHandler = {}
+	strHandler["request"] = handler["request"]
+	strHandler["addedChars"] = handler["addedChars"]
+	strHandler["allowedChars"] = ["-"]
+	strHandler["noSpace"] = True
+	strHandler["fixedLength"] = 10
+
+	while True:
+		answer = strIn(strHandler)
+
+		if handler["verbose"]:
+			print(handler["verboseStyle"] + "VERBOSE, INPUT: " + answer + Style.RESET_ALL)
+
+		splitDate = answer.split("-")
+
+		if "-" in answer:
+			if len(splitDate) == 3:
+				if len(splitDate[0]) == 4 and len(splitDate[1]) == len(splitDate[2]) == 2:
+					dateErrorFlag = False
+
+					for dateElement in splitDate:
+						try:
+							if type(int(dateElement)) == int and int(dateElement) > 0:
+								continue
+								
+							else:
+								dateErrorFlag = True
+						
+						except:
+							dateErrorFlag = True
+							break
+					
+					if not dateErrorFlag:
+						return answer
+		
+		strHandler["startingError"] = "DATE FORMAT ERROR"
+
+
 def boolIn(boolHandler={}) -> bool: # Bool input.
 	handler = {}
 
@@ -125,6 +176,7 @@ def boolIn(boolHandler={}) -> bool: # Bool input.
 	strHandler["request"] = handler["request"]
 	strHandler["addedChars"] = handler["addedChars"]
 	strHandler["allowedAnswers"] = ["y", "n"]
+	strHandler["noSpace"] = True
 	answer = strIn(strHandler)
 
 	if handler["verbose"]:
