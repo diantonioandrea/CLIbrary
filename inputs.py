@@ -27,7 +27,7 @@ def strIn(stringHandler={}) -> str: # String input.
 
 	handler.update(stringHandler)
 
-	errorString = handler["errorStyle"] + handler["startingError"] + Style.RESET_ALL + " "
+	errorString = handler["errorStyle"] + handler["startingError"] + Style.RESET_ALL + " " if handler["startingError"] != "" else ""
 
 	charactersRange = list(range(0, 48)) + list(range(58, 65)) + list(range(91, 97)) + list(range(123, 256))
 	if not handler["noSpace"]:
