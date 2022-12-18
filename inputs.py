@@ -93,7 +93,11 @@ def strIn(stringHandler={}) -> str: # String input.
 					return answer
 
 				else:
-					verificationHandler = handler
+					verificationHandler = {}
+
+					for key in handler:
+						verificationHandler[key] = handler[key]
+
 					verificationHandler["verification"] = False
 					verificationHandler["request"] = "Verification"
 					
