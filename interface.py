@@ -73,7 +73,7 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 				if "--" in inst:
 					ddOpts.append(inst.replace("--", ""))
 				
-				elif "-" in inst:
+				elif inst[0] == "-":
 					try:
 						if type(float(inst)) == float:
 							pass
