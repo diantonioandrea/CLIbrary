@@ -201,6 +201,7 @@ def numIn(numberHandler={}): # Number input.
 	handler["addedChars"] = ": "
 	handler["allowedRange"] = []
 	handler["allowedTypes"] = ["int", "float"]
+	handler["round"] = -1
 
 	handler["errorStyle"] = Back.RED + Fore.WHITE
 
@@ -255,6 +256,13 @@ def numIn(numberHandler={}): # Number input.
 					return int(answer)
 				
 				elif "float" in handler["allowedTypes"]:
+					try:
+						if handler["round"] > -1:
+							return round(answer, int(handler["round"]))
+					
+					except:
+						pass
+
 					return answer
 			
 			errorString = handler["errorStyle"] + "SYNTAX ERROR" + Style.RESET_ALL + " "
