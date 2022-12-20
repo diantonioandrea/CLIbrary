@@ -9,6 +9,7 @@ def aLoad(fileHandler: dict): # Automatic loading.
 
 	handler["path"] = ""
 	handler["type"] = "pickle"
+	handler["ignoreMissing"] = False
 
 	handler["errorStyle"] = Back.RED + Fore.WHITE
 
@@ -23,7 +24,8 @@ def aLoad(fileHandler: dict): # Automatic loading.
 		dataFile.close()
 				
 	except(FileNotFoundError):
-		print(handler["errorStyle"] + "\'" + fileHandler["path"] + "\' NOT FOUND ERROR" + Style.RESET_ALL)
+		if not handler["ignoreMissing"]:
+			print(handler["errorStyle"] + "\'" + fileHandler["path"] + "\' NOT FOUND ERROR" + Style.RESET_ALL)
 		data = None
 
 	except:
