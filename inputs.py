@@ -1,4 +1,5 @@
 from colorama import init, Fore, Back, Style
+from datetime import datetime
 init()
 
 # INPUT HANDLING
@@ -140,27 +141,14 @@ def dateIn(dateHandler={}) -> str: # Date input.
 		if handler["verbose"]:
 			print(handler["verboseStyle"] + "VERBOSE, INPUT: " + answer + Style.RESET_ALL)
 
-		splitDate = answer.split("-")
+		try: # From an answer of Eduard Stepanov on https://stackoverflow.com/questions/16870663/how-do-i-validate-a-date-string-format-in-python
+			if answer != datetime.strptime(answer, "%Y-%m-%d").strftime('%Y-%m-%d'):
+				raise(ValueError)
 
-		if "-" in answer:
-			if len(splitDate) == 3:
-				if len(splitDate[0]) == 4 and len(splitDate[1]) == len(splitDate[2]) == 2:
-					dateErrorFlag = False
-
-					for dateElement in splitDate:
-						try:
-							if type(int(dateElement)) == int and int(dateElement) > 0:
-								continue
-								
-							else:
-								dateErrorFlag = True
-						
-						except:
-							dateErrorFlag = True
-							break
-					
-					if not dateErrorFlag:
-						return answer
+			return answer
+		
+		except(ValueError):
+			pass
 		
 		strHandler["startingError"] = "DATE FORMAT ERROR"
 
