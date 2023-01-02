@@ -1,6 +1,6 @@
 from colorama import init, Fore, Back, Style
 from pickle import load, dump
-import outputs
+from .outputs import *
 init()
 
 # FILES HANDLING
@@ -23,12 +23,12 @@ def aLoad(fileHandler: dict): # Automatic loading.
 	except(FileNotFoundError):
 		if not handler["ignoreMissing"]:
 			errorHandler["string"] = "\'" + fileHandler["path"] + "\' NOT FOUND ERROR"
-			outputs.output(errorHandler)
+			output(errorHandler)
 		data = None
 
 	except:
 		errorHandler["string"] = "FILE ERROR"
-		outputs.output(errorHandler)
+		output(errorHandler)
 		data = None
 
 	return data
@@ -50,4 +50,4 @@ def aDump(fileHandler: dict) -> None: # Automatic dumping.
 	
 	except:
 		errorHandler["string"] = "FILE ERROR"
-		outputs.output(errorHandler)
+		output(errorHandler)

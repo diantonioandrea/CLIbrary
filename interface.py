@@ -1,6 +1,6 @@
 from colorama import init, Fore, Back, Style
 import json
-import outputs
+from .outputs import *
 init()
 
 # COMMANDS HANDLING
@@ -35,7 +35,7 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 			rawAnswer = str(input(handler["style"] + handler["request"] + Style.RESET_ALL + handler["addedChars"] + Style.RESET_ALL))
 			
 			if handler["verbose"]:
-				outputs.output({"verbose": True, "string": "VERBOSE, INPUT: " + rawAnswer})
+				output({"verbose": True, "string": "VERBOSE, INPUT: " + rawAnswer})
 
 			rawAnswer = " ".join(rawAnswer.split()).lower() # type: ignore
 
@@ -50,18 +50,18 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 				answer["command"] = instructions[0]
 
 			else:
-				outputs.output({"error": True, "string": "SYNTAX ERROR"})
+				output({"error": True, "string": "SYNTAX ERROR"})
 				continue
 
 			if answer["command"] not in handler["allowedCommands"] and rawAnswer != "":
-				outputs.output({"error": True, "string": "UNKNOWN COMMAND"})
+				output({"error": True, "string": "UNKNOWN COMMAND"})
 				continue
 
 			if answer["command"] == "help":
 				helpDict = genHelp(handler)
 
 				if helpDict["errorString"] != "":
-					outputs.output({"error": True, "string": helpDict["errorString"]})
+					output({"error": True, "string": helpDict["errorString"]})
 					continue
 				
 				answer["output"] = helpDict["helpString"]
@@ -79,11 +79,11 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 						sdOpts[inst.replace("-", "")] = instructions[instructions.index(inst) + 1]
 		
 		except(IndexError):
-			outputs.output({"error": True, "string": "SYNTAX ERROR"})
+			output({"error": True, "string": "SYNTAX ERROR"})
 			continue
 
 		except(EOFError, KeyboardInterrupt):
-			outputs.output({"error": True, "string": "KEYBOARD ERROR"})
+			output({"error": True, "string": "KEYBOARD ERROR"})
 			continue
 			
 		answer["sdOpts"] = sdOpts
