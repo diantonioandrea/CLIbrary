@@ -8,8 +8,8 @@ def output(outputHandler: dict):
 
 	handler["string"] = ""
 
-	handler["errorStyle"] = Back.RED + Fore.WHITE + " ! " + Back.WHITE + Fore.RED + " "
-	handler["verboseStyle"] = Back.YELLOW + Fore.WHITE + " ? " + Back.WHITE + Fore.YELLOW + " "
+	handler["errorStyle"] = Back.RED + Fore.WHITE + " \u25B2 " + Back.WHITE + Fore.RED + " "
+	handler["verboseStyle"] = Back.YELLOW + Fore.WHITE + " \u25CF " + Back.WHITE + Fore.YELLOW + " "
 
 	handler.update(outputHandler)
 
