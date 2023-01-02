@@ -1,5 +1,6 @@
 from colorama import init, Fore, Back, Style
 from datetime import datetime
+import output
 init()
 
 # INPUT HANDLING
@@ -19,16 +20,14 @@ def strIn(stringHandler={}) -> str: # String input.
 
 	handler["verification"] = False
 
-	handler["errorStyle"] = Back.RED + Fore.WHITE
-
 	handler["verbose"] = False
-	handler["verboseStyle"] = Back.YELLOW
 
 	handler["startingError"] = "" # For date input errors
 
 	handler.update(stringHandler)
 
-	errorString = handler["errorStyle"] + handler["startingError"] + Style.RESET_ALL + " " if handler["startingError"] != "" else ""
+	if handler["startingError"] != "":
+		output.output({"error": True, "string": handler["startingError"]})
 
 	charactersRange = list(range(0, 48)) + list(range(58, 65)) + list(range(91, 97)) + list(range(123, 256))
 	if not handler["noSpace"]:
@@ -47,13 +46,8 @@ def strIn(stringHandler={}) -> str: # String input.
 		try:
 			allowedString = handler["allowedStyle"] + "[" + ", ".join(handler["allowedAnswers"]) + "]" + Style.RESET_ALL + " "
 		except(TypeError):
-			handler["allowedAnswers"] = []
+			handler["allowedAnswers"] = []	
 
-	typeString = ""
-
-	if handler["verbose"]:
-		typeString = handler["verboseStyle"] + "STRING" + Style.RESET_ALL + " "
-	
 	lengthString = ""
 
 	try:
@@ -64,21 +58,21 @@ def strIn(stringHandler={}) -> str: # String input.
 
 	while True:
 		try:
-			rawAnswer = str(input(errorString + typeString + allowedString + lengthString + handler["request"] + handler["addedChars"]))
+			rawAnswer = str(input(allowedString + lengthString + handler["request"] + handler["addedChars"]))
 
 			if handler["verbose"]:
-				print(handler["verboseStyle"] + "VERBOSE, INPUT: " + rawAnswer + Style.RESET_ALL)
+				output.output({"verbose": True, "string": "VERBOSE, INPUT: " + rawAnswer})
 
 			answer = rawAnswer.lower()
 
 			if handler["fixedLength"] != 0 and len(answer) != handler["fixedLength"]:
-				errorString = handler["errorStyle"] + "LENGTH ERROR" + Style.RESET_ALL + " "
+				output.output({"error": True, "string": "LENGTH ERROR"})
 				continue
 
 			reloadFlag = False
 			for char in blockedChars:
 				if char in answer:
-					errorString = handler["errorStyle"] + "CHARACTER ERROR" + Style.RESET_ALL + " "
+					output.output({"error": True, "string": "CHARACTER ERROR"})
 					reloadFlag = True
 					break
 
@@ -86,7 +80,7 @@ def strIn(stringHandler={}) -> str: # String input.
 				continue
 
 			if answer in handler["blockedAnswers"]:
-				errorString = handler["errorStyle"] + "ANSWER ERROR" + Style.RESET_ALL + " "
+				output.output({"error": True, "string": "ANSWER ERROR"})
 				continue
 
 			if handler["allowedAnswers"] == [] or answer in handler["allowedAnswers"]:
@@ -106,16 +100,16 @@ def strIn(stringHandler={}) -> str: # String input.
 						return answer
 					
 					else:
-						errorString = handler["errorStyle"] + "VERIFICATION ERROR" + Style.RESET_ALL + " "
+						output.output({"error": True, "string": "VERIFICATION ERROR"})
 						continue
 			
-			errorString = handler["errorStyle"] + "SYNTAX ERROR" + Style.RESET_ALL + " "
+			output.output({"error": True, "string": "SYNTAX ERROR"})
 
 		except(EOFError, KeyboardInterrupt):
-			errorString = handler["errorStyle"] + "\nKEYBOARD ERROR" + Style.RESET_ALL + " "
+			output.output({"error": True, "string": "KEYBOARD ERROR"})
 		
 		except:
-			errorString = handler["errorStyle"] + "ERROR" + Style.RESET_ALL + " "
+			output.output({"error": True, "string": "ERROR"})
 
 def dateIn(dateHandler={}) -> str: # Date input.
 	handler = {}
@@ -139,7 +133,7 @@ def dateIn(dateHandler={}) -> str: # Date input.
 		answer = strIn(strHandler)
 
 		if handler["verbose"]:
-			print(handler["verboseStyle"] + "VERBOSE, INPUT: " + answer + Style.RESET_ALL)
+			output.output({"verbose": True, "string": "VERBOSE, INPUT: " + answer})
 
 		try: # From an answer of Eduard Stepanov on https://stackoverflow.com/questions/16870663/how-do-i-validate-a-date-string-format-in-python
 			if answer != datetime.strptime(answer, "%Y-%m-%d").strftime('%Y-%m-%d'):
@@ -160,7 +154,6 @@ def boolIn(boolHandler={}) -> bool: # Bool input.
 	handler["addedChars"] = " [y/n]: "
 
 	handler["verbose"] = False
-	handler["verboseStyle"] = Back.YELLOW
 
 	handler.update(boolHandler)
 
@@ -172,7 +165,7 @@ def boolIn(boolHandler={}) -> bool: # Bool input.
 	answer = strIn(strHandler)
 
 	if handler["verbose"]:
-		print(handler["verboseStyle"] + "VERBOSE, INPUT: " + answer + Style.RESET_ALL)
+		output.output({"verbose": True, "string": "VERBOSE, INPUT: " + answer})
 	
 	if answer == "y":
 		return True
@@ -191,14 +184,10 @@ def numIn(numberHandler={}): # Number input.
 	handler["allowedTypes"] = ["int", "float"]
 	handler["round"] = -1
 
-	handler["errorStyle"] = Back.RED + Fore.WHITE
-
 	handler["verbose"] = False
-	handler["verboseStyle"] = Back.YELLOW
 
 	handler.update(numberHandler)
 
-	errorString = ""
 	rangeString = ""
 
 	try:
@@ -220,24 +209,19 @@ def numIn(numberHandler={}): # Number input.
 	if handler["allowedTypes"] == []:
 		handler["allowedTypes"] = ["int", "float"]
 
-	typeString = ""
-
-	if handler["verbose"]:
-		typeString = handler["verboseStyle"] + "NUMBER" + Style.RESET_ALL + " "
-
 	while True:
 		try:
-			rawAnswer = str(input(errorString + typeString + rangeString + handler["request"] + handler["addedChars"]))
+			rawAnswer = str(input(rangeString + handler["request"] + handler["addedChars"]))
 
 			if handler["verbose"]:
-				print(handler["verboseStyle"] + "VERBOSE, INPUT: " + rawAnswer + Style.RESET_ALL)
+				output.output({"verbose": True, "string": "VERBOSE, INPUT: " + rawAnswer})
 			
 			if rawAnswer != "":
 				answer = float(rawAnswer)
 
 				if len(handler["allowedRange"]) == 2:
 					if answer < handler["allowedRange"][0] or answer > handler["allowedRange"][1]:
-						errorString = handler["errorStyle"] + "RANGE ERROR" + Style.RESET_ALL + " "
+						output.output({"error": True, "string": "RANGE ERROR"})
 						continue
 				
 				if int(answer) == answer and "int" in handler["allowedTypes"]:
@@ -252,17 +236,17 @@ def numIn(numberHandler={}): # Number input.
 						pass
 
 					return answer
-			
-			errorString = handler["errorStyle"] + "SYNTAX ERROR" + Style.RESET_ALL + " "
+
+			output.output({"error": True, "string": "SYNTAX ERROR"})
 				
 		except(ValueError):
-			errorString = handler["errorStyle"] + "VALUE ERROR" + Style.RESET_ALL + " "
+			output.output({"error": True, "string": "VALUE ERROR"})
 
 		except(EOFError, KeyboardInterrupt):
-			errorString = "\n" + handler["errorStyle"] + "KEYBOARD ERROR" + Style.RESET_ALL + " "
+			output.output({"error": True, "string": "KEYBOARD ERROR"})
 
 		except:
-			errorString = handler["errorStyle"] + "ERROR" + Style.RESET_ALL + " "
+			output.output({"error": True, "string": "ERROR"})
 
 # LISTS HANDLING
 
@@ -270,9 +254,7 @@ def listCh(listHandler={}): # List choice.
 	handler = {}
 
 	handler["list"] = []
-
-	handler["errorStyle"] = Back.RED + Fore.WHITE
-
+	handler["request"] = "Choose from list"
 	handler.update(listHandler)
 
 	if len(handler["list"]) == 0:
@@ -286,7 +268,7 @@ def listCh(listHandler={}): # List choice.
 			print(str(handler["list"].index(singleItem)) + ": " + str(singleItem))
 			
 		numberHandler = {}
-		numberHandler["request"] = "Choose from list"
+		numberHandler["request"] = handler["request"]
 		numberHandler["allowedRange"] = [0, len(handler["list"]) - 1]
 		numberHandler["allowedTypes"] = ["int"]
 		

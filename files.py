@@ -1,20 +1,17 @@
 from colorama import init, Fore, Back, Style
 from pickle import load, dump
+import output
 init()
 
 # FILES HANDLING
 
 def aLoad(fileHandler: dict): # Automatic loading.
 	handler = {}
+	errorHandler = {"error": True}
 
 	handler["path"] = ""
 	handler["type"] = "pickle"
 	handler["ignoreMissing"] = False
-
-	handler["errorStyle"] = Back.RED + Fore.WHITE
-
-	handler["verbose"] = False
-	handler["verboseStyle"] = Back.YELLOW
 
 	handler.update(fileHandler)
 
@@ -25,26 +22,24 @@ def aLoad(fileHandler: dict): # Automatic loading.
 				
 	except(FileNotFoundError):
 		if not handler["ignoreMissing"]:
-			print(handler["errorStyle"] + "\'" + fileHandler["path"] + "\' NOT FOUND ERROR" + Style.RESET_ALL)
+			errorHandler["string"] = "\'" + fileHandler["path"] + "\' NOT FOUND ERROR"
+			output.output(errorHandler)
 		data = None
 
 	except:
-		print(handler["errorStyle"] + "FILE ERROR" + Style.RESET_ALL)
+		errorHandler["string"] = "FILE ERROR"
+		output.output(errorHandler)
 		data = None
 
 	return data
 	
 def aDump(fileHandler: dict) -> None: # Automatic dumping.
 	handler = {}
+	errorHandler = {"error": True}
 
 	handler["path"] = ""
 	handler["data"] = None
 	handler["type"] = "pickle"
-
-	handler["errorStyle"] = Back.RED + Fore.WHITE
-
-	handler["verbose"] = False
-	handler["verboseStyle"] = Back.YELLOW
 
 	handler.update(fileHandler)
 
@@ -54,4 +49,5 @@ def aDump(fileHandler: dict) -> None: # Automatic dumping.
 		dataFile.close()
 	
 	except:
-		print(handler["errorStyle"] + "FILE ERROR" + Style.RESET_ALL)
+		errorHandler["string"] = "FILE ERROR"
+		output.output(errorHandler)

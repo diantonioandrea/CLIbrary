@@ -1,5 +1,6 @@
 from colorama import init, Fore, Back, Style
 import json
+import output
 init()
 
 # COMMANDS HANDLING
@@ -14,10 +15,8 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 	handler["addedChars"] = ": "
 
 	handler["style"] = ""
-	handler["errorStyle"] = Back.RED + Fore.WHITE
-
+	
 	handler["verbose"] = False
-	handler["verboseStyle"] = Back.YELLOW
 
 	handler["allowedCommands"] = []
 
@@ -31,14 +30,12 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 	if "help" not in handler["allowedCommands"] and handler["helpPath"] != "":
 		handler["allowedCommands"].append("help")
 
-	errorString = ""
-
 	while True:
 		try:
-			rawAnswer = str(input(errorString + handler["style"] + handler["request"] + Style.RESET_ALL + handler["addedChars"] + Style.RESET_ALL))
+			rawAnswer = str(input(handler["style"] + handler["request"] + Style.RESET_ALL + handler["addedChars"] + Style.RESET_ALL))
 			
 			if handler["verbose"]:
-				print(handler["verboseStyle"] + "VERBOSE, INPUT: " + rawAnswer + Style.RESET_ALL)
+				output.output({"verbose": True, "string": "VERBOSE, INPUT: " + rawAnswer})
 
 			rawAnswer = " ".join(rawAnswer.split()).lower() # type: ignore
 
@@ -53,18 +50,18 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 				answer["command"] = instructions[0]
 
 			else:
-				errorString = handler["errorStyle"] + "SYNTAX ERROR" + Style.RESET_ALL + " "
+				output.output({"error": True, "string": "SYNTAX ERROR"})
 				continue
 
 			if answer["command"] not in handler["allowedCommands"] and rawAnswer != "":
-				errorString = handler["errorStyle"] + "UNKNOWN COMMAND" + Style.RESET_ALL + " "
+				output.output({"error": True, "string": "UNKNOWN COMMAND"})
 				continue
 
 			if answer["command"] == "help":
 				helpDict = genHelp(handler)
 
 				if helpDict["errorString"] != "":
-					errorString = helpDict["errorString"]
+					output.output({"error": True, "string": helpDict["errorString"]})
 					continue
 				
 				answer["output"] = helpDict["helpString"]
@@ -82,11 +79,11 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 						sdOpts[inst.replace("-", "")] = instructions[instructions.index(inst) + 1]
 		
 		except(IndexError):
-			errorString = handler["errorStyle"] + "SYNTAX ERROR" + Style.RESET_ALL + " "
+			output.output({"error": True, "string": "SYNTAX ERROR"})
 			continue
 
 		except(EOFError, KeyboardInterrupt):
-			errorString = handler["errorStyle"] + "\nKEYBOARD ERROR" + Style.RESET_ALL + " "
+			output.output({"error": True, "string": "KEYBOARD ERROR"})
 			continue
 			
 		answer["sdOpts"] = sdOpts
