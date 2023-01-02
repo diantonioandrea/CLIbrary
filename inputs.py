@@ -1,6 +1,6 @@
 from colorama import init, Fore, Back, Style
 from datetime import datetime
-import output
+import outputs
 init()
 
 # INPUT HANDLING
@@ -27,7 +27,7 @@ def strIn(stringHandler={}) -> str: # String input.
 	handler.update(stringHandler)
 
 	if handler["startingError"] != "":
-		output.output({"error": True, "string": handler["startingError"]})
+		outputs.output({"error": True, "string": handler["startingError"]})
 
 	charactersRange = list(range(0, 48)) + list(range(58, 65)) + list(range(91, 97)) + list(range(123, 256))
 	if not handler["noSpace"]:
@@ -61,18 +61,18 @@ def strIn(stringHandler={}) -> str: # String input.
 			rawAnswer = str(input(allowedString + lengthString + handler["request"] + handler["addedChars"]))
 
 			if handler["verbose"]:
-				output.output({"verbose": True, "string": "VERBOSE, INPUT: " + rawAnswer})
+				outputs.output({"verbose": True, "string": "VERBOSE, INPUT: " + rawAnswer})
 
 			answer = rawAnswer.lower()
 
 			if handler["fixedLength"] != 0 and len(answer) != handler["fixedLength"]:
-				output.output({"error": True, "string": "LENGTH ERROR"})
+				outputs.output({"error": True, "string": "LENGTH ERROR"})
 				continue
 
 			reloadFlag = False
 			for char in blockedChars:
 				if char in answer:
-					output.output({"error": True, "string": "CHARACTER ERROR"})
+					outputs.output({"error": True, "string": "CHARACTER ERROR"})
 					reloadFlag = True
 					break
 
@@ -80,7 +80,7 @@ def strIn(stringHandler={}) -> str: # String input.
 				continue
 
 			if answer in handler["blockedAnswers"]:
-				output.output({"error": True, "string": "ANSWER ERROR"})
+				outputs.output({"error": True, "string": "ANSWER ERROR"})
 				continue
 
 			if handler["allowedAnswers"] == [] or answer in handler["allowedAnswers"]:
@@ -100,16 +100,16 @@ def strIn(stringHandler={}) -> str: # String input.
 						return answer
 					
 					else:
-						output.output({"error": True, "string": "VERIFICATION ERROR"})
+						outputs.output({"error": True, "string": "VERIFICATION ERROR"})
 						continue
 			
-			output.output({"error": True, "string": "SYNTAX ERROR"})
+			outputs.output({"error": True, "string": "SYNTAX ERROR"})
 
 		except(EOFError, KeyboardInterrupt):
-			output.output({"error": True, "string": "KEYBOARD ERROR"})
+			outputs.output({"error": True, "string": "KEYBOARD ERROR"})
 		
 		except:
-			output.output({"error": True, "string": "ERROR"})
+			outputs.output({"error": True, "string": "ERROR"})
 
 def dateIn(dateHandler={}) -> str: # Date input.
 	handler = {}
@@ -133,7 +133,7 @@ def dateIn(dateHandler={}) -> str: # Date input.
 		answer = strIn(strHandler)
 
 		if handler["verbose"]:
-			output.output({"verbose": True, "string": "VERBOSE, INPUT: " + answer})
+			outputs.output({"verbose": True, "string": "VERBOSE, INPUT: " + answer})
 
 		try: # From an answer of Eduard Stepanov on https://stackoverflow.com/questions/16870663/how-do-i-validate-a-date-string-format-in-python
 			if answer != datetime.strptime(answer, "%Y-%m-%d").strftime('%Y-%m-%d'):
@@ -165,7 +165,7 @@ def boolIn(boolHandler={}) -> bool: # Bool input.
 	answer = strIn(strHandler)
 
 	if handler["verbose"]:
-		output.output({"verbose": True, "string": "VERBOSE, INPUT: " + answer})
+		outputs.output({"verbose": True, "string": "VERBOSE, INPUT: " + answer})
 	
 	if answer == "y":
 		return True
@@ -214,14 +214,14 @@ def numIn(numberHandler={}): # Number input.
 			rawAnswer = str(input(rangeString + handler["request"] + handler["addedChars"]))
 
 			if handler["verbose"]:
-				output.output({"verbose": True, "string": "VERBOSE, INPUT: " + rawAnswer})
+				outputs.output({"verbose": True, "string": "VERBOSE, INPUT: " + rawAnswer})
 			
 			if rawAnswer != "":
 				answer = float(rawAnswer)
 
 				if len(handler["allowedRange"]) == 2:
 					if answer < handler["allowedRange"][0] or answer > handler["allowedRange"][1]:
-						output.output({"error": True, "string": "RANGE ERROR"})
+						outputs.output({"error": True, "string": "RANGE ERROR"})
 						continue
 				
 				if int(answer) == answer and "int" in handler["allowedTypes"]:
@@ -237,16 +237,16 @@ def numIn(numberHandler={}): # Number input.
 
 					return answer
 
-			output.output({"error": True, "string": "SYNTAX ERROR"})
+			outputs.output({"error": True, "string": "SYNTAX ERROR"})
 				
 		except(ValueError):
-			output.output({"error": True, "string": "VALUE ERROR"})
+			outputs.output({"error": True, "string": "VALUE ERROR"})
 
 		except(EOFError, KeyboardInterrupt):
-			output.output({"error": True, "string": "KEYBOARD ERROR"})
+			outputs.output({"error": True, "string": "KEYBOARD ERROR"})
 
 		except:
-			output.output({"error": True, "string": "ERROR"})
+			outputs.output({"error": True, "string": "ERROR"})
 
 # LISTS HANDLING
 

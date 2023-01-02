@@ -1,6 +1,6 @@
 from colorama import init, Fore, Back, Style
 import json
-import output
+import outputs
 init()
 
 # COMMANDS HANDLING
@@ -15,7 +15,7 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 	handler["addedChars"] = ": "
 
 	handler["style"] = ""
-	
+
 	handler["verbose"] = False
 
 	handler["allowedCommands"] = []
@@ -35,7 +35,7 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 			rawAnswer = str(input(handler["style"] + handler["request"] + Style.RESET_ALL + handler["addedChars"] + Style.RESET_ALL))
 			
 			if handler["verbose"]:
-				output.output({"verbose": True, "string": "VERBOSE, INPUT: " + rawAnswer})
+				outputs.output({"verbose": True, "string": "VERBOSE, INPUT: " + rawAnswer})
 
 			rawAnswer = " ".join(rawAnswer.split()).lower() # type: ignore
 
@@ -50,18 +50,18 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 				answer["command"] = instructions[0]
 
 			else:
-				output.output({"error": True, "string": "SYNTAX ERROR"})
+				outputs.output({"error": True, "string": "SYNTAX ERROR"})
 				continue
 
 			if answer["command"] not in handler["allowedCommands"] and rawAnswer != "":
-				output.output({"error": True, "string": "UNKNOWN COMMAND"})
+				outputs.output({"error": True, "string": "UNKNOWN COMMAND"})
 				continue
 
 			if answer["command"] == "help":
 				helpDict = genHelp(handler)
 
 				if helpDict["errorString"] != "":
-					output.output({"error": True, "string": helpDict["errorString"]})
+					outputs.output({"error": True, "string": helpDict["errorString"]})
 					continue
 				
 				answer["output"] = helpDict["helpString"]
@@ -79,11 +79,11 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 						sdOpts[inst.replace("-", "")] = instructions[instructions.index(inst) + 1]
 		
 		except(IndexError):
-			output.output({"error": True, "string": "SYNTAX ERROR"})
+			outputs.output({"error": True, "string": "SYNTAX ERROR"})
 			continue
 
 		except(EOFError, KeyboardInterrupt):
-			output.output({"error": True, "string": "KEYBOARD ERROR"})
+			outputs.output({"error": True, "string": "KEYBOARD ERROR"})
 			continue
 			
 		answer["sdOpts"] = sdOpts
