@@ -6,6 +6,10 @@ def output(outputHandler: dict):
 	handler["error"] = False
 	handler["verbose"] = False
 
+	# Prints these style-unaffected strings before and after the main part
+	handler["before"] = ""
+	handler["after"] = ""
+
 	handler["string"] = ""
 
 	handler["errorStyle"] = Back.RED + Fore.WHITE + " \u25B2 " + Back.WHITE + Fore.RED + " "
@@ -14,7 +18,9 @@ def output(outputHandler: dict):
 	handler.update(outputHandler)
 
 	if handler["error"]:
-		print(handler["errorStyle"] + handler["string"] + " " + Style.RESET_ALL)
+		outputStyle = handler["errorStyle"]
 
 	elif handler["verbose"]:
-		print(handler["verboseStyle"] + handler["string"] + " " + Style.RESET_ALL)
+		outputStyle = handler["verboseStyle"]
+
+	print(handler["before"] + outputStyle + handler["string"] + " " + Style.RESET_ALL + handler["after"])
