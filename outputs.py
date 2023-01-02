@@ -16,5 +16,5 @@ def output(outputHandler: dict):
 	if handler["error"]:
 		print(handler["errorStyle"] + handler["string"] + " " + Style.RESET_ALL)
 
-	elif handler["error"]:
+	elif handler["verbose"]:
 		print(handler["verboseStyle"] + handler["string"] + " " + Style.RESET_ALL)
