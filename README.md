@@ -22,18 +22,6 @@ or directly cloned by:
 
 ### Using CLIbrary
 
-**CLIbrary** can be normally imported by:
+**CLIbrary** can be imported by:
 
 	import CLIbrary
-
-and its functions can be used as, for example:
-
-	stringHandler = {}
-	stringHandler["request"] = "Input a string"
-	stringHandler["allowedChars"] = [",", "!"]
-	print(CLIbrary.strIn(stringHandler))
-
-which would result in:
-
-	Input a string: hello, world!
-	hello, world!
