@@ -9,16 +9,14 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 	handler = {}
 	answer = {}
 
-	answer["output"] = ""
-
-	handler["request"] = "command"
+	handler["request"] = "enter a command"
 	handler["addedChars"] = ": "
 
 	handler["style"] = ""
 
 	handler["verbose"] = False
 
-	handler["allowedCommands"] = []
+	handler["allowedCommands"] = ["exit"]
 
 	handler["helpPath"] = ""
 
@@ -29,6 +27,9 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 	
 	if "help" not in handler["allowedCommands"] and handler["helpPath"] != "":
 		handler["allowedCommands"].append("help")
+
+	if "help" in handler["allowedCommands"] and handler["helpPath"] == "":
+		handler["allowedCommands"].remove("help")
 
 	while True:
 		try:
@@ -58,13 +59,8 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 				continue
 
 			if answer["command"] == "help":
-				helpDict = genHelp(handler)
-
-				if helpDict["errorString"] != "":
-					output({"error": True, "string": helpDict["errorString"]})
-					continue
-				
-				answer["output"] = helpDict["helpString"]
+				helpPrint(handler)
+				continue
 
 			for inst in instructions:
 				if "--" in inst:
@@ -90,12 +86,7 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 		answer["ddOpts"] = ddOpts
 		return answer
 
-def genHelp(handler={}) -> dict:
-	helpDict = {}
-
-	helpDict["helpString"] = ""
-	helpDict["errorString"] = ""
-
+def helpPrint(handler={}) -> None:
 	try:
 		helpFile = open(handler["helpPath"], "r")
 		helpJson = json.load(helpFile)
@@ -118,12 +109,10 @@ def genHelp(handler={}) -> dict:
 			
 			helpElements.append(helpString)
 		
-		helpDict["helpString"] = "\n".join(helpElements)
-
 	except(FileNotFoundError):
-		helpDict["errorString"] = handler["errorStyle"] + "\nHELP FILE ERROR" + Style.RESET_ALL + " "
+		output({"error": True, "string": "HELP FILE ERROR", "before": "\n"})
 	
 	except:
-		helpDict["errorString"] = handler["errorStyle"] + "\nHELP ERROR" + Style.RESET_ALL + " "
+		output({"error": True, "string": "HELP ERROR", "before": "\n"})
 	
-	return helpDict
+	print("\n".join(helpElements))
