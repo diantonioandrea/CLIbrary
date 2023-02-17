@@ -95,6 +95,9 @@ def helpPrint(handler={}) -> None: # Needs to be restyled.
 		helpElements = []
 
 		for key in helpJson:
+			if key not in handler["allowedCommands"]:
+				continue
+
 			helpString = handler["style"] + key + Style.RESET_ALL
 			helpString += "\n\t" + helpJson[key]["description"]
 			
@@ -115,4 +118,4 @@ def helpPrint(handler={}) -> None: # Needs to be restyled.
 	except:
 		output({"error": True, "string": "HELP ERROR", "before": "\n"})
 	
-	print("\n".join(helpElements))
+	print("\n".join(helpElements)) if len(helpElements) else output({"warning": True, "string": "NO HELP FOR CURRENTLY AVAILABLE COMMANDS", "before": "\n"})
