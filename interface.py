@@ -1,4 +1,4 @@
-from colorama import init, Fore, Back, Style
+from colorama import init, Fore, Style
 import json
 from .outputs import *
 init()
@@ -86,7 +86,7 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 		answer["ddOpts"] = ddOpts
 		return answer
 
-def helpPrint(handler={}) -> None:
+def helpPrint(handler={}) -> None: # Needs to be restyled.
 	try:
 		helpFile = open(handler["helpPath"], "r")
 		helpJson = json.load(helpFile)
