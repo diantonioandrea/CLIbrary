@@ -55,7 +55,7 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 				continue
 
 			if answer["command"] not in handler["allowedCommands"] and rawAnswer != "": # Checks the commands list.
-				output({"error": True, "string": "UNKNOWN COMMAND"})
+				output({"error": True, "string": "UNKNOWN OR UNAVAILABLE COMMAND"})
 				continue
 
 			if answer["command"] == "help": # Prints the help.
