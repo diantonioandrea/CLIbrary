@@ -1,4 +1,4 @@
-from colorama import init, Fore, Style
+from colorama import init, Fore, Back, Style
 import json
 from .outputs import *
 init()
@@ -22,10 +22,10 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 
 	handler.update(commandHandler)
 
-	if "exit" not in handler["allowedCommands"]:
+	if "exit" not in handler["allowedCommands"]: # "exit" must be in the allowed commands.
 		handler["allowedCommands"].append("exit")
 	
-	if "help" not in handler["allowedCommands"] and handler["helpPath"] != "":
+	if "help" not in handler["allowedCommands"] and handler["helpPath"] != "": # "help" is an embedded command.
 		handler["allowedCommands"].append("help")
 
 	if "help" in handler["allowedCommands"] and handler["helpPath"] == "":
@@ -38,31 +38,31 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 			if handler["verbose"]:
 				output({"verbose": True, "string": "VERBOSE, INPUT: " + rawAnswer})
 
-			rawAnswer = " ".join(rawAnswer.split()).lower() # type: ignore
+			rawAnswer = " ".join(rawAnswer.split()).lower()
 
 			instructions = rawAnswer.split(" ")
 
-			# OPTIONS: SINGLE DASH [[-key1, value1], ...] AND DOUBLE DASH [--key1, ...]
+			# OPTIONS: SINGLE DASH [{(-)key1: value1}, ...] AND DOUBLE DASH [(--)key1, ...]
 
 			sdOpts = {}
 			ddOpts = []
 
-			if "-" not in instructions[0]:
+			if "-" not in instructions[0]: # Checks the first word.
 				answer["command"] = instructions[0]
 
 			else:
 				output({"error": True, "string": "SYNTAX ERROR"})
 				continue
 
-			if answer["command"] not in handler["allowedCommands"] and rawAnswer != "":
+			if answer["command"] not in handler["allowedCommands"] and rawAnswer != "": # Checks the commands list.
 				output({"error": True, "string": "UNKNOWN COMMAND"})
 				continue
 
-			if answer["command"] == "help":
+			if answer["command"] == "help": # Prints the help.
 				helpPrint(handler)
 				continue
 
-			for inst in instructions:
+			for inst in instructions: # Parse the options.
 				if "--" in inst:
 					ddOpts.append(inst.replace("--", ""))
 				
@@ -78,7 +78,7 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 			output({"error": True, "string": "SYNTAX ERROR"})
 			continue
 
-		except(EOFError, KeyboardInterrupt):
+		except(EOFError, KeyboardInterrupt): # Handles keyboard interruptions.
 			output({"error": True, "string": "KEYBOARD ERROR"})
 			continue
 			
@@ -86,7 +86,7 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 		answer["ddOpts"] = ddOpts
 		return answer
 
-def helpPrint(handler={}) -> None: # Needs to be restyled.
+def helpPrint(handler={}) -> None:
 	try:
 		helpFile = open(handler["helpPath"], "r")
 		helpJson = json.load(helpFile)
@@ -95,27 +95,37 @@ def helpPrint(handler={}) -> None: # Needs to be restyled.
 		helpElements = []
 
 		for key in helpJson:
+			helpString = ""
+
 			if key not in handler["allowedCommands"]:
-				continue
+				helpString += Back.YELLOW + Fore.WHITE + " UNAVAILABLE " + Style.RESET_ALL
 
-			helpString = handler["style"] + key + Style.RESET_ALL
-			helpString += "\n\t" + helpJson[key]["description"]
+			helpString += Back.GREEN + Fore.WHITE + " " + key + " " + Back.WHITE + Fore.GREEN + " " + helpJson[key]["description"] + " " + Style.RESET_ALL
 			
-			if "mandatoryOptions" in helpJson[key] or "options" in helpJson[key]:
-				helpString += "\n\tOptions:" + "\n"
+			if "options" in helpJson[key]:
+				helpString += Back.GREEN + Fore.WHITE + " " + str(len(helpJson[key]["options"])) + " option(s) " + Style.RESET_ALL
 
-				if "mandatoryOptions" in helpJson[key]:
-					helpString += "\t\t" + Fore.RED + helpJson[key]["mandatoryOptions"] + Style.RESET_ALL
+				for optionKey in helpJson[key]["options"]:
+					if "#" in optionKey:
+						helpString += "\n\t" + Back.RED + Fore.WHITE + " " + optionKey.replace("#", "") + " "
+
+						if "--" not in optionKey:
+							helpString += Back.WHITE + Fore.RED + " " + helpJson[key]["options"][optionKey] + " "
 					
-				if "options" in helpJson[key]:
-					helpString += "\t\t" + helpJson[key]["options"]
+					else:
+						helpString += "\n\t" + Back.CYAN + Fore.WHITE + " " + optionKey + " "
+
+						if "--" not in optionKey:
+							helpString += Back.WHITE + Fore.CYAN + " " + helpJson[key]["options"][optionKey] + " "
+					
+					helpString += Style.RESET_ALL
 			
 			helpElements.append(helpString)
 		
+		print("\n\n".join(helpElements)) if len(helpElements) else output({"warning": True, "string": "NO HELP FOR CURRENTLY AVAILABLE COMMANDS", "before": "\n"})
+		
 	except(FileNotFoundError):
-		output({"error": True, "string": "HELP FILE ERROR", "before": "\n"})
+		output({"error": True, "string": "HELP FILE ERROR"})
 	
 	except:
-		output({"error": True, "string": "HELP ERROR", "before": "\n"})
-	
-	print("\n".join(helpElements)) if len(helpElements) else output({"warning": True, "string": "NO HELP FOR CURRENTLY AVAILABLE COMMANDS", "before": "\n"})
+		output({"error": True, "string": "HELP ERROR"})
