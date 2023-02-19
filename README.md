@@ -1,5 +1,3 @@
-[![GitHub license](https://img.shields.io/github/license/diantonioandrea/CLIbrary)](https://github.com/diantonioandrea/CLIbrary/blob/main/LICENSE)
-
 # CLIbrary
 
 A standardized collection of CLI utilities written in Python to handle commands, I/O and files.
