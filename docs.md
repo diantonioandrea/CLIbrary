@@ -15,11 +15,11 @@
 **CLIbrary** is *a standardized collection of CLI utilities written in Python to handle commands, I/O and files*. This means it is a set of functions that simplifies writing programs based on it by providing a coherent environment.
 
 **CLIbrary** provides functions to:
-1. Manage a CLI interface through command-and-options handling.
-2. Easily access to the program's *help*.
-3. Seamlessly load and dump informations to files.
-4. Handle various type of inputs without having to worry about consistency and errors.
-5. Output different type of informations such as errors and warnings.
+* Manage a CLI interface through command-and-options handling.
+* Easily access to the program's *help*.
+* Seamlessly load and dump informations to files.
+* Handle various type of inputs without having to worry about consistency and errors.
+* Output different type of informations such as errors and warnings.
 
 **CLIbrary** is written in Python and developed by [Andrea Di Antonio](https://github.com/diantonioandrea).
 
