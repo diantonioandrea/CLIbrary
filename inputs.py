@@ -22,12 +22,7 @@ def strIn(stringHandler={}) -> str: # String input.
 
 	handler["verbose"] = False
 
-	handler["startingError"] = "" # For date input errors
-
 	handler.update(stringHandler)
-
-	if handler["startingError"] != "":
-		output({"error": True, "string": handler["startingError"]})
 
 	charactersRange = list(range(0, 48)) + list(range(58, 65)) + list(range(91, 97)) + list(range(123, 256))
 	if not handler["noSpace"]:
@@ -144,7 +139,7 @@ def dateIn(dateHandler={}) -> str: # Date input.
 		except(ValueError):
 			pass
 		
-		strHandler["startingError"] = "DATE FORMAT ERROR"
+		output({"error": True, "string": "DATE FORMAT ERROR"})
 
 def boolIn(boolHandler={}) -> bool: # Bool input.
 	handler = {}
