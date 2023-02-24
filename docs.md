@@ -30,6 +30,8 @@ Every function accepts only a handler which is a dictionary structured as {"opti
 
 ## Interface
 
+[Go back to ToC](#table-of-contents)
+
 ### CLI
 
 	def cmdIn(commandHandler={}) -> dict
@@ -77,6 +79,8 @@ There is no need to call this function manually as its operation is embedded ins
 
 ## Files
 
+[Go back to ToC](#table-of-contents)
+
 **CLIbrary** provides two functions to handle files loading and dumping: *aLoad* and *aDump*. These functions make a great use of the Python module Pickle.
 
 ### Loading
@@ -100,6 +104,8 @@ The handler for this function makes use of the following parameters:
 * data: The data to be dumped.
 
 ## Inputs
+
+[Go back to ToC](#table-of-contents)
 
 ### Strings
 
@@ -169,6 +175,10 @@ The handler for this function makes use of the following parameters:
 * request, str: The prompt to the user.
 
 ## Outputs
+
+[Go back to ToC](#table-of-contents)
+
+### Erros, warning and verbose
 
 	def output(outputHandler: dict)
 
