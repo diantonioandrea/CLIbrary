@@ -1,23 +1,23 @@
-# CLIbrary's documentation
+# **CLIbrary**'s documentation
 
 ## Introduction
 
-### CLIbrary
+### **CLIbrary**
 
-CLIbrary is *a standardized collection of CLI utilities written in Python to handle commands, I/O and files*. This means it is a set of functions that simplifies writing programs based on it by providing a coherent environment.
+**CLIbrary** is *a standardized collection of CLI utilities written in Python to handle commands, I/O and files*. This means it is a set of functions that simplifies writing programs based on it by providing a coherent environment.
 
-CLIbrary provides functions to:
+**CLIbrary** provides functions to:
 1. Manage a CLI interface through command-and-options handling.
 2. Easily access to the program's *help*.
 3. Seamlessly load and dump informations to files.
 4. Handle various type of inputs without having to worry about consistency and errors.
 5. Output different type of informations such as errors and warnings.
 
-CLIbrary is written in Python and developed by [Andrea Di Antonio](https://github.com/diantonioandrea).
+**CLIbrary** is written in Python and developed by [Andrea Di Antonio](https://github.com/diantonioandrea).
 
 ### Handlers
 
-Handlers play an important role inside CLIbrary.  
+Handlers play an important role inside **CLIbrary**.  
 Every function accepts only a handler which is a dictionary structured as {"option": value}.
 
 ## Interface
@@ -47,7 +47,7 @@ Commands are always structured as:
 
 with no more than a single word for the command itself.
 
-[^1]: Colorama styling works best for this.
+[^1]: Colorama styling works best for styling inside **CLIbrary**.
 
 [^2]: The options get returned without the dash.
 
@@ -69,7 +69,7 @@ There is no need to call this function manually as its operation is embedded ins
 
 ## Files
 
-CLIbrary provides two functions to handle files loading and dumping: *aLoad* and *aDump*. These functions make a great use of the Python module Pickle.
+**CLIbrary** provides two functions to handle files loading and dumping: *aLoad* and *aDump*. These functions make a great use of the Python module Pickle.
 
 ### Loading
 
@@ -97,7 +97,7 @@ The handler for this function makes use of the following parameters:
 
 	def strIn(stringHandler={}) -> str
 
-*strIn* stands for *String Input* as this function's purpose is used to receive string inputs.
+*strIn* stands for *String Input* as this function's purpose is receiving string inputs.
 
 The handler for this function makes use of the following parameters:
 * request, str: The prompt to the user.
@@ -111,12 +111,66 @@ The handler for this function makes use of the following parameters:
 * verification, bool: Whether to ask for an answer verification. Useful for passwords.
 * verbose, bool.
 
+The returned value isn't case sensitive.
+
 ### Numbers
+
+	def numIn(numberHandler={})
+
+*numIn* stands for *Number Input* as this function's purpose is receiving numeric inputs.
+
+The handler for this function makes use of the following parameters:
+* request, str: The prompt to the user.
+* addedChars, str: A set of characters to be automatically added to the prompt.
+* allowedRange, list: The range in which the function accepts an answer, if not empty.
+* allowedTypes, list: Whether to accept just integer or integer and floats.
+* round, int: The number of decimal to round to, if different from -1.
+* noSpace, bool: Whether to allow or not the use of spaces.
+* verbose, bool.
 
 ### Booleans
 
+	def boolIn(boolHandler={}) -> bool
+
+*boolIn* stands for *Boolean Input* as this function's purpose is receiving boolean inputs.
+
+The handler for this function makes use of the following parameters:
+* request, str: The prompt to the user.
+* addedChars, str: A set of characters to be automatically added to the prompt.
+* verbose, bool.
+
 ### Dates
+
+	def dateIn(dateHandler={}) -> str
+
+*dateIn* stands for *Date Input* as this function's purpose is receiving date inputs.
+
+The handler for this function makes use of the following parameters:
+* request, str: The prompt to the user.
+* addedChars, str: A set of characters to be automatically added to the prompt.
+* verbose, bool.
 
 ### List handling
 
+	def listCh(listHandler={})
+
+*listCh* stands for *List Choice* as this function returns the choosen element from a list.
+
+The handler for this function makes use of the following parameters:
+* list, list: The list from which the element gets choosen.
+* request, str: The prompt to the user.
+
 ## Outputs
+
+	def output(outputHandler: dict)
+
+The handler for this function makes use of the following parameters:
+* string, str: The output string.
+* error, bool.
+* warning, bool.
+* verbose, bool.
+* errorStyle, str.
+* warningStyle, str.
+* verboseStyle, str.
+* before, str: A string that gets printed before the output and is unaffected by the output styling.
+* after, str: A string that gets printed after the output and is unaffected by the output styling.

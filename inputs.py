@@ -113,7 +113,6 @@ def dateIn(dateHandler={}) -> str: # Date input.
 	handler["addedChars"] = " [YYYY-MM-DD]: "
 
 	handler["verbose"] = False
-	handler["verboseStyle"] = Back.YELLOW
 
 	handler.update(dateHandler)
 
@@ -249,6 +248,7 @@ def listCh(listHandler={}): # List choice.
 
 	handler["list"] = []
 	handler["request"] = "Choose from list"
+	
 	handler.update(listHandler)
 
 	if len(handler["list"]) == 0:
