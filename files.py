@@ -1,4 +1,4 @@
-from colorama import init, Fore, Back, Style
+from colorama import init
 from pickle import load, dump
 from .outputs import *
 init()
@@ -10,7 +10,6 @@ def aLoad(fileHandler: dict): # Automatic loading.
 	errorHandler = {"error": True}
 
 	handler["path"] = ""
-	handler["type"] = "pickle"
 	handler["ignoreMissing"] = False
 
 	handler.update(fileHandler)
@@ -39,7 +38,6 @@ def aDump(fileHandler: dict) -> None: # Automatic dumping.
 
 	handler["path"] = ""
 	handler["data"] = None
-	handler["type"] = "pickle"
 
 	handler.update(fileHandler)
 

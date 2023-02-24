@@ -146,7 +146,6 @@ def dateIn(dateHandler={}) -> str: # Date input.
 		
 		strHandler["startingError"] = "DATE FORMAT ERROR"
 
-
 def boolIn(boolHandler={}) -> bool: # Bool input.
 	handler = {}
 
