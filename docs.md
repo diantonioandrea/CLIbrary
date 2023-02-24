@@ -1,5 +1,13 @@
 # **CLIbrary**'s documentation
 
+## Table of Contents
+
+1. [Introduction](#introduction)
+2. [Interface](#interface)
+3. [Files](#files)
+4. [Inputs](#inputs)
+5. [Outputs](#outputs)
+
 ## Introduction
 
 ### **CLIbrary**
