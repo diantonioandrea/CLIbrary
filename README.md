@@ -1,6 +1,7 @@
 # CLIbrary
 
-A standardized collection of CLI utilities written in Python to handle commands, I/O and files.
+A standardized collection of CLI utilities written in Python to handle commands, I/O and files.  
+Take a look at the [documentation](docs.md)
 
 ## Usage
 
