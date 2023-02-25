@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling", "colorama", "pickle", "datetime", "json"]
+requires = ["hatchling", "colorama", "datetime"]
 build-backend = "hatchling.build"
 
 [project]

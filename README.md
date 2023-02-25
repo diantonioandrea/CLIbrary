@@ -9,7 +9,7 @@ Take a look at the [documentation](docs.md)
 
 **CLIbrary** can be installed from [PyPI](https://pypi.org) by:
 
-	git submodule add https://github.com/diantonioandrea/CLIbrary
+	python3 -m pip install CLIbrary
 
 ### Using CLIbrary
 
