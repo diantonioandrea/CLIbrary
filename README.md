@@ -7,20 +7,18 @@ Take a look at the [documentation](docs.md)
 
 ### Adding CLIbrary to a project
 
-**CLIbrary** can added as a git submodule by:
+**CLIbrary** can be installed from [PyPI](https://pypi.org) by:
 
 	git submodule add https://github.com/diantonioandrea/CLIbrary
-
-and updated by:
-
-	git submodule update
-
-or directly cloned by:
-
-	git clone https://github.com/diantonioandrea/CLIbrary
 
 ### Using CLIbrary
 
 **CLIbrary** can be imported by:
 
 	import CLIbrary
+
+The available submodules are the following:
+* CLIbrary.interface
+* CLIbrary.files
+* CLIbrary.inputs
+* CLIbrary.outputs

@@ -4,6 +4,6 @@
 **/.DS_Store
 **/__pycache__
 
-# Testing
+# Build
 
-testing.py
+dist

@@ -1,7 +1,6 @@
-from colorama import init, Fore, Back, Style
+from colorama import Fore, Back, Style
 from datetime import datetime
 from .outputs import *
-init()
 
 # INPUT HANDLING
 

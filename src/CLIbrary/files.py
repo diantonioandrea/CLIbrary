@@ -1,7 +1,5 @@
-from colorama import init
 from pickle import load, dump
 from .outputs import *
-init()
 
 # FILES HANDLING
 

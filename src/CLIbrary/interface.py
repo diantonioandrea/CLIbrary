@@ -1,7 +1,6 @@
-from colorama import init, Fore, Back, Style
+from colorama import Fore, Back, Style
 import json
 from .outputs import *
-init()
 
 # COMMANDS HANDLING
 
