@@ -28,13 +28,22 @@
 Handlers play an important role inside **CLIbrary**.  
 Every function accepts only a handler which is a dictionary structured as {"option": value}.
 
+### Importing submodules
+
+**CLIbrary** submodules can be imported by:
+
+	from CLIbrary import interface
+	from CLIbrary import files
+	from CLIbrary import inputs
+	from CLIbrary import outputs
+
 ## Interface
 
 [Go back to ToC](#table-of-contents)
 
 ### CLI
 
-	def cmdIn(commandHandler={}) -> dict
+	interface.cmdIn(commandHandler={}) -> dict
 
 *cmdIn* stands for *Command Input* as this function allows the user to input command as in a CLI interface.
 
@@ -63,7 +72,7 @@ with no more than a single word for the command itself.
 
 ### Help
 
-	def helpPrint(handler={}) -> None
+	interface.helpPrint(handler={}) -> None
 
 *helpPrint* is a function that reads and print the help JSON whose path gets passed to *cmdIn*.
 
@@ -85,7 +94,7 @@ There is no need to call this function manually as its operation is embedded ins
 
 ### Loading
 
-	def aLoad(fileHandler: dict)
+	files.aLoad(fileHandler: dict)
 
 *aLoad* stands for *Automatic Loading* as this function loads informations from files without user confirmation.
 
@@ -95,7 +104,7 @@ The handler for this function makes use of the following parameters:
 
 ### Dumping
 
-	def aDump(fileHandler: dict) -> None
+	files.aDump(fileHandler: dict) -> None
 
 *aDump* stands for *Automatic Dumping* as this function dumps informations to files without user confirmation.
 
@@ -109,7 +118,7 @@ The handler for this function makes use of the following parameters:
 
 ### Strings
 
-	def strIn(stringHandler={}) -> str
+	inputs.strIn(stringHandler={}) -> str
 
 *strIn* stands for *String Input* as this function's purpose is receiving string inputs.
 
@@ -129,7 +138,7 @@ The returned value isn't case sensitive.
 
 ### Numbers
 
-	def numIn(numberHandler={})
+	inputs.numIn(numberHandler={})
 
 *numIn* stands for *Number Input* as this function's purpose is receiving numeric inputs.
 
@@ -144,7 +153,7 @@ The handler for this function makes use of the following parameters:
 
 ### Booleans
 
-	def boolIn(boolHandler={}) -> bool
+	inputs.boolIn(boolHandler={}) -> bool
 
 *boolIn* stands for *Boolean Input* as this function's purpose is receiving boolean inputs.
 
@@ -155,7 +164,7 @@ The handler for this function makes use of the following parameters:
 
 ### Dates
 
-	def dateIn(dateHandler={}) -> str
+	inputs.dateIn(dateHandler={}) -> str
 
 *dateIn* stands for *Date Input* as this function's purpose is receiving date inputs.
 
@@ -166,7 +175,7 @@ The handler for this function makes use of the following parameters:
 
 ### List handling
 
-	def listCh(listHandler={})
+	inputs.listCh(listHandler={})
 
 *listCh* stands for *List Choice* as this function returns the choosen element from a list.
 
@@ -178,9 +187,9 @@ The handler for this function makes use of the following parameters:
 
 [Go back to ToC](#table-of-contents)
 
-### Erros, warning and verbose
+### Errors, warning and verbose
 
-	def output(outputHandler: dict)
+	outputs.output(outputHandler: dict)
 
 The handler for this function makes use of the following parameters:
 * string, str: The output string.
