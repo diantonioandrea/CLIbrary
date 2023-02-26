@@ -28,15 +28,6 @@
 Handlers play an important role inside **CLIbrary**.  
 Every function accepts only a handler which is a dictionary structured as {"option": value}.
 
-### Importing submodules
-
-**CLIbrary** submodules can be imported by:
-
-	from CLIbrary import interface
-	from CLIbrary import files
-	from CLIbrary import inputs
-	from CLIbrary import outputs
-
 ## Interface
 
 [Go back to ToC](#table-of-contents)

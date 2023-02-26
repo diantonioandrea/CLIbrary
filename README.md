@@ -5,13 +5,13 @@ Take a look at the [documentation](docs.md)
 
 ## Usage
 
-### Adding CLIbrary to a project
+### Installing CLIbrary
 
 **CLIbrary** can be installed from [PyPI](https://pypi.org) by:
 
 	python3 -m pip install CLIbrary
 
-### Using CLIbrary
+### Importing submodules
 
 **CLIbrary** submodules can be imported by:
 
