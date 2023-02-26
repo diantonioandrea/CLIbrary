@@ -5,7 +5,7 @@ from .outputs import *
 
 def aLoad(fileHandler: dict): # Automatic loading.
 	handler = {}
-	errorHandler = {"error": True}
+	errorHandler = {"type": "error"}
 
 	handler["path"] = ""
 	handler["ignoreMissing"] = False
@@ -32,7 +32,7 @@ def aLoad(fileHandler: dict): # Automatic loading.
 	
 def aDump(fileHandler: dict) -> None: # Automatic dumping.
 	handler = {}
-	errorHandler = {"error": True}
+	errorHandler = {"type": "error"}
 
 	handler["path"] = ""
 	handler["data"] = None

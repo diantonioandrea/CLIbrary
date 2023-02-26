@@ -35,7 +35,7 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 			rawAnswer = str(input(handler["style"] + handler["request"] + Style.RESET_ALL + handler["addedChars"] + Style.RESET_ALL))
 			
 			if handler["verbose"]:
-				output({"verbose": True, "string": "VERBOSE, INPUT: " + rawAnswer})
+				output({"type": "verbose", "string": "VERBOSE, INPUT: " + rawAnswer})
 
 			rawAnswer = " ".join(rawAnswer.split()).lower()
 
@@ -50,11 +50,11 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 				answer["command"] = instructions[0]
 
 			else:
-				output({"error": True, "string": "SYNTAX ERROR"})
+				output({"type": "error", "string": "SYNTAX ERROR"})
 				continue
 
 			if answer["command"] not in handler["allowedCommands"] and rawAnswer != "": # Checks the commands list.
-				output({"error": True, "string": "UNKNOWN OR UNAVAILABLE COMMAND"})
+				output({"type": "error", "string": "UNKNOWN OR UNAVAILABLE COMMAND"})
 				continue
 
 			if answer["command"] == "help": # Prints the help.
@@ -74,11 +74,11 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 						sdOpts[inst.replace("-", "")] = instructions[instructions.index(inst) + 1]
 		
 		except(IndexError):
-			output({"error": True, "string": "SYNTAX ERROR"})
+			output({"type": "error", "string": "SYNTAX ERROR"})
 			continue
 
 		except(EOFError, KeyboardInterrupt): # Handles keyboard interruptions.
-			output({"error": True, "string": "KEYBOARD ERROR"})
+			output({"type": "error", "string": "KEYBOARD ERROR"})
 			continue
 			
 		answer["sdOpts"] = sdOpts
@@ -121,10 +121,10 @@ def helpPrint(handler={}) -> None:
 			
 			helpElements.append(helpString)
 		
-		print("\n\n".join(helpElements)) if len(helpElements) else output({"warning": True, "string": "NO HELP FOR CURRENTLY AVAILABLE COMMANDS", "before": "\n"})
+		print("\n\n".join(helpElements)) if len(helpElements) else output({"type": "warning", "string": "NO HELP FOR CURRENTLY AVAILABLE COMMANDS", "before": "\n"})
 		
 	except(FileNotFoundError):
-		output({"error": True, "string": "HELP FILE ERROR"})
+		output({"type": "error", "string": "HELP FILE ERROR"})
 	
 	except:
-		output({"error": True, "string": "HELP ERROR"})
+		output({"type": "error", "string": "HELP ERROR"})

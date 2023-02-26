@@ -55,18 +55,18 @@ def strIn(stringHandler={}) -> str: # String input.
 			rawAnswer = str(input(allowedString + lengthString + handler["request"] + handler["addedChars"]))
 
 			if handler["verbose"]:
-				output({"verbose": True, "string": "VERBOSE, INPUT: " + rawAnswer})
+				output({"type": "verbose", "string": "VERBOSE, INPUT: " + rawAnswer})
 
 			answer = rawAnswer.lower()
 
 			if handler["fixedLength"] != 0 and len(answer) != handler["fixedLength"]:
-				output({"error": True, "string": "LENGTH ERROR"})
+				output({"type": "error", "string": "LENGTH ERROR"})
 				continue
 
 			reloadFlag = False
 			for char in blockedChars:
 				if char in answer:
-					output({"error": True, "string": "CHARACTER ERROR"})
+					output({"type": "error", "string": "CHARACTER ERROR"})
 					reloadFlag = True
 					break
 
@@ -74,7 +74,7 @@ def strIn(stringHandler={}) -> str: # String input.
 				continue
 
 			if answer in handler["blockedAnswers"]:
-				output({"error": True, "string": "ANSWER ERROR"})
+				output({"type": "error", "string": "ANSWER ERROR"})
 				continue
 
 			if handler["allowedAnswers"] == [] or answer in handler["allowedAnswers"]:
@@ -94,16 +94,16 @@ def strIn(stringHandler={}) -> str: # String input.
 						return answer
 					
 					else:
-						output({"error": True, "string": "VERIFICATION ERROR"})
+						output({"type": "error", "string": "VERIFICATION ERROR"})
 						continue
 			
-			output({"error": True, "string": "SYNTAX ERROR"})
+			output({"type": "error", "string": "SYNTAX ERROR"})
 
 		except(EOFError, KeyboardInterrupt):
-			output({"error": True, "string": "KEYBOARD ERROR"})
+			output({"type": "error", "string": "KEYBOARD ERROR"})
 		
 		except:
-			output({"error": True, "string": "ERROR"})
+			output({"type": "error", "string": "ERROR"})
 
 def dateIn(dateHandler={}) -> str: # Date input.
 	handler = {}
@@ -126,7 +126,7 @@ def dateIn(dateHandler={}) -> str: # Date input.
 		answer = strIn(strHandler)
 
 		if handler["verbose"]:
-			output({"verbose": True, "string": "VERBOSE, INPUT: " + answer})
+			output({"type": "verbose", "string": "VERBOSE, INPUT: " + answer})
 
 		try: # From an answer of Eduard Stepanov on https://stackoverflow.com/questions/16870663/how-do-i-validate-a-date-string-format-in-python
 			if answer != datetime.strptime(answer, "%Y-%m-%d").strftime('%Y-%m-%d'):
@@ -137,7 +137,7 @@ def dateIn(dateHandler={}) -> str: # Date input.
 		except(ValueError):
 			pass
 		
-		output({"error": True, "string": "DATE FORMAT ERROR"})
+		output({"type": "error", "string": "DATE FORMAT ERROR"})
 
 def boolIn(boolHandler={}) -> bool: # Bool input.
 	handler = {}
@@ -157,7 +157,7 @@ def boolIn(boolHandler={}) -> bool: # Bool input.
 	answer = strIn(strHandler)
 
 	if handler["verbose"]:
-		output({"verbose": True, "string": "VERBOSE, INPUT: " + answer})
+		output({"type": "verbose", "string": "VERBOSE, INPUT: " + answer})
 	
 	if answer == "y":
 		return True
@@ -206,14 +206,14 @@ def numIn(numberHandler={}) -> "int, float": # Number input.
 			rawAnswer = str(input(rangeString + handler["request"] + handler["addedChars"]))
 
 			if handler["verbose"]:
-				output({"verbose": True, "string": "VERBOSE, INPUT: " + rawAnswer})
+				output({"type": "verbose", "string": "VERBOSE, INPUT: " + rawAnswer})
 			
 			if rawAnswer != "":
 				answer = float(rawAnswer)
 
 				if len(handler["allowedRange"]) == 2:
 					if answer < handler["allowedRange"][0] or answer > handler["allowedRange"][1]:
-						output({"error": True, "string": "RANGE ERROR"})
+						output({"type": "error", "string": "RANGE ERROR"})
 						continue
 				
 				if int(answer) == answer and "int" in handler["allowedTypes"]:
@@ -229,16 +229,16 @@ def numIn(numberHandler={}) -> "int, float": # Number input.
 
 					return answer
 
-			output({"error": True, "string": "SYNTAX ERROR"})
+			output({"type": "error", "string": "SYNTAX ERROR"})
 				
 		except(ValueError):
-			output({"error": True, "string": "VALUE ERROR"})
+			output({"type": "error", "string": "VALUE ERROR"})
 
 		except(EOFError, KeyboardInterrupt):
-			output({"error": True, "string": "KEYBOARD ERROR"})
+			output({"type": "error", "string": "KEYBOARD ERROR"})
 
 		except:
-			output({"error": True, "string": "ERROR"})
+			output({"type": "error", "string": "ERROR"})
 
 # LISTS HANDLING
 
