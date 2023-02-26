@@ -3,9 +3,7 @@ from colorama import Fore, Back, Style
 def output(outputHandler: dict) -> None:
 	handler = {}
 
-	handler["error"] = False
-	handler["warning"] = False
-	handler["verbose"] = False
+	handler["type"] = ""
 
 	# Prints these style-unaffected strings before and after the main part
 	handler["before"] = ""
@@ -19,13 +17,17 @@ def output(outputHandler: dict) -> None:
 
 	handler.update(outputHandler)
 
-	if handler["error"]:
+	if handler["type"] == "error":
 		outputStyle = handler["errorStyle"]
 	
-	elif handler["warning"]:
+	elif handler["warning"] == "warning":
 		outputStyle = handler["warningStyle"]
 
-	elif handler["verbose"]:
+	elif handler["verbose"] == "verbose":
 		outputStyle = handler["verboseStyle"]
+
+	else:
+		output({"type": "warning", "string": "OUTPUT MISCONFIGURED. PLEASE REFER TO THE DOCUMENTATION.", "before": handler["before"], "after": handler["after"]})
+		outputStyle = ""
 
 	print(handler["before"] + outputStyle + handler["string"] + " " + Style.RESET_ALL + handler["after"])

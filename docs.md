@@ -192,15 +192,14 @@ The handler for this function makes use of the following parameters:
 
 [Go back to ToC](#table-of-contents)
 
-### Errors, warning and verbose
-
 	CLIbrary.output(outputHandler: dict) -> None
 
 The handler for this function makes use of the following parameters:
 * string, str: The output string.
-* error, bool.
-* warning, bool.
-* verbose, bool.
+* type, str: The output type, to be choosen from:
+	* "error",
+	* "warning",
+	* "verbose".
 * errorStyle, str.
 * warningStyle, str.
 * verboseStyle, str.
