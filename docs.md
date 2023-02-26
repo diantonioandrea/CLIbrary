@@ -1,4 +1,4 @@
-# **CLIbrary**'s documentation
+# CLIbrary's documentation
 
 ## Table of Contents
 
@@ -10,7 +10,7 @@
 
 ## Introduction
 
-### **CLIbrary**
+### CLIbrary
 
 **CLIbrary** is *a standardized collection of CLI utilities written in Python to handle commands, I/O and files*. This means it is a set of functions that simplifies writing programs based on it by providing a coherent environment.
 
@@ -25,8 +25,20 @@
 
 ### Handlers
 
-Handlers play an important role inside **CLIbrary**.  
+Handlers play an important role inside **CLIbrary**.
 Every function accepts only a handler which is a dictionary structured as {"option": value}.
+
+Note that, although every function has a default handler, it is recommended to provide at least some options to achieve a better user experience.
+
+### Import CLIbrary
+
+**CLIbrary** can be imported by:
+
+	import CLIbrary
+
+and all the functions can be accessed by:
+
+	CLIbrary.FUNCTION()
 
 ## Interface
 
@@ -34,7 +46,7 @@ Every function accepts only a handler which is a dictionary structured as {"opti
 
 ### CLI
 
-	interface.cmdIn(commandHandler={}) -> dict
+	CLIbrary.cmdIn(commandHandler={}) -> dict
 
 *cmdIn* stands for *Command Input* as this function allows the user to input command as in a CLI interface.
 
@@ -63,19 +75,21 @@ with no more than a single word for the command itself.
 
 ### Help
 
-	interface.helpPrint(handler={}) -> None
+	CLIbrary.helpPrint(handler={}) -> None
 
 *helpPrint* is a function that reads and print the help JSON whose path gets passed to *cmdIn*.
+This function cannot be called manually as its calls are embedded inside *cmdIn*.
+
+### Help entries
 
 A help entry must be formatted this way:
 
 	"command": {
-			"description": "Command description.",
-			"options": {"-sdOpt#": "VALUE", "-sdOpt": "VALUE", "--ddOpt": ""}
-		}
+		"description": "Command description.",
+		"options": {"-sdOpt#": "VALUE", "-sdOpt": "VALUE", "--ddOpt": ""}
+	}
 
-where mandatory options get identified by a "#" and double-dash options don't require a value description.  
-There is no need to call this function manually as its operation is embedded inside *cmdIn*.
+where mandatory options get identified by a "#" and double-dash options don't require a value description.
 
 ## Files
 
@@ -85,7 +99,7 @@ There is no need to call this function manually as its operation is embedded ins
 
 ### Loading
 
-	files.aLoad(fileHandler: dict)
+	CLIbrary.aLoad(fileHandler: dict)
 
 *aLoad* stands for *Automatic Loading* as this function loads informations from files without user confirmation.
 
@@ -95,7 +109,7 @@ The handler for this function makes use of the following parameters:
 
 ### Dumping
 
-	files.aDump(fileHandler: dict) -> None
+	CLIbrary.aDump(fileHandler: dict) -> None
 
 *aDump* stands for *Automatic Dumping* as this function dumps informations to files without user confirmation.
 
@@ -109,7 +123,7 @@ The handler for this function makes use of the following parameters:
 
 ### Strings
 
-	inputs.strIn(stringHandler={}) -> str
+	CLIbrary.strIn(stringHandler={}) -> str
 
 *strIn* stands for *String Input* as this function's purpose is receiving string inputs.
 
@@ -129,7 +143,7 @@ The returned value isn't case sensitive.
 
 ### Numbers
 
-	inputs.numIn(numberHandler={})
+	CLIbrary.numIn(numberHandler={}) -> "int, float"
 
 *numIn* stands for *Number Input* as this function's purpose is receiving numeric inputs.
 
@@ -144,7 +158,7 @@ The handler for this function makes use of the following parameters:
 
 ### Booleans
 
-	inputs.boolIn(boolHandler={}) -> bool
+	CLIbrary.boolIn(boolHandler={}) -> bool
 
 *boolIn* stands for *Boolean Input* as this function's purpose is receiving boolean inputs.
 
@@ -155,7 +169,7 @@ The handler for this function makes use of the following parameters:
 
 ### Dates
 
-	inputs.dateIn(dateHandler={}) -> str
+	CLIbrary.dateIn(dateHandler={}) -> str
 
 *dateIn* stands for *Date Input* as this function's purpose is receiving date inputs.
 
@@ -166,7 +180,7 @@ The handler for this function makes use of the following parameters:
 
 ### List handling
 
-	inputs.listCh(listHandler={})
+	CLIbrary.listCh(listHandler={})
 
 *listCh* stands for *List Choice* as this function returns the choosen element from a list.
 
@@ -180,7 +194,7 @@ The handler for this function makes use of the following parameters:
 
 ### Errors, warning and verbose
 
-	outputs.output(outputHandler: dict)
+	CLIbrary.output(outputHandler: dict) -> None
 
 The handler for this function makes use of the following parameters:
 * string, str: The output string.

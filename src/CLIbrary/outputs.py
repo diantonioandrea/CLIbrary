@@ -1,6 +1,6 @@
 from colorama import Fore, Back, Style
 
-def output(outputHandler: dict):
+def output(outputHandler: dict) -> None:
 	handler = {}
 
 	handler["error"] = False

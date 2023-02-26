@@ -11,11 +11,8 @@ Take a look at the [documentation](docs.md)
 
 	python3 -m pip install CLIbrary
 
-### Importing submodules
+### Importing CLIbrary
 
-**CLIbrary** submodules can be imported by:
+**CLIbrary** can be imported by:
 
-	from CLIbrary import interface
-	from CLIbrary import files
-	from CLIbrary import inputs
-	from CLIbrary import outputs
+	import CLIbrary

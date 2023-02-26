@@ -165,7 +165,7 @@ def boolIn(boolHandler={}) -> bool: # Bool input.
 	else:
 		return False
 
-def numIn(numberHandler={}): # Number input.
+def numIn(numberHandler={}) -> "int, float": # Number input.
 	# Automatically recognizes wether the input is a float or an integer.
 
 	handler = {}
