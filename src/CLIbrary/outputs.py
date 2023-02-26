@@ -20,10 +20,10 @@ def output(outputHandler: dict) -> None:
 	if handler["type"] == "error":
 		outputStyle = handler["errorStyle"]
 	
-	elif handler["warning"] == "warning":
+	elif handler["type"] == "warning":
 		outputStyle = handler["warningStyle"]
 
-	elif handler["verbose"] == "verbose":
+	elif handler["type"] == "verbose":
 		outputStyle = handler["verboseStyle"]
 
 	else:
