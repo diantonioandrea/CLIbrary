@@ -12,6 +12,7 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 	handler["addedChars"] = ": "
 
 	handler["style"] = ""
+	handler["dark"] = False # Option for outputs.output.
 
 	handler["verbose"] = False
 
@@ -35,7 +36,7 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 			rawAnswer = str(input(handler["style"] + handler["request"] + Style.RESET_ALL + handler["addedChars"] + Style.RESET_ALL))
 			
 			if handler["verbose"]:
-				output({"type": "verbose", "string": "VERBOSE, INPUT: " + rawAnswer})
+				output({"type": "verbose", "string": "VERBOSE, INPUT: " + rawAnswer, "dark": handler["dark"]})
 
 			rawAnswer = " ".join(rawAnswer.split()).lower()
 
@@ -50,11 +51,11 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 				answer["command"] = instructions[0]
 
 			else:
-				output({"type": "error", "string": "SYNTAX ERROR"})
+				output({"type": "error", "string": "SYNTAX ERROR", "dark": handler["dark"]})
 				continue
 
 			if answer["command"] not in handler["allowedCommands"] and rawAnswer != "": # Checks the commands list.
-				output({"type": "error", "string": "UNKNOWN OR UNAVAILABLE COMMAND"})
+				output({"type": "error", "string": "UNKNOWN OR UNAVAILABLE COMMAND", "dark": handler["dark"]})
 				continue
 
 			if answer["command"] == "help": # Prints the help.
@@ -74,11 +75,11 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 						sdOpts[inst.replace("-", "")] = instructions[instructions.index(inst) + 1]
 		
 		except(IndexError):
-			output({"type": "error", "string": "SYNTAX ERROR"})
+			output({"type": "error", "string": "SYNTAX ERROR", "dark": handler["dark"]})
 			continue
 
 		except(EOFError, KeyboardInterrupt): # Handles keyboard interruptions.
-			output({"type": "error", "string": "KEYBOARD ERROR"})
+			output({"type": "error", "string": "KEYBOARD ERROR", "dark": handler["dark"]})
 			continue
 			
 		answer["sdOpts"] = sdOpts
@@ -93,38 +94,46 @@ def helpPrint(handler={}) -> None:
 
 		helpElements = []
 
+		if handler["dark"]:
+			font = Fore.BLACK
+			back = Back.BLACK
+
+		else:
+			font = Fore.WHITE
+			back = Back.WHITE
+
 		for key in helpJson:
 			helpString = ""
 
 			if key not in handler["allowedCommands"]:
-				helpString += Back.YELLOW + Fore.WHITE + " UNAVAILABLE " + Style.RESET_ALL
+				helpString += Back.YELLOW + font + " UNAVAILABLE " + Style.RESET_ALL
 
-			helpString += Back.GREEN + Fore.WHITE + " " + key + " " + Back.WHITE + Fore.GREEN + " " + helpJson[key]["description"] + " " + Style.RESET_ALL
+			helpString += Back.GREEN + font + " " + key + " " + back + Fore.GREEN + " " + helpJson[key]["description"] + " " + Style.RESET_ALL
 			
 			if "options" in helpJson[key]:
-				helpString += Back.GREEN + Fore.WHITE + " " + str(len(helpJson[key]["options"])) + " option(s) " + Style.RESET_ALL
+				helpString += Back.GREEN + font + " " + str(len(helpJson[key]["options"])) + " option(s) " + Style.RESET_ALL
 
 				for optionKey in helpJson[key]["options"]:
 					if "#" in optionKey:
-						helpString += "\n\t" + Back.RED + Fore.WHITE + " " + optionKey.replace("#", "") + " "
+						helpString += "\n\t" + Back.RED + font + " " + optionKey.replace("#", "") + " "
 
 						if "--" not in optionKey:
-							helpString += Back.WHITE + Fore.RED + " " + helpJson[key]["options"][optionKey] + " "
+							helpString += back + Fore.RED + " " + helpJson[key]["options"][optionKey] + " "
 					
 					else:
-						helpString += "\n\t" + Back.CYAN + Fore.WHITE + " " + optionKey + " "
+						helpString += "\n\t" + Back.CYAN + font + " " + optionKey + " "
 
 						if "--" not in optionKey:
-							helpString += Back.WHITE + Fore.CYAN + " " + helpJson[key]["options"][optionKey] + " "
+							helpString += back + Fore.CYAN + " " + helpJson[key]["options"][optionKey] + " "
 					
 					helpString += Style.RESET_ALL
 			
 			helpElements.append(helpString)
 		
-		print("\n\n".join(helpElements)) if len(helpElements) else output({"type": "warning", "string": "NO HELP FOR CURRENTLY AVAILABLE COMMANDS", "before": "\n"})
+		print("\n\n".join(helpElements)) if len(helpElements) else output({"type": "warning", "string": "NO HELP FOR CURRENTLY AVAILABLE COMMANDS", "before": "\n", "dark": handler["dark"]})
 		
 	except(FileNotFoundError):
-		output({"type": "error", "string": "HELP FILE ERROR"})
+		output({"type": "error", "string": "HELP FILE ERROR", "dark": handler["dark"]})
 	
 	except:
-		output({"type": "error", "string": "HELP ERROR"})
+		output({"type": "error", "string": "HELP ERROR", "dark": handler["dark"]})

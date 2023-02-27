@@ -5,12 +5,13 @@ from .outputs import *
 
 def aLoad(fileHandler: dict): # Automatic loading.
 	handler = {}
-	errorHandler = {"type": "error"}
 
 	handler["path"] = ""
 	handler["ignoreMissing"] = False
+	handler["dark"] = False # Option for outputs.output.
 
 	handler.update(fileHandler)
+	errorHandler = {"type": "error", "dark": handler["dark"]}
 
 	try:
 		dataFile = open(handler["path"], "rb")
@@ -32,12 +33,13 @@ def aLoad(fileHandler: dict): # Automatic loading.
 	
 def aDump(fileHandler: dict) -> None: # Automatic dumping.
 	handler = {}
-	errorHandler = {"type": "error"}
 
 	handler["path"] = ""
 	handler["data"] = None
+	handler["dark"] = False # Option for outputs.output.
 
 	handler.update(fileHandler)
+	errorHandler = {"type": "error", "dark": handler["dark"]}
 
 	try:
 		dataFile = open(handler["path"], "wb")

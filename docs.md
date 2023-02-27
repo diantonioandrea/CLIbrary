@@ -3,10 +3,25 @@
 ## Table of Contents
 
 1. [Introduction](#introduction)
+	1. [CLIbrary](#clibrary)
+	2. [Handlers](#handlers)
+	3. [Import CLIbrary](#import-clibrary)
 2. [Interface](#interface)
+	1. [CLI](#cli)
+	2. [Help](#help)
+	3. [Help entries](#help-entries)
 3. [Files](#files)
+	1. [Loading](#loading)
+	2. [Dumping](#dumping)
 4. [Inputs](#inputs)
+	1. [Strings](#strings)
+	2. [Numbers](#numbers)
+	3. [Booleans](#booleans)
+	4. [Dates](#dates)
+	5. [List handling](#list-handling)
 5. [Outputs](#outputs)
+	1. [Output function](#output-function)
+	2. [Dark mode](#dark-mode)
 
 ## Introduction
 
@@ -190,6 +205,8 @@ The handler for this function makes use of the following parameters:
 
 ## Outputs
 
+### Output function
+
 [Go back to ToC](#table-of-contents)
 
 	CLIbrary.output(outputHandler: dict) -> None
@@ -199,9 +216,12 @@ The handler for this function makes use of the following parameters:
 * type, str: The output type, to be choosen from:
 	* "error",
 	* "warning",
-	* "verbose".
-* errorStyle, str.
-* warningStyle, str.
-* verboseStyle, str.
+	* "verbose",
+	* "custom": Lets you define a custom output style.
+* customStyle, str.
 * before, str: A string that gets printed before the output and is unaffected by the output styling.
 * after, str: A string that gets printed after the output and is unaffected by the output styling.
+
+### Dark mode
+
+Dark mode has been introduced in version 1.2.0. As of that, every handler accepts a boolean "dark" field which enables this dark mode for outputs.
