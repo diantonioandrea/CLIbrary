@@ -1,4 +1,5 @@
 from pickle import load, dump
+
 from .outputs import *
 
 # FILES HANDLING
@@ -11,7 +12,7 @@ def aLoad(fileHandler: dict): # Automatic loading.
 	handler["dark"] = False # Option for outputs.output.
 
 	handler.update(fileHandler)
-	errorHandler = {"type": "error", "dark": handler["dark"]}
+	errorHandler = {"type": "error"}
 
 	try:
 		dataFile = open(handler["path"], "rb")
@@ -39,7 +40,7 @@ def aDump(fileHandler: dict) -> None: # Automatic dumping.
 	handler["dark"] = False # Option for outputs.output.
 
 	handler.update(fileHandler)
-	errorHandler = {"type": "error", "dark": handler["dark"]}
+	errorHandler = {"type": "error"}
 
 	try:
 		dataFile = open(handler["path"], "wb")

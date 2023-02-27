@@ -5,7 +5,8 @@
 1. [Introduction](#introduction)
 	1. [CLIbrary](#clibrary)
 	2. [Handlers](#handlers)
-	3. [Import CLIbrary](#import-clibrary)
+	3. [Settings](#settings)
+	4. [Import CLIbrary](#import-clibrary)
 2. [Interface](#interface)
 	1. [CLI](#cli)
 	2. [Help](#help)
@@ -21,7 +22,6 @@
 	5. [List handling](#list-handling)
 5. [Outputs](#outputs)
 	1. [Output function](#output-function)
-	2. [Dark mode](#dark-mode)
 
 ## Introduction
 
@@ -44,6 +44,13 @@ Handlers play an important role inside **CLIbrary**.
 Every function accepts only a handler which is a dictionary structured as {"option": value}.
 
 Note that, although every function has a default handler, it is recommended to provide at least some options to achieve a better user experience.
+
+### Settings
+
+As of version 1.2.1, CLIbrary has some "global options" to allow even more personalization.  
+Available options are:
+
+1. CLIbrary.style.setting_darkMode, bool: Enables dark mode.
 
 ### Import CLIbrary
 
@@ -221,7 +228,3 @@ The handler for this function makes use of the following parameters:
 * customStyle, str.
 * before, str: A string that gets printed before the output and is unaffected by the output styling.
 * after, str: A string that gets printed after the output and is unaffected by the output styling.
-
-### Dark mode
-
-Dark mode has been introduced in version 1.2.0. As of that, every handler accepts a boolean "dark" field which enables this dark mode for outputs.

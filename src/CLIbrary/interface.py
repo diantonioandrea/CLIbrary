@@ -1,5 +1,7 @@
 from colorama import Fore, Back, Style
 import json
+
+from .settings import *
 from .outputs import *
 
 # COMMANDS HANDLING
@@ -12,7 +14,6 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 	handler["addedChars"] = ": "
 
 	handler["style"] = ""
-	handler["dark"] = False # Option for outputs.output.
 
 	handler["verbose"] = False
 
@@ -36,7 +37,7 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 			rawAnswer = str(input(handler["style"] + handler["request"] + Style.RESET_ALL + handler["addedChars"] + Style.RESET_ALL))
 			
 			if handler["verbose"]:
-				output({"type": "verbose", "string": "VERBOSE, INPUT: " + rawAnswer, "dark": handler["dark"]})
+				output({"type": "verbose", "string": "VERBOSE, INPUT: " + rawAnswer})
 
 			rawAnswer = " ".join(rawAnswer.split()).lower()
 
@@ -51,11 +52,11 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 				answer["command"] = instructions[0]
 
 			else:
-				output({"type": "error", "string": "SYNTAX ERROR", "dark": handler["dark"]})
+				output({"type": "error", "string": "SYNTAX ERROR"})
 				continue
 
 			if answer["command"] not in handler["allowedCommands"] and rawAnswer != "": # Checks the commands list.
-				output({"type": "error", "string": "UNKNOWN OR UNAVAILABLE COMMAND", "dark": handler["dark"]})
+				output({"type": "error", "string": "UNKNOWN OR UNAVAILABLE COMMAND"})
 				continue
 
 			if answer["command"] == "help": # Prints the help.
@@ -75,11 +76,11 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 						sdOpts[inst.replace("-", "")] = instructions[instructions.index(inst) + 1]
 		
 		except(IndexError):
-			output({"type": "error", "string": "SYNTAX ERROR", "dark": handler["dark"]})
+			output({"type": "error", "string": "SYNTAX ERROR"})
 			continue
 
 		except(EOFError, KeyboardInterrupt): # Handles keyboard interruptions.
-			output({"type": "error", "string": "KEYBOARD ERROR", "dark": handler["dark"]})
+			output({"type": "error", "string": "KEYBOARD ERROR"})
 			continue
 			
 		answer["sdOpts"] = sdOpts
@@ -87,6 +88,8 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 		return answer
 
 def helpPrint(handler={}) -> None:
+	from .settings import style
+
 	try:
 		helpFile = open(handler["helpPath"], "r")
 		helpJson = json.load(helpFile)
@@ -94,7 +97,7 @@ def helpPrint(handler={}) -> None:
 
 		helpElements = []
 
-		if handler["dark"]:
+		if style.setting_darkMode:
 			font = Fore.BLACK
 			back = Back.BLACK
 
@@ -130,10 +133,10 @@ def helpPrint(handler={}) -> None:
 			
 			helpElements.append(helpString)
 		
-		print("\n\n".join(helpElements)) if len(helpElements) else output({"type": "warning", "string": "NO HELP FOR CURRENTLY AVAILABLE COMMANDS", "before": "\n", "dark": handler["dark"]})
+		print("\n\n".join(helpElements)) if len(helpElements) else output({"type": "warning", "string": "NO HELP FOR CURRENTLY AVAILABLE COMMANDS", "before": "\n"})
 		
 	except(FileNotFoundError):
-		output({"type": "error", "string": "HELP FILE ERROR", "dark": handler["dark"]})
+		output({"type": "error", "string": "HELP FILE ERROR"})
 	
 	except:
-		output({"type": "error", "string": "HELP ERROR", "dark": handler["dark"]})
+		output({"type": "error", "string": "HELP ERROR"})

@@ -1,6 +1,8 @@
 from colorama import Fore, Back, Style
 
 def output(outputHandler: dict) -> None:
+	from .settings import style
+
 	handler = {}
 
 	# Output type.
@@ -13,12 +15,9 @@ def output(outputHandler: dict) -> None:
 	# Output string.
 	handler["string"] = ""
 
-	# Dark option for default output styles.
-	handler["dark"] = False
-
 	handler.update(outputHandler)
 
-	if handler["dark"]:
+	if style.setting_darkMode:
 		errorStyle = Back.RED + Fore.BLACK + " \u25A0 " + Back.BLACK + Fore.RED + " "
 		warningStyle = Back.YELLOW + Fore.BLACK + " \u25B2 " + Back.BLACK + Fore.YELLOW + " "
 		verboseStyle = Back.CYAN + Fore.BLACK + " \u25CF " + Back.BLACK + Fore.CYAN + " "
