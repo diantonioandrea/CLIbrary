@@ -1,7 +1,14 @@
 # CLIbrary's documentation
 
+## Projects built with CLIbrary
+
+These projects have been built with **CLIbrary** and they should serve as examples for future **CLIbrary** projects.
+
+* [**openBriefcase**](https://github.com/diantonioandrea/openBriefcase), by [Andrea Di Antonio](https://github.com/diantonioandrea).
+
 ## Table of Contents
 
+0. [Projects built with CLIbrary](#projects-built-with-clibrary)
 1. [Introduction](#introduction)
 	1. [CLIbrary](#clibrary)
 	2. [Handlers](#handlers)
@@ -50,7 +57,7 @@ Note that, although every function has a default handler, it is recommended to p
 As of version 1.2.1, CLIbrary has some "global options" to allow even more personalization.  
 Available options are:
 
-1. CLIbrary.style.setting_darkMode, bool: Enables dark mode.
+1. `CLIbrary.style.setting_darkMode`, bool: Enables dark mode.
 
 ### Import CLIbrary
 
@@ -212,19 +219,19 @@ The handler for this function makes use of the following parameters:
 
 ## Outputs
 
-### Output function
-
 [Go back to ToC](#table-of-contents)
+
+### Output function
 
 	CLIbrary.output(outputHandler: dict) -> None
 
 The handler for this function makes use of the following parameters:
 * string, str: The output string.
 * type, str: The output type, to be choosen from:
-	* "error",
-	* "warning",
-	* "verbose",
-	* "custom": Lets you define a custom output style.
+	* `"error"`,
+	* `"warning"`,
+	* `"verbose"`,
+	* `"custom"`: Lets you define a custom output style.
 * customStyle, str.
 * before, str: A string that gets printed before the output and is unaffected by the output styling.
 * after, str: A string that gets printed after the output and is unaffected by the output styling.
