@@ -122,8 +122,6 @@ where mandatory options get identified by a "#" and double-dash options don't re
 
 This is an example from **openBriefcase**'s help JSON[^3]:
 
-[^3]: This example refers to the version 1.5.0 of openBriefcase. The updated file can be found on [GitHub](https://github.com/diantonioandrea/openBriefcase/blob/main/resources/openBriefcaseAccountHelp.json).
-
 	{
 		"exit": {
 			"description": "Exits the account environment."
@@ -150,6 +148,8 @@ This is an example from **openBriefcase**'s help JSON[^3]:
 			"options": {"-s": "STARTING_TIME", "-e": "ENDING_TIME"}
 		}
 	}
+
+[^3]: This example refers to the version 1.5.0 of openBriefcase. The updated file can be found on [GitHub](https://github.com/diantonioandrea/openBriefcase/blob/main/resources/openBriefcaseAccountHelp.json).
 
 ## Files
 
