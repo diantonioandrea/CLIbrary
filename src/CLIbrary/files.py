@@ -9,10 +9,8 @@ def aLoad(fileHandler: dict): # Automatic loading.
 
 	handler["path"] = ""
 	handler["ignoreMissing"] = False
-	handler["dark"] = False # Option for outputs.output.
 
 	handler.update(fileHandler)
-	errorHandler = {"type": "error"}
 
 	try:
 		dataFile = open(handler["path"], "rb")
@@ -20,15 +18,13 @@ def aLoad(fileHandler: dict): # Automatic loading.
 		dataFile.close()
 				
 	except(FileNotFoundError):
-		if not handler["ignoreMissing"]:
-			errorHandler["string"] = "\'" + fileHandler["path"] + "\' NOT FOUND ERROR"
-			output(errorHandler)
 		data = None
+		if not handler["ignoreMissing"]:
+			output({"type": "error", "string": "\'" + fileHandler["path"] + "\' NOT FOUND"})
 
 	except:
-		errorHandler["string"] = "FILE ERROR"
-		output(errorHandler)
 		data = None
+		output({"type": "error", "string": "FILE ERROR"})
 
 	return data
 	
@@ -37,10 +33,8 @@ def aDump(fileHandler: dict) -> None: # Automatic dumping.
 
 	handler["path"] = ""
 	handler["data"] = None
-	handler["dark"] = False # Option for outputs.output.
 
 	handler.update(fileHandler)
-	errorHandler = {"type": "error"}
 
 	try:
 		dataFile = open(handler["path"], "wb")
@@ -48,5 +42,4 @@ def aDump(fileHandler: dict) -> None: # Automatic dumping.
 		dataFile.close()
 	
 	except:
-		errorHandler["string"] = "FILE ERROR"
-		output(errorHandler)
+		output({"type": "error", "string": "FILE ERROR"})

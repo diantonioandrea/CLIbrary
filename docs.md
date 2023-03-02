@@ -120,6 +120,37 @@ A help entry must be formatted this way:
 
 where mandatory options get identified by a "#" and double-dash options don't require a value description.
 
+This is an example from **openBriefcase**'s help JSON[^3]:
+
+[^3]: This example refers to the version 1.5.0 of openBriefcase. The updated file can be found on [GitHub](https://github.com/diantonioandrea/openBriefcase/blob/main/resources/openBriefcaseAccountHelp.json).
+
+	{
+		"exit": {
+			"description": "Exits the account environment."
+		},
+		"new": {
+			"description": "Creates a new movement."
+		},
+		"edit": {
+			"description": "Edits a movement's features specifying at least an attribute.",
+			"options": {"-q#": "MOVEMENT_QUERY", "--reason": "", "--amount": "", "--date": "", "--category": ""}
+		},
+		"remove": {
+			"description": "Removes a movement.",
+			"options": {"-c#": "MOVEMENT_QUERY"}
+		},
+		"summary": {
+			"description": "Prints a summary of the account's movements."
+		},
+		"load": {
+			"description": "Loads a set of movements from a file."
+		},
+		"dump": {
+			"description": "Dumps a set of movements to a file.",
+			"options": {"-s": "STARTING_TIME", "-e": "ENDING_TIME"}
+		}
+	}
+
 ## Files
 
 [Go back to ToC](#table-of-contents)

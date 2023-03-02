@@ -17,6 +17,7 @@ def output(outputHandler: dict) -> None:
 
 	handler.update(outputHandler)
 
+	# Checks global style
 	if style.setting_darkMode:
 		errorStyle = Back.RED + Fore.BLACK + " \u25A0 " + Back.BLACK + Fore.RED + " "
 		warningStyle = Back.YELLOW + Fore.BLACK + " \u25B2 " + Back.BLACK + Fore.YELLOW + " "
