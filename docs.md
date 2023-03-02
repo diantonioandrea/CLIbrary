@@ -120,7 +120,7 @@ A help entry must be formatted this way:
 
 where mandatory options get identified by a "#" and double-dash options don't require a value description.
 
-This is an example from **openBriefcase**'s help JSON[^3]:
+This is an example from **openBriefcase**'s accounts help JSON[^3]:
 
 	{
 		"exit": {
@@ -213,7 +213,6 @@ The handler for this function makes use of the following parameters:
 * allowedRange, list: The range in which the function accepts an answer, if not empty.
 * allowedTypes, list: Whether to accept just integer or integer and floats.
 * round, int: The number of decimal to round to, if different from -1.
-* noSpace, bool: Whether to allow or not the use of spaces.
 * verbose, bool.
 
 ### Booleans
