@@ -57,7 +57,8 @@ Note that, although every function has a default handler, it is recommended to p
 As of version 1.2.1, CLIbrary has some "global options" to allow even more personalization.  
 Available options are:
 
-1. `CLIbrary.style.setting_darkMode`, bool: Enables dark mode.
+1. `CLIbrary.style.setting_darkMode`, bool: Enables global dark mode.
+2. `CLIbrary.style.setting_plainMode`, bool: Disables styling.
 
 ### Import CLIbrary
 
@@ -262,6 +263,6 @@ The handler for this function makes use of the following parameters:
 	* `"warning"`,
 	* `"verbose"`,
 	* `"custom"`: Lets you define a custom output style.
-* customStyle, str.
+* style, str.
 * before, str: A string that gets printed before the output and is unaffected by the output styling.
 * after, str: A string that gets printed after the output and is unaffected by the output styling.

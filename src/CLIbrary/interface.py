@@ -12,16 +12,15 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 
 	handler["request"] = "enter a command"
 	handler["addedChars"] = ": "
-
 	handler["style"] = ""
-
 	handler["verbose"] = False
-
 	handler["allowedCommands"] = ["exit"]
-
 	handler["helpPath"] = ""
 
 	handler.update(commandHandler)
+
+	if style.setting_plainMode:
+		handler["style"] = ""
 
 	if "exit" not in handler["allowedCommands"]: # "exit" must be in the allowed commands.
 		handler["allowedCommands"].append("exit")
@@ -105,33 +104,61 @@ def helpPrint(handler={}) -> None:
 			font = Fore.WHITE
 			back = Back.WHITE
 
-		for key in helpJson:
-			helpString = ""
 
-			if key not in handler["allowedCommands"]:
-				helpString += Back.YELLOW + font + " UNAVAILABLE " + Style.RESET_ALL
+		if not style.setting_plainMode:
+			for key in helpJson:
+				helpString = ""
 
-			helpString += Back.GREEN + font + " " + key + " " + back + Fore.GREEN + " " + helpJson[key]["description"] + " " + Style.RESET_ALL
+				if key not in handler["allowedCommands"]:
+					helpString += Back.YELLOW + font + " UNAVAILABLE " + Style.RESET_ALL
+
+				helpString += Back.GREEN + font + " " + key + " " + back + Fore.GREEN + " " + helpJson[key]["description"] + " " + Style.RESET_ALL
+				
+				if "options" in helpJson[key]:
+					helpString += Back.GREEN + font + " " + str(len(helpJson[key]["options"])) + " option(s) " + Style.RESET_ALL
+
+					for optionKey in helpJson[key]["options"]:
+						if "#" in optionKey:
+							helpString += "\n\t" + Back.RED + font + " " + optionKey.replace("#", "") + " "
+
+							if "--" not in optionKey:
+								helpString += back + Fore.RED + " " + helpJson[key]["options"][optionKey] + " "
+						
+						else:
+							helpString += "\n\t" + Back.CYAN + font + " " + optionKey + " "
+
+							if "--" not in optionKey:
+								helpString += back + Fore.CYAN + " " + helpJson[key]["options"][optionKey] + " "
+						
+						helpString += Style.RESET_ALL
+				
+				helpElements.append(helpString)
 			
-			if "options" in helpJson[key]:
-				helpString += Back.GREEN + font + " " + str(len(helpJson[key]["options"])) + " option(s) " + Style.RESET_ALL
+		else:
+			for key in helpJson:
+				helpString = ""
 
-				for optionKey in helpJson[key]["options"]:
-					if "#" in optionKey:
-						helpString += "\n\t" + Back.RED + font + " " + optionKey.replace("#", "") + " "
+				if key not in handler["allowedCommands"]:
+					helpString += "[UNAVAILABLE] "
+
+				helpString += key + ": " + helpJson[key]["description"]
+				
+				if "options" in helpJson[key]:
+					helpString += " [" + str(len(helpJson[key]["options"])) + " option(s)]"
+
+					for optionKey in helpJson[key]["options"]:
+						if "#" in optionKey:
+							helpString += "\n\t[MANDATORY] " + optionKey.replace("#", "")
+						
+						else:
+							helpString += "\n\t" + optionKey
 
 						if "--" not in optionKey:
-							helpString += back + Fore.RED + " " + helpJson[key]["options"][optionKey] + " "
-					
-					else:
-						helpString += "\n\t" + Back.CYAN + font + " " + optionKey + " "
-
-						if "--" not in optionKey:
-							helpString += back + Fore.CYAN + " " + helpJson[key]["options"][optionKey] + " "
-					
-					helpString += Style.RESET_ALL
-			
-			helpElements.append(helpString)
+							helpString += ": " + helpJson[key]["options"][optionKey]
+						
+						helpString += Style.RESET_ALL
+				
+				helpElements.append(helpString)
 		
 		print("\n\n".join(helpElements)) if len(helpElements) else output({"type": "warning", "string": "NO HELP FOR CURRENTLY AVAILABLE COMMANDS", "before": "\n"})
 		

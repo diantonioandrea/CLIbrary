@@ -8,6 +8,9 @@ def output(outputHandler: dict) -> None:
 	# Output type.
 	handler["type"] = ""
 
+	# Custom style
+	handler["style"] = ""
+
 	# Prints these style-unaffected strings before and after the main part.
 	handler["before"] = ""
 	handler["after"] = ""
@@ -28,8 +31,6 @@ def output(outputHandler: dict) -> None:
 		warningStyle = Back.YELLOW + Fore.WHITE + " \u25B2 " + Back.WHITE + Fore.YELLOW + " "
 		verboseStyle = Back.CYAN + Fore.WHITE + " \u25CF " + Back.WHITE + Fore.CYAN + " "
 
-	customStyle = ""
-
 	if handler["type"] == "error":
 		outputStyle = errorStyle
 	
@@ -40,10 +41,17 @@ def output(outputHandler: dict) -> None:
 		outputStyle = verboseStyle
 
 	elif handler["type"] == "custom":
-		outputStyle = customStyle
+		outputStyle = handler["style"]
 	
 	else:
 		output({"type": "warning", "string": "OUTPUT MISCONFIGURED. PLEASE REFER TO THE DOCUMENTATION.", "before": handler["before"], "after": handler["after"]})
 		outputStyle = ""
+
+	if style.setting_plainMode:
+		if handler["type"] in ["error", "warning", "verbose"]:
+			outputStyle = "[" + handler["type"].upper() + "] "
+
+		else:
+			outputStyle = ""
 
 	print(handler["before"] + outputStyle + handler["string"] + " " + Style.RESET_ALL + handler["after"])

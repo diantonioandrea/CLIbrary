@@ -2,6 +2,7 @@ from colorama import Fore, Back, Style
 from datetime import datetime
 
 from .outputs import *
+from .settings import *
 
 # INPUT HANDLING
 
@@ -11,7 +12,6 @@ def strIn(stringHandler={}) -> str: # String input.
 	handler["request"] = "Insert a string"
 	handler["addedChars"] = ": "
 	handler["allowedChars"] = []
-
 	handler["allowedAnswers"] = []
 	handler["allowedStyle"] = Fore.CYAN
 	handler["blockedAnswers"] = []
@@ -23,6 +23,9 @@ def strIn(stringHandler={}) -> str: # String input.
 	handler["verbose"] = False
 
 	handler.update(stringHandler)
+
+	if style.setting_plainMode:
+		handler["allowedStyle"] = ""
 
 	charactersRange = list(range(0, 48)) + list(range(58, 65)) + list(range(91, 97)) + list(range(123, 256))
 	if not handler["noSpace"]:
@@ -47,7 +50,11 @@ def strIn(stringHandler={}) -> str: # String input.
 
 	try:
 		if handler["fixedLength"] > 0:
-			lengthString = Back.GREEN + Fore.MAGENTA + "[" + str(handler["fixedLength"]) + "]" + Style.RESET_ALL + " "
+			if style.setting_plainMode:
+				lengthString = "[" + str(handler["fixedLength"]) + "] "
+			
+			else:
+				lengthString = Back.GREEN + Fore.MAGENTA + "[" + str(handler["fixedLength"]) + "]" + Style.RESET_ALL + " "
 	except:
 		handler["fixedLength"] = 0
 
@@ -189,7 +196,11 @@ def numIn(numberHandler={}) -> "int, float": # Number input.
 				handler["allowedRange"] = []
 
 			else:
-				rangeString = Fore.GREEN + "[" + str(handler["allowedRange"][0]) + ", " + str(handler["allowedRange"][1]) + "] " + Style.RESET_ALL
+				if style.setting_plainMode:
+					rangeString = "[" + str(handler["allowedRange"][0]) + ", " + str(handler["allowedRange"][1]) + "] "
+
+				else:
+					rangeString = Fore.GREEN + "[" + str(handler["allowedRange"][0]) + ", " + str(handler["allowedRange"][1]) + "] " + Style.RESET_ALL
 
 	except(IndexError, TypeError):
 		handler["allowedRange"] = []
