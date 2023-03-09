@@ -5,6 +5,7 @@
 These projects have been built with **CLIbrary** and they should serve as examples for future **CLIbrary** projects.
 
 * [**openBriefcase**](https://github.com/diantonioandrea/openBriefcase), by [Andrea Di Antonio](https://github.com/diantonioandrea).
+* [**NBody**](https://github.com/diantonioandrea/NBody), by [Andrea Di Antonio](https://github.com/diantonioandrea).
 
 ## Table of Contents
 
@@ -68,7 +69,7 @@ Available options are:
 
 and all the functions can be accessed by:
 
-	CLIbrary.FUNCTION()
+	CLIbrary.FUNCTION_NAME()
 
 ## Interface
 
@@ -116,7 +117,7 @@ A help entry must be formatted this way:
 
 	"command": {
 		"description": "Command description.",
-		"options": {"-sdOpt#": "VALUE", "-sdOpt": "VALUE", "--ddOpt": ""}
+		"options": {"-sdOpt#": "VALUE_DESCRIPTION", "-sdOpt": "VALUE_DESCRIPTION", "--ddOpt": ""}
 	}
 
 where mandatory options get identified by a "#" and double-dash options don't require a value description.
