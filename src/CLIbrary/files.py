@@ -1,7 +1,7 @@
 from pickle import load, dump
 
 from .outputs import *
-from .settings import *
+from .settings import data
 
 # FILES HANDLING
 
