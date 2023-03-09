@@ -16,6 +16,7 @@ def strIn(stringHandler={}) -> str: # String input.
 	handler["allowedStyle"] = Fore.CYAN
 	handler["blockedAnswers"] = []
 	handler["noSpace"] = False
+	handler["empty"] = False
 	handler["fixedLength"] = 0
 
 	handler["verification"] = False
@@ -26,6 +27,9 @@ def strIn(stringHandler={}) -> str: # String input.
 
 	if style.setting_plainMode:
 		handler["allowedStyle"] = ""
+
+	if not handler["empty"]:
+		handler["blockedAnswers"].append("")
 
 	charactersRange = list(range(0, 48)) + list(range(58, 65)) + list(range(91, 97)) + list(range(123, 256))
 	if not handler["noSpace"]:

@@ -196,6 +196,7 @@ The handler for this function makes use of the following parameters:
 * allowedChars, list: The set of allowed characters which aren't letters.
 * allowedAnswers, list: The list of the only allowed answers, if not empty.
 * allowedStyle, str: The style of the *allowedAnswers* hint.
+* empty, bool: Whether to allow or not empty strings.
 * blockedAnswers, list: The list of the blocked answers.
 * noSpace, bool: Whether to allow or not the use of spaces.
 * fixedLength, int: The length of the accepted answer, if different from zero.
