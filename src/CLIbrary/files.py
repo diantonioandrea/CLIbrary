@@ -1,6 +1,7 @@
 from pickle import load, dump
 
 from .outputs import *
+from .settings import *
 
 # FILES HANDLING
 
@@ -13,14 +14,14 @@ def aLoad(fileHandler: dict): # Automatic loading.
 	handler.update(fileHandler)
 
 	try:
-		dataFile = open(handler["path"], "rb")
+		dataFile = open(handler["path"] + data.setting_fileExtension, "rb")
 		data = load(dataFile)
 		dataFile.close()
 				
 	except(FileNotFoundError):
 		data = None
 		if not handler["ignoreMissing"]:
-			output({"type": "error", "string": "\'" + fileHandler["path"] + "\' NOT FOUND"})
+			output({"type": "error", "string": "\'" + fileHandler["path"] + data.setting_fileExtension + "\' NOT FOUND"})
 
 	except:
 		data = None
@@ -37,7 +38,7 @@ def aDump(fileHandler: dict) -> None: # Automatic dumping.
 	handler.update(fileHandler)
 
 	try:
-		dataFile = open(handler["path"], "wb")
+		dataFile = open(handler["path"] + data.setting_fileExtension, "wb")
 		dump(handler["data"], dataFile)
 		dataFile.close()
 	

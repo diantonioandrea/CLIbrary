@@ -60,6 +60,7 @@ Available options are:
 
 1. `CLIbrary.style.setting_darkMode`, bool: Enables global dark mode.
 2. `CLIbrary.style.setting_plainMode`, bool: Disables styling.
+3. `CLIbrary.data.setting_fileExtension`, str: Defines a file extension for *CLIbrary.aDump* and *CLIbrary.aLoad*. Default value based on Python's module *pickle*.
 
 ### Import CLIbrary
 
