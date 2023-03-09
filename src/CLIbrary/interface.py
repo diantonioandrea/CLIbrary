@@ -6,6 +6,8 @@ from .outputs import *
 # COMMANDS HANDLING
 
 def cmdIn(commandHandler={}) -> dict: # Command input.
+	from .settings import style
+	
 	handler = {}
 	answer = {}
 
