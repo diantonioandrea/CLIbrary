@@ -1,11 +1,12 @@
 from pickle import load, dump
 
 from .outputs import *
-from .settings import data
 
 # FILES HANDLING
 
 def aLoad(fileHandler: dict): # Automatic loading.
+	from .settings import data
+
 	handler = {}
 
 	handler["path"] = ""
@@ -30,6 +31,8 @@ def aLoad(fileHandler: dict): # Automatic loading.
 	return data
 	
 def aDump(fileHandler: dict) -> None: # Automatic dumping.
+	from .settings import data
+	
 	handler = {}
 
 	handler["path"] = ""
