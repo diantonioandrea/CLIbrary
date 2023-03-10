@@ -255,9 +255,9 @@ def numIn(numberHandler={}) -> "int, float": # Number input.
 		handler["allowedRange"] = []
 	if len(handler["allowedRange"]) != 2 or False in [type(number) not in [int, float] for number in handler["allowedRange"]]:
 		handler["allowedRange"] = []
-	if handler["allowedRange"][0] > handler["allowedRange"][1]:
+	elif handler["allowedRange"][0] > handler["allowedRange"][1]:
 		handler["allowedRange"] = []
-	if not type(handler["allowedType"]) == list:
+	if not type(handler["allowedTypes"]) == list:
 		handler["allowedTypes"] = ["int", "float"]
 	if len(handler["allowedTypes"]) not in [1, 2] or set(handler["allowedTypes"]).intersection({"int", "float"}) == set():
 		handler["allowedTypes"] = ["int", "float"]
