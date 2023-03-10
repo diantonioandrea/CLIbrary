@@ -54,7 +54,7 @@ def strIn(stringHandler={}) -> str: # String input.
 
 	if not type(handler["fixedLength"]) == int:
 		handler["fixedLength"] = 0
-	elif handler["fixedLength"] < 0:
+	if handler["fixedLength"] < 0:
 		handler["fixedLength"] = 0
 
 	# Stylings.
@@ -253,13 +253,13 @@ def numIn(numberHandler={}) -> "int, float": # Number input.
 
 	if not type(handler["allowedRange"]) == list:
 		handler["allowedRange"] = []
-	elif len(handler["allowedRange"]) != 2 or False in [type(number) not in [int, float] for number in handler["allowedRange"]]:
+	if len(handler["allowedRange"]) != 2 or False in [type(number) not in [int, float] for number in handler["allowedRange"]]:
 		handler["allowedRange"] = []
-	elif handler["allowedRange"][0] > handler["allowedRange"][1]:
+	if handler["allowedRange"][0] > handler["allowedRange"][1]:
 		handler["allowedRange"] = []
 	if not type(handler["allowedType"]) == list:
 		handler["allowedTypes"] = ["int", "float"]
-	elif len(handler["allowedTypes"]) not in [1, 2] or set(handler["allowedTypes"]).intersection({"int", "float"}) == set():
+	if len(handler["allowedTypes"]) not in [1, 2] or set(handler["allowedTypes"]).intersection({"int", "float"}) == set():
 		handler["allowedTypes"] = ["int", "float"]
 
 	if not type(handler["verbose"]) == bool:
@@ -334,7 +334,7 @@ def listCh(listHandler={}): # List choice.
 
 	# Checks types and values.
 	if not type(handler["request"]) == str:
-		handler["request"] = "List item"
+		handler["request"] = "List "
 	if not type(handler["added"]) == str:
 		handler["added"] = ": "
 

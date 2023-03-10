@@ -11,35 +11,54 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 	handler = {}
 	answer = {}
 
-	handler["request"] = "enter a command"
-	handler["addedChars"] = ": "
-	handler["style"] = ""
-	handler["verbose"] = False
-	handler["allowedCommands"] = ["exit"]
-	handler["helpPath"] = ""
+	# Strings.
+	handler["request"] = "Command" # The input request.
+	handler["addedChars"] = ": " # The set of added characters to the input request.
+	handler["style"] = "" # Prompt style.
+	handler["helpPath"] = "" # Path to the help JSON. Toggles "help" as an allowed command.
 
+	# Lists.
+	handler["allowedCommands"] = ["exit"] # The allowed commands. "exit" must be here.
+
+	# Bools.
+	handler["verbose"] = False # Verbosity.
+
+	# Updates the handler.
 	handler.update(commandHandler)
 
+	# Checks types and values.
+	if not type(handler["request"]) == str:
+		handler["request"] = "Command"
+	if not type(handler["added"]) == str:
+		handler["added"] = ": "
+	if not type(handler["style"]) == str:
+		handler["style"] = ""
+	if not type(handler["helpPath"]) == str:
+		handler["helpPath"] = ""
+
+	if not type(handler["allowedCommands"]) == list:
+		handler["allowedCommands"] = ["exit"]
+	if "exit" not in handler["allowedCommands"]:
+		handler["allowedCommands"].append("exit")
+	if "help" not in handler["allowedCommands"] and handler["helpPath"]:
+		handler["allowedCommands"].append("help")
+
+	if not type(handler["verbose"]) == bool:
+		handler["verbose"] = False
+
+	if "help" in handler["allowedCommands"] and not handler["helpPath"]: # "help" as an embedded command.
+		handler["allowedCommands"].remove("help")
+
+	# Plain style.
 	if style.setting_plainMode:
 		handler["style"] = ""
 
-	if "exit" not in handler["allowedCommands"]: # "exit" must be in the allowed commands.
-		handler["allowedCommands"].append("exit")
-	
-	if "help" not in handler["allowedCommands"] and handler["helpPath"] != "": # "help" is an embedded command.
-		handler["allowedCommands"].append("help")
-
-	if "help" in handler["allowedCommands"] and handler["helpPath"] == "":
-		handler["allowedCommands"].remove("help")
-
 	while True:
 		try:
-			rawAnswer = str(input(handler["style"] + handler["request"] + Style.RESET_ALL + handler["addedChars"] + Style.RESET_ALL))
+			rawAnswer = str(input(handler["style"] + handler["request"] + Style.RESET_ALL + handler["addedChars"] + Style.RESET_ALL)).lower()
 			
 			if handler["verbose"]:
 				output({"type": "verbose", "string": "VERBOSE, INPUT: " + rawAnswer})
-
-			rawAnswer = " ".join(rawAnswer.split()).lower()
 
 			instructions = rawAnswer.split(" ")
 
@@ -63,7 +82,7 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 				helpPrint(handler)
 				continue
 
-			for inst in instructions: # Parse the options.
+			for inst in instructions: # Parses the options.
 				if "--" in inst:
 					ddOpts.append(inst.replace("--", ""))
 				
@@ -87,7 +106,7 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 		answer["ddOpts"] = ddOpts
 		return answer
 
-def helpPrint(handler={}) -> None:
+def helpPrint(handler={}) -> None: # Prints the help.
 	from .settings import style
 
 	try:
