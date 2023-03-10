@@ -13,7 +13,7 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 
 	# Strings.
 	handler["request"] = "Command" # The input request.
-	handler["addedChars"] = ": " # The set of added characters to the input request.
+	handler["added"] = ": " # The set of added characters to the input request.
 	handler["style"] = "" # Prompt style.
 	handler["helpPath"] = "" # Path to the help JSON. Toggles "help" as an allowed command.
 
@@ -55,7 +55,7 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 
 	while True:
 		try:
-			rawAnswer = str(input(handler["style"] + handler["request"] + Style.RESET_ALL + handler["addedChars"] + Style.RESET_ALL)).lower()
+			rawAnswer = str(input(handler["style"] + handler["request"] + Style.RESET_ALL + handler["added"] + Style.RESET_ALL)).lower()
 			
 			if handler["verbose"]:
 				output({"type": "verbose", "string": "VERBOSE, INPUT: " + rawAnswer})
