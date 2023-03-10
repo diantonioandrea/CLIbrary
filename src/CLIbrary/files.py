@@ -9,12 +9,23 @@ def aLoad(fileHandler: dict): # Automatic loading.
 
 	handler = {}
 
+	# Strings.
 	handler["path"] = ""
+
+	# Bools.
 	handler["ignoreMissing"] = False
 
+	# Updates the handler.
 	handler.update(fileHandler)
 
-	try:
+	# Checks types and values.
+	if not type(handler["path"]) == str:
+		handler["path"] = ""
+
+	if not type(handler["ignoreMissing"]) == bool:
+		handler["ignoreMissing"] = False
+
+	try: # Try to gather data from the file.
 		dataFile = open(handler["path"] + data.setting_fileExtension, "rb")
 		data = load(dataFile)
 		dataFile.close()
@@ -35,12 +46,20 @@ def aDump(fileHandler: dict) -> None: # Automatic dumping.
 	
 	handler = {}
 
+	# Strings.
 	handler["path"] = ""
+
+	# Others.
 	handler["data"] = None
 
+	# Updates the handler.
 	handler.update(fileHandler)
 
-	try:
+	# Checks types and values.
+	if not type(handler["path"]) == str:
+		handler["path"] = ""
+
+	try: # Try to write the file.
 		dataFile = open(handler["path"] + data.setting_fileExtension, "wb")
 		dump(handler["data"], dataFile)
 		dataFile.close()

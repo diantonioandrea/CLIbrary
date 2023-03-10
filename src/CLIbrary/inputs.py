@@ -331,6 +331,8 @@ def listCh(listHandler={}): # List choice.
 	numberHandler["added"] = handler["added"]
 	numberHandler["allowedTypes"] = ["int"]
 
+
+	# Checks types and values.
 	if not type(handler["request"]) == str:
 		handler["request"] = "List item"
 	if not type(handler["added"]) == str:
