@@ -5,20 +5,23 @@ def output(outputHandler: dict) -> None:
 
 	handler = {}
 
-	# Output type.
-	handler["type"] = ""
-
-	# Custom style
-	handler["style"] = ""
-
-	# Prints these style-unaffected strings before and after the main part.
-	handler["before"] = ""
-	handler["after"] = ""
-
-	# Output string.
-	handler["string"] = ""
+	# Strings.
+	handler["string"] = "" # Output string.
+	handler["type"] = "" # Output type.
+	handler["before"] = "" # Prints this style-unaffected string before the main string.
+	handler["after"] = "" # Prints this style-unaffected string afteer the main string.
 
 	handler.update(outputHandler)
+
+	# Checks types and values.
+	if not type(handler["type"]) == str:
+		handler["type"] = ""
+	if not type(handler["before"]) == str:
+		handler["before"] = ""
+	if not type(handler["after"]) == str:
+		handler["after"] = ""
+	if not type(handler["string"]) == str:
+		handler["string"] = ""
 
 	# Checks global style
 	if style.setting_darkMode:
@@ -31,6 +34,7 @@ def output(outputHandler: dict) -> None:
 		warningStyle = Back.YELLOW + Fore.WHITE + " \u25B2 " + Back.WHITE + Fore.YELLOW + " "
 		verboseStyle = Back.CYAN + Fore.WHITE + " \u25CF " + Back.WHITE + Fore.CYAN + " "
 
+	# Checks output type.
 	if handler["type"] == "error":
 		outputStyle = errorStyle
 	
@@ -40,14 +44,14 @@ def output(outputHandler: dict) -> None:
 	elif handler["type"] == "verbose":
 		outputStyle = verboseStyle
 
-	elif handler["type"] == "custom":
-		outputStyle = handler["style"]
+	elif handler["type"] == "":
+		outputStyle = ""
 	
 	else:
 		output({"type": "warning", "string": "OUTPUT MISCONFIGURED. PLEASE REFER TO THE DOCUMENTATION.", "before": handler["before"], "after": handler["after"]})
 		outputStyle = ""
 
-	if style.setting_plainMode:
+	if style.setting_plainMode: # Checks plain mode.
 		if handler["type"] in ["error", "warning", "verbose"]:
 			outputStyle = "[" + handler["type"].upper() + "] "
 

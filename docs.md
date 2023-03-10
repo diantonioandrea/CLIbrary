@@ -274,12 +274,12 @@ The handler for this function makes use of the following parameters:
 	CLIbrary.output(outputHandler: dict) -> None
 
 The handler for this function makes use of the following parameters:
-* string, str: The output string.
-* type, str: The output type, to be choosen from:
-	* `"error"`,
-	* `"warning"`,
-	* `"verbose"`,
-	* `"custom"`: Lets you define a custom output style.
-* style, str.
-* before, str: A string that gets printed before the output and is unaffected by the output styling.
-* after, str: A string that gets printed after the output and is unaffected by the output styling.
+* Strings.
+	* string: The output string.
+	* type: The output type, to be choosen from:
+		* `"error"`,
+		* `"warning"`,
+		* `"verbose"`,
+		* `""`: A plain style, similar to that of `CLIbrary.style.setting_plainMode`.
+	* before: A string that gets printed before the output and is unaffected by the output styling.
+	* after: A string that gets printed after the output and is unaffected by the output styling.
