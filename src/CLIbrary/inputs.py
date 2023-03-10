@@ -9,98 +9,118 @@ from .settings import *
 def strIn(stringHandler={}) -> str: # String input.
 	handler = {}
 
-	handler["request"] = "Insert a string"
-	handler["addedChars"] = ": "
-	handler["allowedChars"] = []
-	handler["allowedAnswers"] = []
-	handler["allowedStyle"] = Fore.CYAN
-	handler["blockedAnswers"] = []
-	handler["noSpace"] = False
-	handler["empty"] = False
+	# Strings.
+	handler["request"] = "String: " # The input request.
+	handler["added"] = ": " # The set of added characters to the input request.
+
+	# Lists.
+	handler["allowedChars"] = [] # The list of allowed characters.
+	handler["allowedAnswers"] = [] # The list of allowed answers.
+	handler["blockedAnswers"] = [] # The list of blocked answers.
+
+	# Bools.
+	handler["space"] = True # Whether to allow the use of spaces.
+	handler["empty"] = False # Whether to allow the input of empty strings.
+	handler["verification"] = False # Whether to request verification.
+	handler["verbose"] = False # Verbosity.
+
+	# Integers.
 	handler["fixedLength"] = 0
 
-	handler["verification"] = False
-
-	handler["verbose"] = False
-
+	# Updates the handler.
 	handler.update(stringHandler)
 
-	if style.setting_plainMode:
-		handler["allowedStyle"] = ""
+	# Checks types and values.
+	if not type(handler["request"]) == str:
+		handler["request"] = "String"
+	if not type(handler["added"]) == str:
+		handler["added"] = ": "
 
+	if not type(handler["allowedChars"]) == list:
+		handler["allowedChars"] = []
+	if not type(handler["allowedAnswers"]) == list:
+		handler["allowedAnswers"] = []
+	if not type(handler["blockedAnswers"]) == list:
+		handler["blockedAnswers"] = []
+
+	if not type(handler["space"]) == bool:
+		handler["space"] = True
+	if not type(handler["empty"]) == bool:
+		handler["empty"] = False
+	if not type(handler["verification"]) == bool:
+		handler["verification"] = False
+	if not type(handler["verbose"]) == bool:
+		handler["verbose"] = False
+
+	if not type(handler["fixedLength"]) == int:
+		handler["fixedLength"] = 0
+	elif handler["fixedLength"] < 0:
+		handler["fixedLength"] = 0
+
+	# Stylings.
+	allowedStyle = Fore.CYAN
+	lengthStyle = Back.GREEN + Fore.MAGENTA
+
+	if style.setting_plainMode:
+		allowedStyle = ""
+		lengthStyle = ""
+
+	# Empty strings.
 	if not handler["empty"]:
 		handler["blockedAnswers"].append("")
 
+	# Allowed and blocked characters
 	charactersRange = list(range(0, 48)) + list(range(58, 65)) + list(range(91, 97)) + list(range(123, 256))
-	if not handler["noSpace"]:
+
+	if handler["space"]:
 		charactersRange.remove(32)
+
 	blockedChars = [chr(char) for char in charactersRange]
 
 	for char in handler["allowedChars"]:
 		try:
 			blockedChars.remove(char)
-		except(ValueError):
+		except:
 			pass
 
+	# Allowed answers.
 	allowedString = ""
-
 	if handler["allowedAnswers"] != []:
-		try:
-			allowedString = handler["allowedStyle"] + "[" + ", ".join(handler["allowedAnswers"]) + "]" + Style.RESET_ALL + " "
-		except(TypeError):
-			handler["allowedAnswers"] = []	
-
+		allowedString = allowedStyle + "[" + ", ".join(handler["allowedAnswers"]) + "]" + Style.RESET_ALL + " "
+		
+	# Fixed length.
 	lengthString = ""
+	if handler["fixedLength"] > 0:
+		lengthStyle + "[" + str(handler["fixedLength"]) + "]" + Style.RESET_ALL + " "
 
-	try:
-		if handler["fixedLength"] > 0:
-			if style.setting_plainMode:
-				lengthString = "[" + str(handler["fixedLength"]) + "] "
-			
-			else:
-				lengthString = Back.GREEN + Fore.MAGENTA + "[" + str(handler["fixedLength"]) + "]" + Style.RESET_ALL + " "
-	except:
-		handler["fixedLength"] = 0
-
+	# Input.
 	while True:
 		try:
-			rawAnswer = str(input(allowedString + lengthString + handler["request"] + handler["addedChars"]))
+			answer = str(input(allowedString + lengthString + handler["request"] + handler["added"])).lower() # Non-sensitive.
 
-			if handler["verbose"]:
-				output({"type": "verbose", "string": "VERBOSE, INPUT: " + rawAnswer})
+			if handler["verbose"]: # Verbosity.
+				output({"type": "verbose", "string": "VERBOSE, INPUT: " + answer})
 
-			answer = rawAnswer.lower()
-
-			if handler["fixedLength"] != 0 and len(answer) != handler["fixedLength"]:
+			if handler["fixedLength"] != 0 and len(answer) != handler["fixedLength"]: # Checks length.
 				output({"type": "error", "string": "LENGTH ERROR"})
 				continue
-
-			reloadFlag = False
-			for char in blockedChars:
-				if char in answer:
-					output({"type": "error", "string": "CHARACTER ERROR"})
-					reloadFlag = True
-					break
-
-			if reloadFlag:
+			
+			if True in [bChar in [aChar for aChar in list(answer)] for bChar in blockedChars]: # Checks blocked characters.
+				output({"type": "error", "string": "CHARACTER ERROR"})
 				continue
 
-			if answer in handler["blockedAnswers"]:
+			if answer in handler["blockedAnswers"]: # Checks blocked answers.
 				output({"type": "error", "string": "ANSWER ERROR"})
 				continue
 
-			if handler["allowedAnswers"] == [] or answer in handler["allowedAnswers"]:
-				if not handler["verification"]:
+			if handler["allowedAnswers"] == [] or answer in handler["allowedAnswers"]: # Checks allowed answers.
+				if not handler["verification"]: # Checks verification.
 					return answer
 
 				else:
-					verificationHandler = {}
-
-					for key in handler:
-						verificationHandler[key] = handler[key]
-
-					verificationHandler["verification"] = False
+					verificationHandler = {key: handler[key] for key in handler}
 					verificationHandler["request"] = "Verification"
+					verificationHandler["verification"] = False # Disables verification on the verification handler to avoid looping.
 					
 					if answer == strIn(verificationHandler):
 						return answer
@@ -120,18 +140,31 @@ def strIn(stringHandler={}) -> str: # String input.
 def dateIn(dateHandler={}) -> str: # Date input.
 	handler = {}
 
-	handler["request"] = "Insert a date"
-	handler["addedChars"] = " [YYYY-MM-DD]: "
+	# Strings.
+	handler["request"] = "Date"
+	handler["added"] = " [YYYY-MM-DD]: "
 
+	# Bools.
 	handler["verbose"] = False
 
+	# Updates the handler.
 	handler.update(dateHandler)
 
+	# Checks types and values.
+	if not type(handler["request"]) == str:
+		handler["request"] = "Date"
+	if not type(handler["added"]) == str:
+		handler["added"] = " [YYYY-MM-DD]: "
+
+	if not type(handler["verbose"]) == bool:
+		handler["verbose"] = False
+
+	# String handler.
 	strHandler = {}
 	strHandler["request"] = handler["request"]
-	strHandler["addedChars"] = handler["addedChars"]
+	strHandler["added"] = handler["added"]
 	strHandler["allowedChars"] = ["-"]
-	strHandler["noSpace"] = True
+	strHandler["space"] = False
 	strHandler["fixedLength"] = 10
 
 	while True:
@@ -154,16 +187,29 @@ def dateIn(dateHandler={}) -> str: # Date input.
 def boolIn(boolHandler={}) -> bool: # Bool input.
 	handler = {}
 
-	handler["request"] = "Insert a boolean state"
-	handler["addedChars"] = " [y/n]: "
+	# Strings.
+	handler["request"] = "Bool"
+	handler["added"] = " [y/n]: "
 
+	# Bools.
 	handler["verbose"] = False
 
+	# Updates the handler.	
 	handler.update(boolHandler)
 
+	# Checks types and values.
+	if not type(handler["request"]) == str:
+		handler["request"] = "Bool"
+	if not type(handler["added"]) == str:
+		handler["added"] = " [y/n]: "
+
+	if not type(handler["verbose"]) == bool:
+		handler["verbose"] = False
+
+	# String handler.
 	strHandler = {}
 	strHandler["request"] = handler["request"]
-	strHandler["addedChars"] = handler["addedChars"]
+	strHandler["added"] = handler["added"]
 	strHandler["allowedAnswers"] = ["y", "n"]
 	strHandler["noSpace"] = True
 	answer = strIn(strHandler)
@@ -182,68 +228,76 @@ def numIn(numberHandler={}) -> "int, float": # Number input.
 
 	handler = {}
 
-	handler["request"] = "Insert a number"
-	handler["addedChars"] = ": "
+	# Strings.
+	handler["request"] = "Number"
+	handler["added"] = ": "
+
+	# Lists.
 	handler["allowedRange"] = []
 	handler["allowedTypes"] = ["int", "float"]
-	handler["round"] = -1
 
+	# Bools.
 	handler["verbose"] = False
 
+	# Integers.
+	handler["round"] = -1
+
+	# Updated the handler.
 	handler.update(numberHandler)
 
-	rangeString = ""
+	# Checks types and values.
+	if not type(handler["request"]) == str:
+		handler["request"] = "Number"
+	if not type(handler["added"]) == str:
+		handler["added"] = ": "
 
-	try:
-		if len(handler["allowedRange"]) == 2:
-			if handler["allowedRange"][0] > handler["allowedRange"][1]:
-				handler["allowedRange"] = []
-
-			else:
-				if style.setting_plainMode:
-					rangeString = "[" + str(handler["allowedRange"][0]) + ", " + str(handler["allowedRange"][1]) + "] "
-
-				else:
-					rangeString = Fore.GREEN + "[" + str(handler["allowedRange"][0]) + ", " + str(handler["allowedRange"][1]) + "] " + Style.RESET_ALL
-
-	except(IndexError, TypeError):
+	if not type(handler["allowedRange"]) == list:
 		handler["allowedRange"] = []
-
-	for types in handler["allowedTypes"]:
-		if types not in ["int", "float"]:
-			handler["allowedTypes"] = ["int", "float"]
-			break
-	
-	if handler["allowedTypes"] == []:
+	elif len(handler["allowedRange"]) != 2 or False in [type(number) not in [int, float] for number in handler["allowedRange"]]:
+		handler["allowedRange"] = []
+	elif handler["allowedRange"][0] > handler["allowedRange"][1]:
+		handler["allowedRange"] = []
+	if not type(handler["allowedType"]) == list:
 		handler["allowedTypes"] = ["int", "float"]
+	elif len(handler["allowedTypes"]) not in [1, 2] or set(handler["allowedTypes"]).intersection({"int", "float"}) == set():
+		handler["allowedTypes"] = ["int", "float"]
+
+	if not type(handler["verbose"]) == bool:
+		handler["verbose"] = False
+
+	if not type(handler["round"]) == int:
+		handler["round"] = -1
+
+	# Stylings.
+	rangeString = ""
+	rangeStyle = Fore.GREEN
+
+	if style.setting_plainMode:
+		rangeStyle = ""
+
+	if len(handler["allowedRange"]):
+		rangeString = rangeStyle + "[" + str(handler["allowedRange"][0]) + ", " + str(handler["allowedRange"][1]) + "] " + Style.RESET_ALL
 
 	while True:
 		try:
-			rawAnswer = str(input(rangeString + handler["request"] + handler["addedChars"]))
+			rawAnswer = str(input(rangeString + handler["request"] + handler["added"]))
 
 			if handler["verbose"]:
 				output({"type": "verbose", "string": "VERBOSE, INPUT: " + rawAnswer})
 			
-			if rawAnswer != "":
+			if rawAnswer != "": # Checks empty strings.
 				answer = float(rawAnswer)
 
-				if len(handler["allowedRange"]) == 2:
-					if answer < handler["allowedRange"][0] or answer > handler["allowedRange"][1]:
+				if len(handler["allowedRange"]) == 2: # Checks range.
+					if answer <= handler["allowedRange"][0] or answer >= handler["allowedRange"][1]:
 						output({"type": "error", "string": "RANGE ERROR"})
 						continue
 				
-				if int(answer) == answer and "int" in handler["allowedTypes"]:
+				if int(answer) == answer and "int" in handler["allowedTypes"]: # Integers.
 					return int(answer)
 				
-				elif "float" in handler["allowedTypes"]:
-					try:
-						if handler["round"] > -1:
-							return round(answer, int(handler["round"]))
-					
-					except:
-						pass
-
-					return answer
+				elif "float" in handler["allowedTypes"]: # Floats.
+					return round(answer, int(handler["round"])) if handler["round"] > -1 else answer
 
 			output({"type": "error", "string": "SYNTAX ERROR"})
 				
@@ -261,26 +315,40 @@ def numIn(numberHandler={}) -> "int, float": # Number input.
 def listCh(listHandler={}): # List choice.
 	handler = {}
 
+	# Strings.
+	handler["request"] = "List item"
+	handler["added"] = ": "
+
+	# Lists.
 	handler["list"] = []
-	handler["request"] = "Choose from list"
-	
+
+	# Updates the handler.
 	handler.update(listHandler)
 
-	if len(handler["list"]) == 0:
+	# Number handler.
+	numberHandler = {}
+	numberHandler["request"] = handler["request"]
+	numberHandler["added"] = handler["added"]
+	numberHandler["allowedTypes"] = ["int"]
+
+	if not type(handler["request"]) == str:
+		handler["request"] = "List item"
+	if not type(handler["added"]) == str:
+		handler["added"] = ": "
+
+	if not type(handler["list"]) == list:
+		handler["list"] = []
+
+	if len(handler["list"]) == 0: # Returns None for an empty list.
 		answer = None
 		
-	elif len(handler["list"]) == 1:
+	elif len(handler["list"]) == 1: # Returns the only item for a list that contains a single entry.
 		answer = handler["list"][0]
 	
 	else:
-		for singleItem in handler["list"]:
-			print(str(handler["list"].index(singleItem)) + ": " + str(singleItem))
-			
-		numberHandler = {}
-		numberHandler["request"] = handler["request"]
+		print("\n".join([str(handler["list"].index(item)) + ": " + str(item) for item in handler["list"]]))
 		numberHandler["allowedRange"] = [0, len(handler["list"]) - 1]
-		numberHandler["allowedTypes"] = ["int"]
 		
-		answer = handler["list"][numIn(numberHandler)] # type: ignore
+		answer = handler["list"][numIn(numberHandler)]
 			
 	return answer

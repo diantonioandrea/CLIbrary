@@ -84,7 +84,7 @@ and all the functions can be accessed by:
 
 The handler for this function makes use of the following parameters:
 * request, str: The prompt to the user.
-* addedChars, str: A set of characters to be automatically added to the prompt. Default is ": ".
+* added, str: A set of characters to be automatically added to the prompt. Default is ": ".
 * style, str[^1]: A particular colour style to be applied to the prompt.
 * verbose, bool.
 * allowedCommands, list: A list of all the allowed commands for the CLI interface.
@@ -191,17 +191,20 @@ The handler for this function makes use of the following parameters:
 *strIn* stands for *String Input* as this function's purpose is receiving string inputs.
 
 The handler for this function makes use of the following parameters:
-* request, str: The prompt to the user.
-* addedChars, str: A set of characters to be automatically added to the prompt.
-* allowedChars, list: The set of allowed characters which aren't letters.
-* allowedAnswers, list: The list of the only allowed answers, if not empty.
-* allowedStyle, str: The style of the *allowedAnswers* hint.
-* empty, bool: Whether to allow or not empty strings.
-* blockedAnswers, list: The list of the blocked answers.
-* noSpace, bool: Whether to allow or not the use of spaces.
-* fixedLength, int: The length of the accepted answer, if different from zero.
-* verification, bool: Whether to ask for an answer verification. Useful for passwords.
-* verbose, bool.
+* Strings.
+	* request: The prompt to the user.
+	* added: A set of characters to be automatically added to the prompt.
+* Lists.
+	* allowedChars: The set of allowed characters which aren't letters.
+	* allowedAnswers: The list of the only allowed answers, if not empty.
+	* blockedAnswers: The list of the blocked answers.
+* Bools.
+	* empty: Whether to allow or not empty strings.
+	* space: Whether to allow or not the use of spaces.
+	* verification: Whether to ask for an answer verification. Useful for passwords.
+	* verbose.
+* Integers.
+	* fixedLength: The length of the accepted answer, if different from zero.
 
 The returned value isn't case sensitive.
 
@@ -212,12 +215,16 @@ The returned value isn't case sensitive.
 *numIn* stands for *Number Input* as this function's purpose is receiving numeric inputs.
 
 The handler for this function makes use of the following parameters:
-* request, str: The prompt to the user.
-* addedChars, str: A set of characters to be automatically added to the prompt.
-* allowedRange, list: The range in which the function accepts an answer, if not empty.
-* allowedTypes, list: Whether to accept just integer or integer and floats.
-* round, int: The number of decimal to round to, if different from -1.
-* verbose, bool.
+* Strings.
+	* request: The prompt to the user.
+	* added: A set of characters to be automatically added to the prompt.
+* Strings.
+	* allowedRange: The range in which the function accepts an answer, if not empty.
+	* allowedTypes: Whether to accept just integer or integer and floats.
+* Bools.
+	* verbose.
+* Integers.
+	* round: The number of decimal to round to, if different from -1.
 
 ### Booleans
 
@@ -226,9 +233,11 @@ The handler for this function makes use of the following parameters:
 *boolIn* stands for *Boolean Input* as this function's purpose is receiving boolean inputs.
 
 The handler for this function makes use of the following parameters:
-* request, str: The prompt to the user.
-* addedChars, str: A set of characters to be automatically added to the prompt.
-* verbose, bool.
+* Strings.
+	* request: The prompt to the user.
+	* added: A set of characters to be automatically added to the prompt.
+* Bools.
+	* verbose.
 
 ### Dates
 
@@ -237,9 +246,11 @@ The handler for this function makes use of the following parameters:
 *dateIn* stands for *Date Input* as this function's purpose is receiving date inputs.
 
 The handler for this function makes use of the following parameters:
-* request, str: The prompt to the user.
-* addedChars, str: A set of characters to be automatically added to the prompt.
-* verbose, bool.
+* Strings.
+	* request: The prompt to the user.
+	* added: A set of characters to be automatically added to the prompt.
+* Bools.
+	* verbose.
 
 ### List handling
 
@@ -248,8 +259,11 @@ The handler for this function makes use of the following parameters:
 *listCh* stands for *List Choice* as this function returns the choosen element from a list.
 
 The handler for this function makes use of the following parameters:
-* list, list: The list from which the element gets choosen.
-* request, str: The prompt to the user.
+* Strings.
+	* request: The prompt to the user.
+	* added: A set of characters to be automatically added to the prompt.
+* Lists.
+	* list: The list from which the element gets choosen.
 
 ## Outputs
 
