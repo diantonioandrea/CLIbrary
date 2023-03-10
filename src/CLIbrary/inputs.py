@@ -233,14 +233,14 @@ def numIn(numberHandler={}) -> "int, float": # Number input.
 	handler["added"] = ": "
 
 	# Lists.
-	handler["allowedRange"] = []
-	handler["allowedTypes"] = ["int", "float"]
+	handler["allowedRange"] = [] # The allowed range for return value. Must be a [a, b] interval where a < b.
+	handler["allowedTypes"] = ["int", "float"] # Allowed types for return value.
 
 	# Bools.
 	handler["verbose"] = False
 
 	# Integers.
-	handler["round"] = -1
+	handler["round"] = -1 # Rounding number.
 
 	# Updated the handler.
 	handler.update(numberHandler)
@@ -320,7 +320,7 @@ def listCh(listHandler={}): # List choice.
 	handler["added"] = ": "
 
 	# Lists.
-	handler["list"] = []
+	handler["list"] = [] # The list from which to choose the output.
 
 	# Updates the handler.
 	handler.update(listHandler)
