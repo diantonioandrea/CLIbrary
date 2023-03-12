@@ -64,7 +64,11 @@ Available options are:
 
 ### Import CLIbrary
 
-**CLIbrary** can be imported by:
+**CLIbrary** can be installed by:
+
+	python3 -m pip install --upgrade CLIbrary
+	
+imported by:
 
 	import CLIbrary
 
