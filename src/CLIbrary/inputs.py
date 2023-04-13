@@ -177,7 +177,7 @@ def dateIn(dateHandler={}) -> str: # Date input.
 			output({"type": "verbose", "string": "VERBOSE, INPUT: " + answer})
 
 		try: # From an answer of Eduard Stepanov on https://stackoverflow.com/questions/16870663/how-do-i-validate-a-date-string-format-in-python
-			if answer != datetime.strptime(answer.replace("xxxx", "0001").replace("xxx", "001").replace("xx", "01").replace("x", "1") if handler["placeholders"] else answer, "%Y-%m-%d").strftime('%Y-%m-%d'):
+			if (answer.replace("x", "1") if handler["placeholders"] else answer) != datetime.strptime(answer.replace("x", "1") if handler["placeholders"] else answer, "%Y-%m-%d").strftime('%Y-%m-%d'):
 				raise(ValueError)
 
 			return answer
