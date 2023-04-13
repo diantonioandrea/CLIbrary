@@ -145,6 +145,7 @@ def dateIn(dateHandler={}) -> str: # Date input.
 	handler["added"] = " [YYYY-MM-DD]: "
 
 	# Bools.
+	handler["placeholders"] = False
 	handler["verbose"] = False
 
 	# Updates the handler.
@@ -156,6 +157,8 @@ def dateIn(dateHandler={}) -> str: # Date input.
 	if not type(handler["added"]) == str:
 		handler["added"] = " [YYYY-MM-DD]: "
 
+	if not type(handler["placeholders"]) == bool:
+		handler["placeholders"] = False
 	if not type(handler["verbose"]) == bool:
 		handler["verbose"] = False
 
@@ -174,7 +177,7 @@ def dateIn(dateHandler={}) -> str: # Date input.
 			output({"type": "verbose", "string": "VERBOSE, INPUT: " + answer})
 
 		try: # From an answer of Eduard Stepanov on https://stackoverflow.com/questions/16870663/how-do-i-validate-a-date-string-format-in-python
-			if answer != datetime.strptime(answer, "%Y-%m-%d").strftime('%Y-%m-%d'):
+			if answer != datetime.strptime(answer.replace("XX", "01").replace("X", "1") if handler["placeholders"] else answer, "%Y-%m-%d").strftime('%Y-%m-%d'):
 				raise(ValueError)
 
 			return answer

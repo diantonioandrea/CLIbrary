@@ -254,6 +254,7 @@ The handler for this function makes use of the following parameters:
 	* request: The prompt to the user.
 	* added: A set of characters to be automatically added to the prompt.
 * Bools.
+	* placeholders: Enables the use of "X" and "XX" as placeholders for not fully known dates.
 	* verbose.
 
 ### List handling
