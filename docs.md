@@ -5,6 +5,7 @@
 These projects have been built with **CLIbrary** and they should serve as examples for future **CLIbrary** projects.
 
 * [**openBriefcase**](https://github.com/diantonioandrea/openBriefcase), by [Andrea Di Antonio](https://github.com/diantonioandrea).
+* [**openTree**](https://github.com/diantonioandrea/openTree), by [Andrea Di Antonio](https://github.com/diantonioandrea).
 * [**NBody**](https://github.com/diantonioandrea/NBody), by [Andrea Di Antonio](https://github.com/diantonioandrea).
 
 ## Table of Contents
