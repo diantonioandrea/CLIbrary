@@ -247,15 +247,17 @@ The handler for this function makes use of the following parameters:
 
 	CLIbrary.dateIn(dateHandler={}) -> str
 
-*dateIn* stands for *Date Input* as this function's purpose is receiving date inputs.
+*dateIn* stands for *Date Input* as this function's purpose is receiving date[^4] inputs.
 
 The handler for this function makes use of the following parameters:
 * Strings.
 	* request: The prompt to the user.
 	* added: A set of characters to be automatically added to the prompt.
 * Bools.
-	* placeholders: Enables the use of "X" and "XX" as placeholders for not fully known dates.
+	* placeholders: Enables the use of Xs as placeholders for not fully known dates.
 	* verbose.
+
+[^4]: Dates have to be passed in respect to the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) standard. 
 
 ### List handling
 
