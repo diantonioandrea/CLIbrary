@@ -33,24 +33,24 @@ which would return something similar to:
 
 ### Command line interface
 
-An example from [**openTree**](https://github.com/diantonioandrea/openTree)
+An example from [**openTree**](https://github.com/diantonioandrea/openTree)[^1]
 
-	# Prompt.
+[^1]: "..." indicates missing code.
+
+	import CLIbrary
+
+	...
+
 	cmdHandler = {"request": "[" + user.name + "@" + name + "]"}
 	cmdHandler["style"] = Fore.MAGENTA
 
-	# The help that gets printed and the commands depend on the environment.
 	cmdHandler["helpPath"] = helpPath
 
 	...
 
 	cmdHandler["allowedCommands"] = ["set", "password", "delete", "new"]
 
-	if len(tree):
-		cmdHandler["allowedCommands"] += ["list", "details", "edit", "remove"]
-
-	if len(tree) > 1:
-		cmdHandler["allowedCommands"] += ["connect", "disconnect"]
+	...
 
 	command = CLIbrary.cmdIn(cmdHandler)
 
@@ -61,6 +61,10 @@ An example from [**openTree**](https://github.com/diantonioandrea/openTree)
 ### Asking for input
 
 Some examples from [**openBriefcase**](https://github.com/diantonioandrea/openBriefcase)
+
+	import CLIbrary
+
+	...
 
 	class account:
 		def __init__(self, otherNames: list):
@@ -85,6 +89,10 @@ Some examples from [**openBriefcase**](https://github.com/diantonioandrea/openBr
 
 An example from [**openTree**](https://github.com/diantonioandrea/openTree)
 
+	import CLIbrary
+
+	...
+
 	user = openTree.user()
 
 	fileHandler = {"path": dataPath + user.name, "ignoreMissing": True}
@@ -98,6 +106,10 @@ An example from [**openTree**](https://github.com/diantonioandrea/openTree)
 ### Set values for global settings
 
 An example from [**openTree**](https://github.com/diantonioandrea/openTree)
+
+	import CLIbrary
+
+	...
 
 	CLIbrary.data.setting_fileExtension = ".ot"
 
