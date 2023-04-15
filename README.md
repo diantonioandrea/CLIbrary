@@ -31,9 +31,11 @@ which would return something similar to:
 
 ## Examples
 
+These are some examples from existing projects[^1].
+
 ### Command line interface
 
-An example from [**openTree**](https://github.com/diantonioandrea/openTree)[^1]
+An example from [**openTree**](https://github.com/diantonioandrea/openTree)
 
 	import CLIbrary
 
