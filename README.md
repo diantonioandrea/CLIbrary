@@ -35,8 +35,6 @@ which would return something similar to:
 
 An example from [**openTree**](https://github.com/diantonioandrea/openTree)[^1]
 
-[^1]: "..." indicates missing code.
-
 	import CLIbrary
 
 	...
@@ -57,6 +55,8 @@ An example from [**openTree**](https://github.com/diantonioandrea/openTree)[^1]
 	cmd = command["command"]
 	sdOpts = command["sdOpts"]
 	ddOpts = command["ddOpts"]
+
+[^1]: "..." indicates missing code.
 
 ### Asking for input
 
