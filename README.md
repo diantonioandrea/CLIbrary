@@ -11,6 +11,18 @@ Make sure to take a look at the [documentation](https://github.com/diantonioandr
 
 	python3 -m pip install --upgrade CLIbrary
 
+### Verify installation
+
+The installation of **CLIbrary** can be verified by:
+
+	python3 -m CLIbrary
+
+which would return something similar to:
+
+	 ●  CLIbrary v1.7.0 
+	A standardized collection of CLI utilities written in Python to handle commands, I/O and files.
+	Developed by Andrea Di Antonio, more on https://github.com/diantonioandrea/CLIbrary
+
 ### Importing CLIbrary
 
 **CLIbrary** can be imported by:
