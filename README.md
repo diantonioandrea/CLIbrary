@@ -31,17 +31,50 @@ which would return something similar to:
 
 ## Examples
 
-### Entering commands with options
+### Command line interface
 
-Code:
+An example from [**openTree**](https://github.com/diantonioandrea/openTree)
 
-	import CLIbrary
+	# Prompt.
+	cmdHandler = {"request": "[" + user.name + "@" + name + "]"}
+	cmdHandler["style"] = Fore.MAGENTA
 
-	commandHandler = {"request": "Command", "allowedCommands": ["sample"]}
-	command = CLIbrary.cmdIn(commandHandler)
-	print(command)
+	# The help that gets printed and the commands depend on the environment.
+	cmdHandler["helpPath"] = helpPath
 
-Output:
+	...
 
-	Command: sample -option1 value --option2
-	{'command': 'sample', 'sdOpts': {'option1': 'value'}, 'ddOpts': ['option2']}
+	cmdHandler["allowedCommands"] = ["set", "password", "delete", "new"]
+
+	if len(tree):
+		cmdHandler["allowedCommands"] += ["list", "details", "edit", "remove"]
+
+	if len(tree) > 1:
+		cmdHandler["allowedCommands"] += ["connect", "disconnect"]
+
+	command = CLIbrary.cmdIn(cmdHandler)
+
+	cmd = command["command"]
+	sdOpts = command["sdOpts"]
+	ddOpts = command["ddOpts"]
+
+### Loading and dumping a file
+
+An example from [**openTree**](https://github.com/diantonioandrea/openTree)
+
+	user = openTree.user()
+
+	fileHandler = {"path": dataPath + user.name, "ignoreMissing": True}
+	userData = CLIbrary.aLoad(fileHandler)
+
+	...
+
+	fileHandler["data"] = user
+	CLIbrary.aDump(fileHandler)
+
+### Set values for global settings
+
+An example from [**openTree**](https://github.com/diantonioandrea/openTree)
+
+	CLIbrary.data.setting_fileExtension = ".ot"
+	CLIbrary.style.setting_darkMode = True
