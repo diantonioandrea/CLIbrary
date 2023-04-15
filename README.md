@@ -37,6 +37,7 @@ These are some examples from existing projects[^1].
 
 An example from [**openTree**](https://github.com/diantonioandrea/openTree)
 
+``` python
 	import CLIbrary
 
 	...
@@ -57,6 +58,7 @@ An example from [**openTree**](https://github.com/diantonioandrea/openTree)
 	cmd = command["command"]
 	sdOpts = command["sdOpts"]
 	ddOpts = command["ddOpts"]
+```
 
 [^1]: "..." indicates missing code.
 
@@ -64,6 +66,7 @@ An example from [**openTree**](https://github.com/diantonioandrea/openTree)
 
 Some examples from [**openBriefcase**](https://github.com/diantonioandrea/openBriefcase)
 
+```python
 	import CLIbrary
 
 	...
@@ -86,11 +89,13 @@ Some examples from [**openBriefcase**](https://github.com/diantonioandrea/openBr
 			...
 
 			self.confirmation = CLIbrary.boolIn({"request": "Verify \"" + str(self) + "\""})
+```
 
 ### Loading and dumping a file
 
 An example from [**openTree**](https://github.com/diantonioandrea/openTree)
 
+``` python
 	import CLIbrary
 
 	...
@@ -104,11 +109,13 @@ An example from [**openTree**](https://github.com/diantonioandrea/openTree)
 
 	fileHandler["data"] = user
 	CLIbrary.aDump(fileHandler)
+```
 
 ### Set values for global settings
 
 An example from [**openTree**](https://github.com/diantonioandrea/openTree)
 
+``` python
 	import CLIbrary
 
 	...
@@ -119,3 +126,4 @@ An example from [**openTree**](https://github.com/diantonioandrea/openTree)
 
 	if userData.darkTheme:
 		CLIbrary.style.setting_darkMode = True
+```
