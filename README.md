@@ -58,6 +58,29 @@ An example from [**openTree**](https://github.com/diantonioandrea/openTree)
 	sdOpts = command["sdOpts"]
 	ddOpts = command["ddOpts"]
 
+### Asking for input
+
+Some examples from [**openBriefcase**](https://github.com/diantonioandrea/openBriefcase)
+
+	class account:
+		def __init__(self, otherNames: list):
+			self.name = CLIbrary.strIn({"request": "Account name", "space": False, "blockedAnswers": otherNames})
+			self.start = CLIbrary.numIn({"request": "Starting balance"})
+	
+	...
+
+	class movement:
+	def __init__(self, otherCodes: list):
+		...
+
+		self.reason = CLIbrary.strIn({"request": "Movement reason", "allowedChars": ["-", "'", ".", ",", ":"]})
+		self.amount = CLIbrary.numIn({"request": "Movement amount"})
+		self.date = CLIbrary.dateIn({"request": "Movement date"})
+
+		...
+
+		self.confirmation = CLIbrary.boolIn({"request": "Verify \"" + str(self) + "\""})
+
 ### Loading and dumping a file
 
 An example from [**openTree**](https://github.com/diantonioandrea/openTree)
@@ -77,4 +100,8 @@ An example from [**openTree**](https://github.com/diantonioandrea/openTree)
 An example from [**openTree**](https://github.com/diantonioandrea/openTree)
 
 	CLIbrary.data.setting_fileExtension = ".ot"
-	CLIbrary.style.setting_darkMode = True
+
+	...
+
+	if userData.darkTheme:
+		CLIbrary.style.setting_darkMode = True
