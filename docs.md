@@ -68,6 +68,10 @@ Available options are:
 **CLIbrary** can be installed by:
 
 	python3 -m pip install --upgrade CLIbrary
+
+verified by:
+
+	python3 -m CLIbrary
 	
 imported by:
 
