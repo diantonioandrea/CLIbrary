@@ -70,16 +70,16 @@ Some examples from [**openBriefcase**](https://github.com/diantonioandrea/openBr
 	...
 
 	class movement:
-	def __init__(self, otherCodes: list):
-		...
+		def __init__(self, otherCodes: list):
+			...
 
-		self.reason = CLIbrary.strIn({"request": "Movement reason", "allowedChars": ["-", "'", ".", ",", ":"]})
-		self.amount = CLIbrary.numIn({"request": "Movement amount"})
-		self.date = CLIbrary.dateIn({"request": "Movement date"})
+			self.reason = CLIbrary.strIn({"request": "Movement reason", "allowedChars": ["-", "'", ".", ",", ":"]})
+			self.amount = CLIbrary.numIn({"request": "Movement amount"})
+			self.date = CLIbrary.dateIn({"request": "Movement date"})
 
-		...
+			...
 
-		self.confirmation = CLIbrary.boolIn({"request": "Verify \"" + str(self) + "\""})
+			self.confirmation = CLIbrary.boolIn({"request": "Verify \"" + str(self) + "\""})
 
 ### Loading and dumping a file
 
