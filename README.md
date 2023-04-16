@@ -38,26 +38,26 @@ These are some examples from existing projects[^1].
 An example from [**openTree**](https://github.com/diantonioandrea/openTree)
 
 ``` python
-	import CLIbrary
+import CLIbrary
 
-	...
+...
 
-	cmdHandler = {"request": "[" + user.name + "@" + name + "]"}
-	cmdHandler["style"] = Fore.MAGENTA
+cmdHandler = {"request": "[" + user.name + "@" + name + "]"}
+cmdHandler["style"] = Fore.MAGENTA
 
-	cmdHandler["helpPath"] = helpPath
+cmdHandler["helpPath"] = helpPath
 
-	...
+...
 
-	cmdHandler["allowedCommands"] = ["set", "password", "delete", "new"]
+cmdHandler["allowedCommands"] = ["set", "password", "delete", "new"]
 
-	...
+...
 
-	command = CLIbrary.cmdIn(cmdHandler)
+command = CLIbrary.cmdIn(cmdHandler)
 
-	cmd = command["command"]
-	sdOpts = command["sdOpts"]
-	ddOpts = command["ddOpts"]
+cmd = command["command"]
+sdOpts = command["sdOpts"]
+ddOpts = command["ddOpts"]
 ```
 
 [^1]: "..." indicates missing code.
@@ -67,28 +67,28 @@ An example from [**openTree**](https://github.com/diantonioandrea/openTree)
 Some examples from [**openBriefcase**](https://github.com/diantonioandrea/openBriefcase)
 
 ```python
-	import CLIbrary
+import CLIbrary
 
-	...
+...
 
-	class account:
-		def __init__(self, otherNames: list):
-			self.name = CLIbrary.strIn({"request": "Account name", "space": False, "blockedAnswers": otherNames})
-			self.start = CLIbrary.numIn({"request": "Starting balance"})
-	
-	...
+class account:
+	def __init__(self, otherNames: list):
+		self.name = CLIbrary.strIn({"request": "Account name", "space": False, "blockedAnswers": otherNames})
+		self.start = CLIbrary.numIn({"request": "Starting balance"})
 
-	class movement:
-		def __init__(self, otherCodes: list):
-			...
+...
 
-			self.reason = CLIbrary.strIn({"request": "Movement reason", "allowedChars": ["-", "'", ".", ",", ":"]})
-			self.amount = CLIbrary.numIn({"request": "Movement amount"})
-			self.date = CLIbrary.dateIn({"request": "Movement date"})
+class movement:
+	def __init__(self, otherCodes: list):
+		...
 
-			...
+		self.reason = CLIbrary.strIn({"request": "Movement reason", "allowedChars": ["-", "'", ".", ",", ":"]})
+		self.amount = CLIbrary.numIn({"request": "Movement amount"})
+		self.date = CLIbrary.dateIn({"request": "Movement date"})
 
-			self.confirmation = CLIbrary.boolIn({"request": "Verify \"" + str(self) + "\""})
+		...
+
+		self.confirmation = CLIbrary.boolIn({"request": "Verify \"" + str(self) + "\""})
 ```
 
 ### Loading and dumping a file
@@ -96,19 +96,19 @@ Some examples from [**openBriefcase**](https://github.com/diantonioandrea/openBr
 An example from [**openTree**](https://github.com/diantonioandrea/openTree)
 
 ``` python
-	import CLIbrary
+import CLIbrary
 
-	...
+...
 
-	user = openTree.user()
+user = openTree.user()
 
-	fileHandler = {"path": dataPath + user.name, "ignoreMissing": True}
-	userData = CLIbrary.aLoad(fileHandler)
+fileHandler = {"path": dataPath + user.name, "ignoreMissing": True}
+userData = CLIbrary.aLoad(fileHandler)
 
-	...
+...
 
-	fileHandler["data"] = user
-	CLIbrary.aDump(fileHandler)
+fileHandler["data"] = user
+CLIbrary.aDump(fileHandler)
 ```
 
 ### Set values for global settings
@@ -116,14 +116,14 @@ An example from [**openTree**](https://github.com/diantonioandrea/openTree)
 An example from [**openTree**](https://github.com/diantonioandrea/openTree)
 
 ``` python
-	import CLIbrary
+import CLIbrary
 
-	...
+...
 
-	CLIbrary.data.setting_fileExtension = ".ot"
+CLIbrary.data.setting_fileExtension = ".ot"
 
-	...
+...
 
-	if userData.darkTheme:
-		CLIbrary.style.setting_darkMode = True
+if userData.darkTheme:
+	CLIbrary.style.setting_darkMode = True
 ```
