@@ -3,7 +3,7 @@
 A standardized collection of CLI utilities written in Python to handle commands, I/O and files.  
 Make sure to take a look at the [documentation](https://github.com/diantonioandrea/CLIbrary/blob/main/docs.md)
 
-## Usage
+## Installation
 
 ### Installing CLIbrary
 
