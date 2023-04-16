@@ -108,7 +108,7 @@ The handler for this function makes use of the following parameters:
 This function returns a dictionary with the following keys:
 * command, str: The command.
 * sdOpts, dict: A dictionary containing single-dash options as {"opts1": "value1", "opts2": "value2", ...}[^2].
-* ddOpts, list: A list containing double-dash options as [opts1, opts2, ...].
+* ddOpts, list: A list containing double-dash options as [opts1, opts2, ...][^2].
 
 Commands are always structured as:
 
@@ -118,7 +118,7 @@ with no more than a single word for the command itself.
 
 [^1]: Colorama styling works best for styling inside **CLIbrary**.
 
-[^2]: The options get returned without the dash.
+[^2]: The options get returned without the dashes.
 
 ### Help
 
