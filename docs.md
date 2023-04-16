@@ -1,29 +1,5 @@
 # CLIbrary's documentation
 
-## Table of Contents
-
-1. [Projects built with CLIbrary](#projects-built-with-clibrary)
-2. [Introduction](#introduction)
-	1. [CLIbrary](#clibrary)
-	2. [Handlers](#handlers)
-	3. [Settings](#settings)
-	4. [Import CLIbrary](#import-clibrary)
-3. [Interface](#interface)
-	1. [CLI](#cli)
-	2. [Help](#help)
-	3. [Help entries](#help-entries)
-4. [Files](#files)
-	1. [Loading](#loading)
-	2. [Dumping](#dumping)
-5. [Inputs](#inputs)
-	1. [Strings](#strings)
-	2. [Numbers](#numbers)
-	3. [Booleans](#booleans)
-	4. [Dates](#dates)
-	5. [List handling](#list-handling)
-6. [Outputs](#outputs)
-	1. [Output function](#output-function)
-
 ## Projects built with CLIbrary
 
 These projects have been built with **CLIbrary** and they should serve as examples for future **CLIbrary** projects.
@@ -31,6 +7,30 @@ These projects have been built with **CLIbrary** and they should serve as exampl
 * [**openBriefcase**](https://github.com/diantonioandrea/openBriefcase), by [Andrea Di Antonio](https://github.com/diantonioandrea).
 * [**openTree**](https://github.com/diantonioandrea/openTree), by [Andrea Di Antonio](https://github.com/diantonioandrea).
 * [**NBody**](https://github.com/diantonioandrea/NBody), by [Andrea Di Antonio](https://github.com/diantonioandrea).
+
+## Table of Contents
+
+0. [Projects built with CLIbrary](#projects-built-with-clibrary)
+1. [Introduction](#introduction)
+	1. [CLIbrary](#clibrary)
+	2. [Handlers](#handlers)
+	3. [Settings](#settings)
+	4. [Import CLIbrary](#import-clibrary)
+2. [Interface](#interface)
+	1. [CLI](#cli)
+	2. [Help](#help)
+	3. [Help entries](#help-entries)
+3. [Files](#files)
+	1. [Loading](#loading)
+	2. [Dumping](#dumping)
+4. [Inputs](#inputs)
+	1. [Strings](#strings)
+	2. [Numbers](#numbers)
+	3. [Booleans](#booleans)
+	4. [Dates](#dates)
+	5. [List handling](#list-handling)
+5. [Outputs](#outputs)
+	1. [Output function](#output-function)
 
 ## Introduction
 
