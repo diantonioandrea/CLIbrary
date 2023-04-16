@@ -76,13 +76,13 @@ verified by:
 imported by:
 
 ``` python
-	import CLIbrary
+import CLIbrary
 ```
 
 and all the functions can be accessed by:
 
 ``` python
-	CLIbrary.FUNCTION_NAME()
+CLIbrary.FUNCTION_NAME()
 ```
 
 ## Interface
@@ -92,7 +92,7 @@ and all the functions can be accessed by:
 ### CLI
 
 ``` python
-	CLIbrary.cmdIn(commandHandler={}) -> dict
+CLIbrary.cmdIn(commandHandler={}) -> dict
 ```
 
 *cmdIn* stands for *Command Input* as this function allows the user to input command as in a CLI interface.
@@ -123,7 +123,7 @@ with no more than a single word for the command itself.
 ### Help
 
 ``` python
-	CLIbrary.helpPrint(handler={}) -> None
+CLIbrary.helpPrint(handler={}) -> None
 ```
 
 *helpPrint* is a function that reads and print the help JSON whose path gets passed to *cmdIn*.
@@ -179,7 +179,9 @@ This is an example from **openBriefcase**'s accounts help JSON[^3]:
 
 ### Loading
 
-	CLIbrary.aLoad(fileHandler: dict)
+``` python
+CLIbrary.aLoad(fileHandler: dict)
+``` 
 
 *aLoad* stands for *Automatic Loading* as this function loads informations from files without user confirmation.
 
@@ -189,7 +191,9 @@ The handler for this function makes use of the following parameters:
 
 ### Dumping
 
-	CLIbrary.aDump(fileHandler: dict) -> None
+``` python
+CLIbrary.aDump(fileHandler: dict) -> None
+```
 
 *aDump* stands for *Automatic Dumping* as this function dumps informations to files without user confirmation.
 
@@ -203,7 +207,9 @@ The handler for this function makes use of the following parameters:
 
 ### Strings
 
-	CLIbrary.strIn(stringHandler={}) -> str
+``` python
+CLIbrary.strIn(stringHandler={}) -> str
+```
 
 *strIn* stands for *String Input* as this function's purpose is receiving string inputs.
 
@@ -228,7 +234,7 @@ The returned value isn't case sensitive.
 ### Numbers
 
 ``` python
-	CLIbrary.numIn(numberHandler={}) -> "int, float"
+CLIbrary.numIn(numberHandler={}) -> "int, float"
 ```
 
 *numIn* stands for *Number Input* as this function's purpose is receiving numeric inputs.
@@ -248,7 +254,7 @@ The handler for this function makes use of the following parameters:
 ### Booleans
 
 ``` python
-	CLIbrary.boolIn(boolHandler={}) -> bool
+CLIbrary.boolIn(boolHandler={}) -> bool
 ```
 
 *boolIn* stands for *Boolean Input* as this function's purpose is receiving boolean inputs.
@@ -263,7 +269,7 @@ The handler for this function makes use of the following parameters:
 ### Dates
 
 ``` python
-	CLIbrary.dateIn(dateHandler={}) -> str
+CLIbrary.dateIn(dateHandler={}) -> str
 ```
 
 *dateIn* stands for *Date Input* as this function's purpose is receiving date[^4] inputs.
@@ -281,7 +287,7 @@ The handler for this function makes use of the following parameters:
 ### List handling
 
 ``` python
-	CLIbrary.listCh(listHandler={})
+CLIbrary.listCh(listHandler={})
 ```
 
 *listCh* stands for *List Choice* as this function returns the choosen element from a list.
@@ -300,7 +306,7 @@ The handler for this function makes use of the following parameters:
 ### Output function
 
 ``` python
-	CLIbrary.output(outputHandler: dict) -> None
+CLIbrary.output(outputHandler: dict) -> None
 ```
 
 The handler for this function makes use of the following parameters:
