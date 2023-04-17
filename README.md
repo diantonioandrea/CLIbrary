@@ -17,11 +17,13 @@ The installation of **CLIbrary** can be verified by:
 
 	python3 -m CLIbrary
 
-which would return something similar to:
+which would return something similar to[^1]:
 
 	 ●  CLIbrary v1.7.0 
 	A standardized collection of CLI utilities written in Python to handle commands, I/O and files.
 	Developed by Andrea Di Antonio, more on https://github.com/diantonioandrea/CLIbrary
+
+[^2]: Example referring to version 1.7.0
 
 ### Importing CLIbrary
 
@@ -31,7 +33,7 @@ which would return something similar to:
 
 ## Examples
 
-These are some examples from existing projects[^1].
+These are some examples from existing projects[^2].
 
 ### Command line interface
 
@@ -60,7 +62,7 @@ sdOpts = command["sdOpts"]
 ddOpts = command["ddOpts"]
 ```
 
-[^1]: "..." indicates missing code.
+[^2]: "..." indicates missing code.
 
 ### Asking for input
 
