@@ -124,7 +124,6 @@ def helpPrint(handler={}) -> None: # Prints the help.
 			font = Fore.WHITE
 			back = Back.WHITE
 
-
 		if not style.setting_plainMode:
 			for key in helpJson:
 				helpString = ""
