@@ -23,7 +23,7 @@ which would return something similar to[^1]:
 	A standardized collection of CLI utilities written in Python to handle commands, I/O and files.
 	Developed by Andrea Di Antonio, more on https://github.com/diantonioandrea/CLIbrary
 
-[^2]: Example referring to version 1.7.0
+[^1]: Example referring to version 1.7.0
 
 ### Importing CLIbrary
 
