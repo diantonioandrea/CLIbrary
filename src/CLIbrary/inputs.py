@@ -2,11 +2,11 @@ from colorama import Fore, Back, Style
 from datetime import datetime
 
 from .outputs import *
-from .settings import *
+from .settings import style, input
 
 # INPUT HANDLING
 
-def strIn(stringHandler={}) -> str: # String input.
+def strIn(stringHandler={}) -> str: # String input.	
 	handler = {}
 
 	# Strings.
@@ -96,7 +96,10 @@ def strIn(stringHandler={}) -> str: # String input.
 	# Input.
 	while True:
 		try:
-			answer = str(input(allowedString + lengthString + handler["request"] + handler["added"])).lower() # Non-sensitive.
+			answer = str(input(allowedString + lengthString + handler["request"] + handler["added"]))
+
+			if not input.setting_caseSensitive: # Case-sensitiveness.
+				answer = answer.lower()
 
 			if handler["verbose"]: # Verbosity.
 				output({"type": "verbose", "string": "VERBOSE, INPUT: " + answer})

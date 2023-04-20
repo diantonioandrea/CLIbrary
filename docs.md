@@ -20,8 +20,9 @@ These projects have been built with **CLIbrary** and they should serve as exampl
 	4. [Import CLIbrary](#import-clibrary)
 2. [Interface](#interface)
 	1. [CLI](#cli)
-	2. [Help](#help)
-	3. [Help entries](#help-entries)
+	2. [Option parser](#option-parser)
+	3. [Help](#help)
+	4. [Help entries](#help-entries)
 3. [Files](#files)
 	1. [Loading](#loading)
 	2. [Dumping](#dumping)
@@ -61,9 +62,10 @@ Note that, although every function has a default handler, it is recommended to p
 As of version 1.2.1, CLIbrary has some "global options" to allow even more personalization.  
 Available options are:
 
-1. `CLIbrary.style.setting_darkMode`, bool: Enables global dark mode.
-2. `CLIbrary.style.setting_plainMode`, bool: Disables styling.
-3. `CLIbrary.data.setting_fileExtension`, str: Defines a file extension for *CLIbrary.aDump* and *CLIbrary.aLoad*. Default value based on Python's module *pickle*.
+1. `CLIbrary.style.setting_darkMode`, bool: Enables global dark mode. Dafault: False.
+2. `CLIbrary.style.setting_plainMode`, bool: Disables styling. Default: False.
+3. `CLIbrary.input.setting_caseSensitive`, bool: Enables case-sensitiveness. Default: False
+4. `CLIbrary.data.setting_fileExtension`, str: Defines a file extension for *CLIbrary.aDump* and *CLIbrary.aLoad*. Default: `".pickle"`
 
 ### Import CLIbrary
 
@@ -122,6 +124,14 @@ with no more than a single word for the command itself.
 
 [^2]: The options get returned without the dashes.
 
+### Option parser
+
+``` python
+CLIbrary.optionParser(instructions: list) -> None
+```
+
+*optionParser* is a function that receives a list of strings and returns the single dash options sdOpts, a dictionary, and the double dash options, a list.
+
 ### Help
 
 ``` python
@@ -129,7 +139,7 @@ CLIbrary.helpPrint(handler={}) -> None
 ```
 
 *helpPrint* is a function that reads and print the help JSON whose path gets passed to *cmdIn*.
-This function cannot be called manually as its calls are embedded inside *cmdIn*.
+There's no need to call this function manually as its calls are embedded inside *cmdIn*.
 
 ### Help entries
 

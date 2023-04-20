@@ -7,6 +7,7 @@ from .outputs import *
 
 def cmdIn(commandHandler={}) -> dict: # Command input.
 	from .settings import style
+	from .settings import input
 	
 	handler = {}
 	answer = {}
@@ -55,17 +56,15 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 
 	while True:
 		try:
-			rawAnswer = str(input(handler["style"] + handler["request"] + Style.RESET_ALL + handler["added"] + Style.RESET_ALL)).lower()
+			rawAnswer = str(input(handler["style"] + handler["request"] + Style.RESET_ALL + handler["added"] + Style.RESET_ALL))
+
+			if not input.setting_caseSensitive: # Case-sensitiveness.
+				rawAnswer = rawAnswer.lower()
 			
 			if handler["verbose"]:
 				output({"type": "verbose", "string": "VERBOSE, INPUT: " + rawAnswer})
 
 			instructions = rawAnswer.split(" ")
-
-			# OPTIONS: SINGLE DASH [{(-)key1: value1}, ...] AND DOUBLE DASH [(--)key1, ...]
-
-			sdOpts = {}
-			ddOpts = []
 
 			if "-" not in instructions[0]: # Checks the first word.
 				answer["command"] = instructions[0]
@@ -81,18 +80,6 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 			if answer["command"] == "help": # Prints the help.
 				helpPrint(handler)
 				continue
-
-			for inst in instructions: # Parses the options.
-				if "--" in inst:
-					ddOpts.append(inst.replace("--", ""))
-				
-				elif inst[0] == "-":
-					try:
-						if type(float(inst)) == float:
-							pass
-
-					except(ValueError):
-						sdOpts[inst.replace("-", "")] = instructions[instructions.index(inst) + 1]
 		
 		except(IndexError):
 			output({"type": "error", "string": "SYNTAX ERROR"})
@@ -102,9 +89,10 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 			output({"type": "error", "string": "KEYBOARD ERROR"})
 			continue
 			
-		answer["sdOpts"] = sdOpts
-		answer["ddOpts"] = ddOpts
+		answer["sdOpts"], answer["ddOpts"] = optionsParser(instructions)
 		return answer
+
+# UTILITIES
 
 def helpPrint(handler={}) -> None: # Prints the help.
 	from .settings import style
@@ -186,3 +174,23 @@ def helpPrint(handler={}) -> None: # Prints the help.
 	
 	except:
 		output({"type": "error", "string": "HELP ERROR"})
+
+def optionsParser(instructions: list) -> dict: # Parses the options contained in a list of strings.
+	# OPTIONS: SINGLE DASH [{(-)key1: value1}, ...] AND DOUBLE DASH [(--)key1, ...]
+
+	sdOpts = dict()
+	ddOpts = list()
+
+	for inst in instructions:
+		if "--" in inst:
+			ddOpts.append(inst.replace("--", ""))
+		
+		elif inst[0] == "-":
+			try:
+				if type(float(inst)) == float:
+					pass
+
+			except(ValueError):
+				sdOpts[inst.replace("-", "")] = instructions[instructions.index(inst) + 1]
+
+	return sdOpts, ddOpts
