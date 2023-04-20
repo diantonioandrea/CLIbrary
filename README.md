@@ -25,7 +25,7 @@ which would return something similar to[^1]:
 	Documentation on https://github.com/diantonioandrea/CLIbrary/blob/main/docs.md
 	Bug tracker on https://github.com/diantonioandrea/CLIbrary/issues
 
-[^1]: Example referring to version 1.7.0
+[^1]: Example referring to version 1.7.1
 
 ### Importing CLIbrary
 
