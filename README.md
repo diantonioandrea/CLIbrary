@@ -1,6 +1,6 @@
 # CLIbrary
 
-A standardized collection of CLI utilities written in Python to handle commands, I/O and files.  
+A comprehensive Python library of standard CLI utilities for convenient command, I/O, and file handling.  
 Make sure to take a look at the [documentation](https://github.com/diantonioandrea/CLIbrary/blob/main/docs.md)
 
 ## Installation
@@ -19,13 +19,13 @@ The installation of **CLIbrary** can be verified by:
 
 which would return something similar to[^1]:
 
-	●  CLIbrary v1.7.1 
-	A standardized collection of CLI utilities written in Python to handle commands, I/O and files.
+	●  CLIbrary v1.7.2 
+	A comprehensive Python library of standard CLI utilities for convenient command, I/O, and file handling.
 	Developed by Andrea Di Antonio, more on https://github.com/diantonioandrea/CLIbrary
 	Documentation on https://github.com/diantonioandrea/CLIbrary/blob/main/docs.md
 	Bug tracker on https://github.com/diantonioandrea/CLIbrary/issues
 
-[^1]: Example referring to version 1.7.1
+[^1]: Example referring to version 1.7.2
 
 ### Importing CLIbrary
 

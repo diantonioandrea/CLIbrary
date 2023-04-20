@@ -38,7 +38,7 @@ These projects have been built with **CLIbrary** and they should serve as exampl
 
 ### CLIbrary
 
-**CLIbrary** is *a standardized collection of CLI utilities written in Python to handle commands, I/O and files*. This means it is a set of functions that simplifies writing programs based on it by providing a coherent environment.
+**CLIbrary** is *a comprehensive Python library of standard CLI utilities for convenient command, I/O, and file handling*. This means it is a set of functions that simplifies writing programs based on it by providing a coherent environment.
 
 **CLIbrary** provides functions to:
 * Manage a CLI interface through command-and-options handling.

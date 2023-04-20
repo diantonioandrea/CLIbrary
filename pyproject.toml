@@ -4,11 +4,11 @@ build-backend = "hatchling.build"
 
 [project]
 name = "CLIbrary"
-version = "1.7.1"
+version = "1.7.2"
 authors = [
   { name="Andrea Di Antonio", email="mail@diantonioandrea.com" },
 ]
-description = "A standardized collection of CLI utilities written in Python to handle commands, I/O and files."
+description = "A comprehensive Python library of standard CLI utilities for convenient command, I/O, and file handling."
 readme = "README.md"
 requires-python = ">=3.7"
 classifiers = [
