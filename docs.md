@@ -62,9 +62,9 @@ Note that, although every function has a default handler, it is recommended to p
 As of version 1.2.1, CLIbrary has some "global options" to allow even more personalization.  
 Available options are:
 
-1. `CLIbrary.style.setting_darkMode`, bool: Enables global dark mode. Dafault: False.
-2. `CLIbrary.style.setting_plainMode`, bool: Disables styling. Default: False.
-3. `CLIbrary.input.setting_caseSensitive`, bool: Enables case-sensitiveness. Default: False
+1. `CLIbrary.style.setting_darkMode`, bool: Enables global dark mode. Dafault: `False`.
+2. `CLIbrary.style.setting_plainMode`, bool: Disables styling. Default: `False`.
+3. `CLIbrary.input.setting_caseSensitive`, bool: Enables case-sensitiveness. Default: `False`.
 4. `CLIbrary.data.setting_fileExtension`, str: Defines a file extension for *CLIbrary.aDump* and *CLIbrary.aLoad*. Default: `".pickle"`
 
 ### Import CLIbrary
