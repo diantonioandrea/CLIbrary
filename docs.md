@@ -145,41 +145,46 @@ There's no need to call this function manually as its calls are embedded inside 
 
 A help entry must be formatted this way:
 
-	"command": {
-		"description": "Command description.",
-		"options": {"-sdOpt#": "VALUE_DESCRIPTION", "-sdOpt": "VALUE_DESCRIPTION", "--ddOpt": ""}
-	}
+``` json
+"command": {
+	"description": "Command description.",
+	"options": {"-sdOpt#": "VALUE_DESCRIPTION", "-sdOpt": "VALUE_DESCRIPTION", "--ddOpt": ""}
+}
+```
 
 where mandatory options get identified by a "#" and double-dash options don't require a value description.
 
 This is an example from **openBriefcase**'s accounts help JSON[^3]:
 
-	{
-		"exit": {
-			"description": "Exits the account environment."
-		},
-		"new": {
-			"description": "Creates a new movement."
-		},
-		"edit": {
-			"description": "Edits a movement's features specifying at least an attribute.",
-			"options": {"-q#": "MOVEMENT_QUERY", "--reason": "", "--amount": "", "--date": "", "--category": ""}
-		},
-		"remove": {
-			"description": "Removes a movement.",
-			"options": {"-c#": "MOVEMENT_QUERY"}
-		},
-		"summary": {
-			"description": "Prints a summary of the account's movements."
-		},
-		"load": {
-			"description": "Loads a set of movements from a file."
-		},
-		"dump": {
-			"description": "Dumps a set of movements to a file.",
-			"options": {"-s": "STARTING_TIME", "-e": "ENDING_TIME"}
-		}
+``` json
+{
+	"exit": {
+		"description": "Exits the account environment."
+	},
+	"new": {
+		"description": "Creates a new movement."
+	},
+	"edit": {
+		"description": "Edits a movement's features specifying at least an attribute.",
+		"options": {"-q#": "MOVEMENT_QUERY", "--reason": "", "--amount": "", "--date": "", "--category": ""}
+	},
+	"remove": {
+		"description": "Removes a movement.",
+		"options": {"-c#": "MOVEMENT_QUERY"}
+	},
+	"summary": {
+		"description": "Prints a summary of the account's movements."
+	},
+	"load": {
+		"description": "Loads a set of movements from a file."
+	},
+	"dump": {
+		"description": "Dumps a set of movements to a file.",
+		"options": {"-s": "STARTING_TIME", "-e": "ENDING_TIME"}
 	}
+}
+
+```
 
 [^3]: This example refers to the version 1.5.0 of openBriefcase. The updated file can be found on [GitHub](https://github.com/diantonioandrea/openBriefcase/blob/main/resources/openBriefcaseAccountHelp.json).
 
