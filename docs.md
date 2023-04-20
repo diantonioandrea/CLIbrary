@@ -8,6 +8,8 @@ These projects have been built with **CLIbrary** and they should serve as exampl
 * [**openTree**](https://github.com/diantonioandrea/openTree), by [Andrea Di Antonio](https://github.com/diantonioandrea).
 * [**NBody**](https://github.com/diantonioandrea/NBody), by [Andrea Di Antonio](https://github.com/diantonioandrea).
 
+<a href="mailto:mail@diantonioandrea.com?subject=CLIbrary's project">Let me know<a> should you want your project listed here.
+
 ## Table of Contents
 
 0. [Projects built with CLIbrary](#projects-built-with-clibrary)
