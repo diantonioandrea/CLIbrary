@@ -9,7 +9,7 @@ def output(outputHandler: dict) -> None:
 	handler["string"] = "" # Output string.
 	handler["type"] = "" # Output type.
 	handler["before"] = "" # Prints this style-unaffected string before the main string.
-	handler["after"] = "" # Prints this style-unaffected string afteer the main string.
+	handler["after"] = "" # Prints this style-unaffected string after the main string.
 
 	handler.update(outputHandler)
 
