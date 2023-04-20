@@ -48,7 +48,7 @@ def output(outputHandler: dict) -> None:
 		outputStyle = ""
 	
 	else:
-		output({"type": "warning", "string": "OUTPUT MISCONFIGURED. PLEASE REFER TO THE DOCUMENTATION.", "before": handler["before"], "after": handler["after"]})
+		output({"type": "warning", "string": "OUTPUT MISCONFIGURED. PLEASE REFER TO THE DOCUMENTATION.", "before": "\n", "after": "\n"})
 		outputStyle = ""
 
 	if style.setting_plainMode: # Checks plain mode.

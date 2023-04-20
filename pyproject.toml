@@ -1,10 +1,10 @@
 [build-system]
-requires = ["hatchling", "colorama", "datetime"]
+requires = ["hatchling", "colorama", "datetime", "setuptools"]
 build-backend = "hatchling.build"
 
 [project]
 name = "CLIbrary"
-version = "1.7.0"
+version = "1.7.1"
 authors = [
   { name="Andrea Di Antonio", email="mail@diantonioandrea.com" },
 ]

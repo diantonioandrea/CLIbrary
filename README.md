@@ -19,9 +19,11 @@ The installation of **CLIbrary** can be verified by:
 
 which would return something similar to[^1]:
 
-	 ●  CLIbrary v1.7.0 
+	●  CLIbrary v1.7.1 
 	A standardized collection of CLI utilities written in Python to handle commands, I/O and files.
 	Developed by Andrea Di Antonio, more on https://github.com/diantonioandrea/CLIbrary
+	Documentation on https://github.com/diantonioandrea/CLIbrary/blob/main/docs.md
+	Bug tracker on https://github.com/diantonioandrea/CLIbrary/issues
 
 [^1]: Example referring to version 1.7.0
 
