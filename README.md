@@ -1,7 +1,7 @@
 # CLIbrary
 
 A comprehensive Python library of standard CLI utilities for convenient command, I/O, and file handling.  
-Make sure to take a look at the [documentation](https://github.com/diantonioandrea/CLIbrary/blob/main/docs.md) and at the [contributing guidelines](https://github.com/diantonioandrea/CLIbrary/blob/main/.github/CONTRIBUTING.md).
+Make sure to take a look at the [documentation](https://github.com/diantonioandrea/CLIbrary/blob/main/docs/docs.md) and at the [contributing guidelines](https://github.com/diantonioandrea/CLIbrary/blob/main/.github/CONTRIBUTING.md).
 
 ## Installation
 

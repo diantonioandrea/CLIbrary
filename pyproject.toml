@@ -19,5 +19,5 @@ classifiers = [
 
 [project.urls]
 "Homepage" = "https://github.com/diantonioandrea/CLIbrary"
-"Documentation" = "https://github.com/diantonioandrea/CLIbrary/blob/main/docs.md"
+"Documentation" = "https://github.com/diantonioandrea/CLIbrary/blob/main/docs/docs.md"
 "Bug Tracker" = "https://github.com/diantonioandrea/CLIbrary/issues"
