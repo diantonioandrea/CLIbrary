@@ -11,4 +11,4 @@ Feedbacks, suggestions and bug reports should be issued via:
 
 ## Contacts
 
-* <a href="mailto:mail@diantonioandrea.com?subject=CLIbrary contribution">Andrea Di Antonio<\a>.
+* <a href="mailto:mail@diantonioandrea.com?subject=CLIbrary contribution">Andrea Di Antonio</a>.
