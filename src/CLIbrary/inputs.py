@@ -2,7 +2,7 @@ from colorama import Fore, Back, Style
 from datetime import datetime
 
 from .outputs import *
-from .settings import style, input
+from .settings import style
 
 # INPUT HANDLING
 
@@ -98,7 +98,7 @@ def strIn(stringHandler={}) -> str: # String input.
 		try:
 			answer = str(input(allowedString + lengthString + handler["request"] + handler["added"]))
 
-			if not input.setting_caseSensitive: # Case-sensitiveness.
+			if not style.setting_caseSensitive: # Case-sensitiveness.
 				answer = answer.lower()
 
 			if handler["verbose"]: # Verbosity.

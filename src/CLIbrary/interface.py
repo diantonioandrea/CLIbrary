@@ -7,7 +7,6 @@ from .outputs import *
 
 def cmdIn(commandHandler={}) -> dict: # Command input.
 	from .settings import style
-	from .settings import input
 	
 	handler = {}
 	answer = {}
@@ -58,7 +57,7 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 		try:
 			rawAnswer = str(input(handler["style"] + handler["request"] + Style.RESET_ALL + handler["added"] + Style.RESET_ALL))
 
-			if not input.setting_caseSensitive: # Case-sensitiveness.
+			if not style.setting_caseSensitive: # Case-sensitiveness.
 				rawAnswer = rawAnswer.lower()
 			
 			if handler["verbose"]:

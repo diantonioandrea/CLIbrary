@@ -3,8 +3,6 @@
 class style:
 	setting_darkMode = False # Enables global dark mode.
 	setting_plainMode = False # Disables styling.
-
-class input:
 	setting_caseSensitive = False # Case sensitive strings.
 
 class data:
