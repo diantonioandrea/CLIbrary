@@ -1,6 +1,9 @@
 # CLIbrary
 
 A comprehensive Python library of standard CLI utilities for convenient command, I/O, and file handling.  
+
+**CLIbrary** is a comprehensive Python library of standard CLI utilities designed to make command line usage, input/output, and file handling easier and more efficient. It provides a wide range of tools for interacting with a shell, including essential utilities for command line parsing and I/O and file manipulations. With these tools, **CLIbrary** makes it easy to integrate powerful command-line functionality into any Python project.  
+
 Make sure to take a look at the [documentation](https://github.com/diantonioandrea/CLIbrary/blob/main/docs/docs.md) and at the [contributing guidelines](https://github.com/diantonioandrea/CLIbrary/blob/main/.github/CONTRIBUTING.md).
 
 ## Installation
