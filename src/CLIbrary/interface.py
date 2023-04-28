@@ -1,11 +1,13 @@
 from colorama import Fore, Back, Style
+from getkey import getkey, keys # cmdInput.
+import sys
 import json
 
 from .outputs import *
 
 # COMMANDS HANDLING
 
-def cmdIn(commandHandler={}) -> dict: # Command input.
+def cmdIn(commandHandler: dict = {}) -> dict: # Command input.
 	from .settings import style
 	
 	handler = {}
@@ -55,7 +57,7 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 
 	while True:
 		try:
-			rawAnswer = str(input(handler["style"] + handler["request"] + Style.RESET_ALL + handler["added"] + Style.RESET_ALL))
+			rawAnswer = cmdInput(handler)
 
 			if not style.setting_caseSensitive: # Case-sensitiveness.
 				rawAnswer = rawAnswer.lower()
@@ -93,7 +95,46 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 
 # UTILITIES
 
-def helpPrint(handler={}) -> None: # Prints the help.
+def cmdInput(handler: dict = {}) -> str:
+	buffer = ""
+	hint = ""
+
+	requestString = handler["style"] + handler["request"] + Style.RESET_ALL + handler["added"]
+
+	sys.stdout.write(requestString)
+	sys.stdout.flush()
+
+	while True:
+		key = getkey()
+
+		if key == keys.ENTER:
+			print() # Newline.
+			return " ".join(buffer.split())
+		
+		if key in ['\x7f', keys.DELETE]: # handles deletion.
+			buffer = buffer[:-1]
+
+		elif key == keys.TAB: # Tab completion.
+			if len(" ".join(buffer.split()).split(" ")) == 1: # Enables completion.
+				for command in handler["allowedCommands"]:
+					if command[0:len(" ".join(buffer.split()))] == " ".join(buffer.split()):
+						buffer = command + " "
+
+		else: # Adds the newly inserted character.
+			buffer += key
+
+		if " ".join(buffer.split()) != "" and len(" ".join(buffer.split()).split(" ")) == 1: # Hints.
+			for command in handler["allowedCommands"]:
+				if command[0:len(" ".join(buffer.split()))] == " ".join(buffer.split()):
+					hint = Style.DIM + command.replace(" ".join(buffer.split()), "") + Style.RESET_ALL
+
+		else:
+			hint = ""
+
+		sys.stdout.write("\x1b[2K\r" + requestString + buffer + hint)
+		sys.stdout.flush()
+
+def helpPrint(handler: dict = {}) -> None: # Prints the help.
 	from .settings import style
 
 	try:

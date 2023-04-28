@@ -6,7 +6,7 @@ from .settings import style
 
 # INPUT HANDLING
 
-def strIn(stringHandler={}) -> str: # String input.	
+def strIn(stringHandler: dict = {}) -> str: # String input.	
 	handler = {}
 
 	# Strings.
@@ -140,7 +140,7 @@ def strIn(stringHandler={}) -> str: # String input.
 		except:
 			output({"type": "error", "string": "ERROR"})
 
-def dateIn(dateHandler={}) -> str: # Date input.
+def dateIn(dateHandler: dict = {}) -> str: # Date input.
 	handler = {}
 
 	# Strings.
@@ -190,7 +190,7 @@ def dateIn(dateHandler={}) -> str: # Date input.
 		
 		output({"type": "error", "string": "DATE FORMAT ERROR"})
 
-def boolIn(boolHandler={}) -> bool: # Bool input.
+def boolIn(boolHandler: dict = {}) -> bool: # Bool input.
 	handler = {}
 
 	# Strings.
@@ -229,7 +229,7 @@ def boolIn(boolHandler={}) -> bool: # Bool input.
 	else:
 		return False
 
-def numIn(numberHandler={}) -> "int, float": # Number input.
+def numIn(numberHandler: dict = {}) -> "int, float": # Number input.
 	# Automatically recognizes wether the input is a float or an integer.
 
 	handler = {}
@@ -318,7 +318,7 @@ def numIn(numberHandler={}) -> "int, float": # Number input.
 
 # LISTS HANDLING
 
-def listCh(listHandler={}): # List choice.
+def listCh(listHandler: dict = {}): # List choice.
 	handler = {}
 
 	# Strings.
