@@ -103,7 +103,6 @@ def cmdInput(handler: dict = {}) -> str:
 
 	# Completion.
 	completion = ""
-	completionStyled = ""
 
 	request = handler["style"] + handler["request"] + Style.RESET_ALL + handler["added"]
 	style = lambda string: Style.DIM + string.replace(" ".join(buffer.split()), "") + Style.RESET_ALL
