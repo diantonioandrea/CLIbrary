@@ -111,7 +111,10 @@ def cmdInput(handler: dict = {}) -> str:
 			print() # Newline.
 			return " ".join(buffer.split())
 		
-		if key in ['\x7f', keys.DELETE]: # handles deletion.
+		elif key in [keys.UP, keys.DOWN, keys.LEFT, keys.RIGHT]: # Ignores arrows.
+			continue
+		
+		elif key in ['\x7f', keys.DELETE]: # handles deletion.
 			buffer = buffer[:-1]
 
 		elif key == keys.TAB: # Tab completion.
