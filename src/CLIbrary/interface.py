@@ -122,7 +122,7 @@ def cmdInput(handler: dict = {}) -> str:
 		elif key in [keys.UP, keys.DOWN, keys.LEFT, keys.RIGHT]: # Ignores arrows.
 			continue
 		
-		elif key in ['\x7f', keys.DELETE]: # handles deletion.
+		elif key == keys.BACKSPACE: # handles deletion.
 			buffer = buffer[:-1]
 
 		elif key == keys.TAB and completion and commands.setting_enableCompletion: # Tab completion.
