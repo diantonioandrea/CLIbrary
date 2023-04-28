@@ -97,6 +97,8 @@ def cmdIn(commandHandler: dict = {}) -> dict: # Command input.
 # UTILITIES
 
 def cmdInput(handler: dict = {}) -> str:
+	from .settings import commands
+
 	buffer = ""
 
 	# Completion.
@@ -123,7 +125,7 @@ def cmdInput(handler: dict = {}) -> str:
 		elif key in ['\x7f', keys.DELETE]: # handles deletion.
 			buffer = buffer[:-1]
 
-		elif key == keys.TAB and completion: # Tab completion.
+		elif key == keys.TAB and completion and commands.setting_enableCompletion: # Tab completion.
 			buffer = completion + " "
 
 		else: # Adds the newly inserted character.
@@ -131,7 +133,7 @@ def cmdInput(handler: dict = {}) -> str:
 
 		# COMPLETION HANDLING.
 
-		if " ".join(buffer.split()) != "" and len(" ".join(buffer.split()).split(" ")) == 1: # Search for a possibile completion.
+		if " ".join(buffer.split()) != "" and len(" ".join(buffer.split()).split(" ")) == 1 and commands.setting_enableCompletion: # Search for a possibile completion.
 			for command in handler["allowedCommands"]:
 				if command[0:len(" ".join(buffer.split()))] == " ".join(buffer.split()):
 					completion = command

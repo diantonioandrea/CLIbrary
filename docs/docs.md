@@ -66,6 +66,7 @@ Available options are:
 2. `CLIbrary.style.setting_plainMode`, bool: Disables styling. Default: `False`.
 3. `CLIbrary.style.setting_caseSensitive`, bool: Enables case-sensitiveness. Default: `False`.
 4. `CLIbrary.data.setting_fileExtension`, str: Defines a file extension for *CLIbrary.aDump* and *CLIbrary.aLoad*. Default: `".pickle"`
+5. `CLIbrary.commands.setting_enableCompletion`, bool: Enables command completion. Default: `True`
 
 ### Import CLIbrary
 
