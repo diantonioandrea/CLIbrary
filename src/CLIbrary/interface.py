@@ -9,7 +9,7 @@ from .outputs import *
 
 def cmdIn(commandHandler: dict = {}) -> dict: # Command input.
 	from .settings import style
-	
+
 	handler = {}
 	answer = {}
 
@@ -81,6 +81,8 @@ def cmdIn(commandHandler: dict = {}) -> dict: # Command input.
 			if answer["command"] == "help": # Prints the help.
 				helpPrint(handler)
 				continue
+
+			answer["sdOpts"], answer["ddOpts"] = optionsParser(instructions)
 		
 		except(IndexError):
 			output({"type": "error", "string": "SYNTAX ERROR"})
@@ -89,23 +91,27 @@ def cmdIn(commandHandler: dict = {}) -> dict: # Command input.
 		except(EOFError, KeyboardInterrupt): # Handles keyboard interruptions.
 			output({"type": "error", "string": "KEYBOARD ERROR"})
 			continue
-			
-		answer["sdOpts"], answer["ddOpts"] = optionsParser(instructions)
+
 		return answer
 
 # UTILITIES
 
 def cmdInput(handler: dict = {}) -> str:
 	buffer = ""
-	hint = ""
 
-	requestString = handler["style"] + handler["request"] + Style.RESET_ALL + handler["added"]
+	# Completion.
+	completion = ""
+	completionStyled = ""
 
-	sys.stdout.write(requestString)
+	request = handler["style"] + handler["request"] + Style.RESET_ALL + handler["added"]
+
+	sys.stdout.write(request)
 	sys.stdout.flush()
 
 	while True:
 		key = getkey()
+
+		# KEYS HANDLING.
 
 		if key == keys.ENTER:
 			print() # Newline.
@@ -117,27 +123,28 @@ def cmdInput(handler: dict = {}) -> str:
 		elif key in ['\x7f', keys.DELETE]: # handles deletion.
 			buffer = buffer[:-1]
 
-		elif key == keys.TAB: # Tab completion.
-			if len(" ".join(buffer.split()).split(" ")) == 1: # Enables completion.
-				for command in handler["allowedCommands"]:
-					if command[0:len(" ".join(buffer.split()))] == " ".join(buffer.split()):
-						buffer = command + " "
+		elif key == keys.TAB and completion: # Tab completion.
+			buffer = completion + " "
 
 		else: # Adds the newly inserted character.
 			buffer += key
 
-		if " ".join(buffer.split()) != "" and len(" ".join(buffer.split()).split(" ")) == 1: # Hints.
+		# COMPLETION HANDLING.
+
+		if " ".join(buffer.split()) != "" and len(" ".join(buffer.split()).split(" ")) == 1: # Search for a possibile completion.
 			for command in handler["allowedCommands"]:
 				if command[0:len(" ".join(buffer.split()))] == " ".join(buffer.split()):
-					hint = Style.DIM + command.replace(" ".join(buffer.split()), "") + Style.RESET_ALL
+					completion = command
+					completionStyled = Style.DIM + completion.replace(" ".join(buffer.split()), "") + Style.RESET_ALL
 
 		else:
-			hint = ""
+			completion = ""
+			completionStyled = ""
 
-		sys.stdout.write("\x1b[2K\r" + requestString + buffer + hint)
+		sys.stdout.write("\x1b[2K\r" + request + buffer + completionStyled)
 		sys.stdout.flush()
 
-def helpPrint(handler: dict = {}) -> None: # Prints the help.
+def helpPrint(handler: dict) -> None: # Prints the help.
 	from .settings import style
 
 	try:
