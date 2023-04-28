@@ -106,6 +106,7 @@ def cmdInput(handler: dict = {}) -> str:
 	completionStyled = ""
 
 	request = handler["style"] + handler["request"] + Style.RESET_ALL + handler["added"]
+	style = lambda string: Style.DIM + string.replace(" ".join(buffer.split()), "") + Style.RESET_ALL
 
 	sys.stdout.write(request)
 	sys.stdout.flush()
@@ -116,7 +117,7 @@ def cmdInput(handler: dict = {}) -> str:
 		# KEYS HANDLING.
 
 		if key == keys.ENTER:
-			print() # Newline.
+			print() # New line.
 			return " ".join(buffer.split())
 		
 		elif key in [keys.UP, keys.DOWN, keys.LEFT, keys.RIGHT]: # Ignores arrows.
@@ -133,17 +134,14 @@ def cmdInput(handler: dict = {}) -> str:
 
 		# COMPLETION HANDLING.
 
+		completion = ""
 		if " ".join(buffer.split()) != "" and len(" ".join(buffer.split()).split(" ")) == 1 and commands.setting_enableCompletion: # Search for a possibile completion.
 			for command in handler["allowedCommands"]:
 				if command[0:len(" ".join(buffer.split()))] == " ".join(buffer.split()):
 					completion = command
-					completionStyled = Style.DIM + completion.replace(" ".join(buffer.split()), "") + Style.RESET_ALL
+					break
 
-		else:
-			completion = ""
-			completionStyled = ""
-
-		sys.stdout.write("\x1b[2K\r" + request + buffer + completionStyled)
+		sys.stdout.write("\x1b[2K\r" + request + buffer + style(completion))
 		sys.stdout.flush()
 
 def helpPrint(handler: dict) -> None: # Prints the help.
