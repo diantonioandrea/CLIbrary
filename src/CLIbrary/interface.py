@@ -1,5 +1,6 @@
 from colorama import Fore, Back, Style
 from getkey import getkey, keys # cmdInput.
+import string
 import sys
 import json
 
@@ -128,7 +129,7 @@ def cmdInput(handler: dict = {}) -> str:
 		elif key == keys.TAB and completion and commands.setting_enableCompletion: # Tab completion.
 			buffer = completion + " "
 
-		else: # Adds the newly inserted character.
+		elif key in string.printable: # Adds the newly inserted character.
 			buffer += key
 
 		# COMPLETION HANDLING.
