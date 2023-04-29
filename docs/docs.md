@@ -39,7 +39,10 @@ These projects have been built with **CLIbrary** and they should serve as exampl
 
 ### CLIbrary
 
-**CLIbrary** is *a comprehensive Python library of standard CLI utilities for convenient command, I/O, and file handling*. This means it is a set of functions that simplifies writing programs based on it by providing a coherent environment.
+A comprehensive Python library of standard CLI utilities for convenient command, I/O, and file handling.
+
+**CLIbrary** is a comprehensive Python library that makes command line usage, input/output, and file handling easier and more efficient. *It provides a wide range of tools for interacting with a shell*, including essential utilities for *command line parsing and I/O, file manipulations, tab completion, and command hinting*. With these tools, **CLIbrary** makes it easy to integrate powerful command-line functionality into any Python project.  
+Additionally, it now also provides a *history feature for tracking and re-executing previous commands*.  
 
 **CLIbrary** provides functions to:
 * Manage a CLI interface through command-and-options handling.
