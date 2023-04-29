@@ -84,6 +84,9 @@ def cmdIn(commandHandler: dict = {}) -> dict: # Command input.
 				continue
 
 			if handler["command"] == "help": # Prints the help.
+				if "history" not in handler["allowedCommands"]:
+					handler["allowedCommands"].append("history")
+					
 				handler["history"].append("help")
 				helpPrint(handler)
 				continue
