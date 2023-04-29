@@ -1,3 +1,5 @@
+![PyPI](https://img.shields.io/pypi/v/CLIbrary)
+
 # CLIbrary
 
 A comprehensive Python library of standard CLI utilities for convenient command, I/O, and file handling.  
