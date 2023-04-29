@@ -98,7 +98,7 @@ CLIbrary.FUNCTION_NAME()
 ### CLI
 
 ``` python
-CLIbrary.cmdIn(commandHandler: dict = {}) -> dict
+CLIbrary.cmdIn(cHandler: dict = {}) -> dict
 ```
 
 *cmdIn* stands for *Command Input* as this function allows the user to input command as in a CLI interface.  
@@ -109,7 +109,10 @@ The handler for this function makes use of the following parameters:
 * added, str: A set of characters to be automatically added to the prompt. Default is ": ".
 * style, str[^1]: A particular colour style to be applied to the prompt.
 * verbose, bool.
-* allowedCommands, list: A list of all the allowed commands for the CLI interface.
+* allowedCommands, list: A list of all the allowed commands for the CLI interface. There are some default commands:
+	* `exit`: Mandatory commands which handles exiting from main program.
+	* `help`: Enabled on helpPath being different from `""`.
+	* `history`: Enabled on history being different from `[]` and on `CLIbrary.commands.setting_enableHistory` set as `True`.
 * helpPath, str: The path to the help JSON. This enables the *help* command.
 
 This function returns a dictionary with the following keys:
@@ -210,7 +213,7 @@ This is an example from **openBriefcase**'s accounts help JSON[^3]:
 ### Loading
 
 ``` python
-CLIbrary.aLoad(fileHandler: dict)
+CLIbrary.aLoad(fHandler: dict)
 ``` 
 
 *aLoad* stands for *Automatic Loading* as this function loads informations from files without user confirmation.
@@ -222,7 +225,7 @@ The handler for this function makes use of the following parameters:
 ### Dumping
 
 ``` python
-CLIbrary.aDump(fileHandler: dict) -> None
+CLIbrary.aDump(fHandler: dict) -> None
 ```
 
 *aDump* stands for *Automatic Dumping* as this function dumps informations to files without user confirmation.
@@ -238,7 +241,7 @@ The handler for this function makes use of the following parameters:
 ### Strings
 
 ``` python
-CLIbrary.strIn(stringHandler: dict = {}) -> str
+CLIbrary.strIn(sHandler: dict = {}) -> str
 ```
 
 *strIn* stands for *String Input* as this function's purpose is receiving string inputs.
@@ -264,7 +267,7 @@ The returned value isn't case sensitive.
 ### Numbers
 
 ``` python
-CLIbrary.numIn(numberHandler: dict = {}) -> "int, float"
+CLIbrary.numIn(nHandler: dict = {}) -> "int, float"
 ```
 
 *numIn* stands for *Number Input* as this function's purpose is receiving numeric inputs.
@@ -299,7 +302,7 @@ The handler for this function makes use of the following parameters:
 ### Dates
 
 ``` python
-CLIbrary.dateIn(dateHandler: dict = {}) -> str
+CLIbrary.dateIn(dHandler: dict = {}) -> str
 ```
 
 *dateIn* stands for *Date Input* as this function's purpose is receiving date[^4] inputs.
@@ -317,7 +320,7 @@ The handler for this function makes use of the following parameters:
 ### List handling
 
 ``` python
-CLIbrary.listCh(listHandler: dict = {})
+CLIbrary.listCh(lHandler: dict = {})
 ```
 
 *listCh* stands for *List Choice* as this function returns the choosen element from a list.

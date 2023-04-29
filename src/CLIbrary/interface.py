@@ -8,7 +8,7 @@ from .outputs import *
 
 # COMMANDS HANDLING
 
-def cmdIn(commandHandler: dict = {}) -> dict: # Command input.
+def cmdIn(cHandler: dict = {}) -> dict: # Command input.
 	from .settings import style, commands
 
 	handler = {}
@@ -27,7 +27,7 @@ def cmdIn(commandHandler: dict = {}) -> dict: # Command input.
 	handler["verbose"] = False # Verbosity.
 
 	# Updates the handler.
-	handler.update(commandHandler)
+	handler.update(cHandler)
 
 	# Checks types and values.
 	if not type(handler["request"]) == str:
