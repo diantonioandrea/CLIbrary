@@ -239,7 +239,7 @@ def optionsParser(instructions: list) -> dict: # Parses the options contained in
 			ddOpts.append(inst.replace("--", ""))
 		
 		elif inst[0] == "-":
-			try:
+			try: # Avoids parsing negative numbers as options.
 				if type(float(inst)) == float:
 					pass
 

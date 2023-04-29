@@ -25,7 +25,7 @@ def aLoad(fileHandler: dict): # Automatic loading.
 	if not type(handler["ignoreMissing"]) == bool:
 		handler["ignoreMissing"] = False
 
-	try: # Try to gather data from the file.
+	try: # Tries to gather data from file.
 		dataFile = open(handler["path"] + data.setting_fileExtension, "rb")
 		data = load(dataFile)
 		dataFile.close()
