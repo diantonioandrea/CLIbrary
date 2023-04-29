@@ -135,7 +135,10 @@ def cmdInput(handler: dict = {}) -> str:
 		# COMPLETION HANDLING.
 
 		completion = ""
-		if " ".join(buffer.split()) != "" and len(" ".join(buffer.split()).split(" ")) == 1 and commands.setting_enableCompletion: # Search for a possibile completion.
+		# Search for a possibile completion.
+		if " ".join(buffer.split()) != "" and len(" ".join(buffer.split()).split(" ")) == 1 and buffer[-1] != " " and commands.setting_enableCompletion:
+			# This works if the buffer is made of a single word and does not end with a space.
+			# This also checks for commands.setting_enableCompletion.
 			for command in handler["allowedCommands"]:
 				if command[0:len(" ".join(buffer.split()))] == " ".join(buffer.split()):
 					completion = command
