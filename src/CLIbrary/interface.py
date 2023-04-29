@@ -93,7 +93,10 @@ def cmdIn(commandHandler: dict = {}) -> dict: # Command input.
 
 			if handler["command"] == "history": # Prints the history of commands.
 				handler["history"].append("history")
-				print("\n".join("{}. {}".format(index + 1, handler["history"][index]) for index in range(len(handler["history"]))))
+
+				# zsh-like format.
+				spaces = len(str(len(handler["history"]))) # Ugly but it works.
+				print("\n".join("{}{}. {}".format(" " * (spaces - len(str(index + 1))), index + 1, handler["history"][index]) for index in range(len(handler["history"]))))
 				continue
 
 			handler["sdOpts"], handler["ddOpts"] = optionsParser(instructions)
