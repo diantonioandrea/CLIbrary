@@ -1,6 +1,6 @@
-[![CodeQL](https://github.com/diantonioandrea/CLIbrary/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/diantonioandrea/CLIbrary/actions/workflows/github-code-scanning/codeql)
-
 # Security Policy
+
+[![CodeQL](https://github.com/diantonioandrea/CLIbrary/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/diantonioandrea/CLIbrary/actions/workflows/github-code-scanning/codeql)
 
 ## Supported Versions
 
