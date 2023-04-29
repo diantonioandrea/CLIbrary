@@ -9,7 +9,7 @@ from .outputs import *
 # COMMANDS HANDLING
 
 def cmdIn(commandHandler: dict = {}) -> dict: # Command input.
-	from .settings import style
+	from .settings import style, commands
 
 	handler = {}
 
@@ -49,6 +49,8 @@ def cmdIn(commandHandler: dict = {}) -> dict: # Command input.
 		handler["history"] = []
 	if "history" not in handler["allowedCommands"] and len(handler["history"]):
 		handler["allowedCommands"].append("history")
+	if "history" in handler["allowedCommands"] and not commands.setting_enableHistory:
+		handler["allowedCommands"].remove("history")
 
 	if not type(handler["verbose"]) == bool:
 		handler["verbose"] = False
@@ -84,9 +86,10 @@ def cmdIn(commandHandler: dict = {}) -> dict: # Command input.
 				continue
 
 			if handler["command"] == "help": # Prints the help.
-				if "history" not in handler["allowedCommands"]:
+				# Fixes history not showing when issuing help as first command.
+				if "history" not in handler["allowedCommands"] and commands.setting_enableHistory:
 					handler["allowedCommands"].append("history")
-					
+
 				handler["history"].append("help")
 				helpPrint(handler)
 				continue

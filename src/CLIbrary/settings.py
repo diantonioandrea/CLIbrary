@@ -7,6 +7,7 @@ class style:
 
 class commands:
 	setting_enableCompletion = True # Enables command completion.
+	setting_enableHistory = True # Enables command history and navigation.
 
 class data:
 	setting_fileExtension = ".pickle" # Defines a file extension for aDump and aLoad. Default value based on Python's module pickle.
