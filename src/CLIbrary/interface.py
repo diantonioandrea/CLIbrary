@@ -1,13 +1,16 @@
 from colorama import Fore, Back, Style
+from getkey import getkey, keys # cmdInput.
+import string
+import sys
 import json
 
 from .outputs import *
 
 # COMMANDS HANDLING
 
-def cmdIn(commandHandler={}) -> dict: # Command input.
+def cmdIn(commandHandler: dict = {}) -> dict: # Command input.
 	from .settings import style
-	
+
 	handler = {}
 	answer = {}
 
@@ -55,7 +58,7 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 
 	while True:
 		try:
-			rawAnswer = str(input(handler["style"] + handler["request"] + Style.RESET_ALL + handler["added"] + Style.RESET_ALL))
+			rawAnswer = cmdInput(handler)
 
 			if not style.setting_caseSensitive: # Case-sensitiveness.
 				rawAnswer = rawAnswer.lower()
@@ -79,6 +82,8 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 			if answer["command"] == "help": # Prints the help.
 				helpPrint(handler)
 				continue
+
+			answer["sdOpts"], answer["ddOpts"] = optionsParser(instructions)
 		
 		except(IndexError):
 			output({"type": "error", "string": "SYNTAX ERROR"})
@@ -87,13 +92,59 @@ def cmdIn(commandHandler={}) -> dict: # Command input.
 		except(EOFError, KeyboardInterrupt): # Handles keyboard interruptions.
 			output({"type": "error", "string": "KEYBOARD ERROR"})
 			continue
-			
-		answer["sdOpts"], answer["ddOpts"] = optionsParser(instructions)
+
 		return answer
 
 # UTILITIES
 
-def helpPrint(handler={}) -> None: # Prints the help.
+def cmdInput(handler: dict = {}) -> str:
+	from .settings import commands
+
+	buffer = ""
+
+	# Completion.
+	completion = ""
+
+	request = handler["style"] + handler["request"] + Style.RESET_ALL + handler["added"]
+	style = lambda string: Style.DIM + string.replace(" ".join(buffer.split()), "") + Style.RESET_ALL
+
+	sys.stdout.write(request)
+	sys.stdout.flush()
+
+	while True:
+		key = getkey()
+
+		# KEYS HANDLING.
+
+		if key == keys.ENTER:
+			print() # New line.
+			return " ".join(buffer.split())
+		
+		elif key in [keys.UP, keys.DOWN, keys.LEFT, keys.RIGHT]: # Ignores arrows.
+			continue
+		
+		elif key == keys.BACKSPACE: # handles deletion.
+			buffer = buffer[:-1]
+
+		elif key == keys.TAB and completion and commands.setting_enableCompletion: # Tab completion.
+			buffer = completion + " "
+
+		elif key in string.printable: # Adds the newly inserted character.
+			buffer += key
+
+		# COMPLETION HANDLING.
+
+		completion = ""
+		if " ".join(buffer.split()) != "" and len(" ".join(buffer.split()).split(" ")) == 1 and commands.setting_enableCompletion: # Search for a possibile completion.
+			for command in handler["allowedCommands"]:
+				if command[0:len(" ".join(buffer.split()))] == " ".join(buffer.split()):
+					completion = command
+					break
+
+		sys.stdout.write("\x1b[2K\r" + request + buffer + style(completion))
+		sys.stdout.flush()
+
+def helpPrint(handler: dict) -> None: # Prints the help.
 	from .settings import style
 
 	try:

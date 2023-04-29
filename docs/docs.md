@@ -64,8 +64,9 @@ Available options are:
 
 1. `CLIbrary.style.setting_darkMode`, bool: Enables global dark mode. Dafault: `False`.
 2. `CLIbrary.style.setting_plainMode`, bool: Disables styling. Default: `False`.
-3. `CLIbrary.input.setting_caseSensitive`, bool: Enables case-sensitiveness. Default: `False`.
+3. `CLIbrary.style.setting_caseSensitive`, bool: Enables case-sensitiveness. Default: `False`.
 4. `CLIbrary.data.setting_fileExtension`, str: Defines a file extension for *CLIbrary.aDump* and *CLIbrary.aLoad*. Default: `".pickle"`
+5. `CLIbrary.commands.setting_enableCompletion`, bool: Enables command completion. Default: `True`
 
 ### Import CLIbrary
 
@@ -96,10 +97,11 @@ CLIbrary.FUNCTION_NAME()
 ### CLI
 
 ``` python
-CLIbrary.cmdIn(commandHandler={}) -> dict
+CLIbrary.cmdIn(commandHandler: dict = {}) -> dict
 ```
 
-*cmdIn* stands for *Command Input* as this function allows the user to input command as in a CLI interface.
+*cmdIn* stands for *Command Input* as this function allows the user to input command as in a CLI interface.  
+As of version 1.9.0, CLIbrary supports tab completion and hinting thanks to [cmdInput](#cmdinput).
 
 The handler for this function makes use of the following parameters:
 * request, str: The prompt to the user.
@@ -124,18 +126,28 @@ with no more than a single word for the command itself.
 
 [^2]: The options get returned without the dashes.
 
+### cmdInput
+
+``` python
+CLIbrary.interface.cmdInput(handler: dict) -> None
+```
+
+*cmdInput* is cmdIn's alternative to Python's input which allows for tab completion and hinting.
+There's no need to call this function manually as its calls are embedded inside *cmdIn*.
+
 ### Option parser
 
 ``` python
-CLIbrary.optionParser(instructions: list) -> None
+CLIbrary.interface.optionParser(instructions: list) -> None
 ```
 
 *optionParser* is a function that receives a list of strings and returns the single dash options sdOpts, a dictionary, and the double dash options, a list.
+There's no need to call this function manually as its calls are embedded inside *cmdIn*.
 
 ### Help
 
 ``` python
-CLIbrary.helpPrint(handler={}) -> None
+CLIbrary.interface.helpPrint(handler: dict) -> None
 ```
 
 *helpPrint* is a function that reads and print the help JSON whose path gets passed to *cmdIn*.
@@ -225,7 +237,7 @@ The handler for this function makes use of the following parameters:
 ### Strings
 
 ``` python
-CLIbrary.strIn(stringHandler={}) -> str
+CLIbrary.strIn(stringHandler: dict = {}) -> str
 ```
 
 *strIn* stands for *String Input* as this function's purpose is receiving string inputs.
@@ -251,7 +263,7 @@ The returned value isn't case sensitive.
 ### Numbers
 
 ``` python
-CLIbrary.numIn(numberHandler={}) -> "int, float"
+CLIbrary.numIn(numberHandler: dict = {}) -> "int, float"
 ```
 
 *numIn* stands for *Number Input* as this function's purpose is receiving numeric inputs.
@@ -271,7 +283,7 @@ The handler for this function makes use of the following parameters:
 ### Booleans
 
 ``` python
-CLIbrary.boolIn(boolHandler={}) -> bool
+CLIbrary.boolIn(boolHandler: dict = {}) -> bool
 ```
 
 *boolIn* stands for *Boolean Input* as this function's purpose is receiving boolean inputs.
@@ -286,7 +298,7 @@ The handler for this function makes use of the following parameters:
 ### Dates
 
 ``` python
-CLIbrary.dateIn(dateHandler={}) -> str
+CLIbrary.dateIn(dateHandler: dict = {}) -> str
 ```
 
 *dateIn* stands for *Date Input* as this function's purpose is receiving date[^4] inputs.
@@ -304,7 +316,7 @@ The handler for this function makes use of the following parameters:
 ### List handling
 
 ``` python
-CLIbrary.listCh(listHandler={})
+CLIbrary.listCh(listHandler: dict = {})
 ```
 
 *listCh* stands for *List Choice* as this function returns the choosen element from a list.
