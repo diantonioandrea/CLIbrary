@@ -11,6 +11,7 @@ authors = [
 description = "A comprehensive Python library of standard CLI utilities for convenient command, I/O, and file handling."
 readme = "README.md"
 requires-python = ">=3.7"
+dependencies = ["colorama", "datetime", "setuptools", "getkey"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
