@@ -6,7 +6,7 @@ from .settings import style
 
 # INPUT HANDLING
 
-def strIn(stringHandler: dict = {}) -> str: # String input.	
+def strIn(sHandler: dict = {}) -> str: # String input.	
 	handler = {}
 
 	# Strings.
@@ -28,7 +28,7 @@ def strIn(stringHandler: dict = {}) -> str: # String input.
 	handler["fixedLength"] = 0
 
 	# Updates the handler.
-	handler.update(stringHandler)
+	handler.update(sHandler)
 
 	# Checks types and values.
 	if not type(handler["request"]) == str:
@@ -121,11 +121,11 @@ def strIn(stringHandler: dict = {}) -> str: # String input.
 					return answer
 
 				else:
-					verificationHandler = {key: handler[key] for key in handler}
-					verificationHandler["request"] = "Verification"
-					verificationHandler["verification"] = False # Disables verification on the verification handler to avoid looping.
+					vHandler = {key: handler[key] for key in handler}
+					vHandler["request"] = "Verification"
+					vHandler["verification"] = False # Disables verification on the verification handler to avoid looping.
 					
-					if answer == strIn(verificationHandler):
+					if answer == strIn(vHandler):
 						return answer
 					
 					else:
@@ -140,7 +140,7 @@ def strIn(stringHandler: dict = {}) -> str: # String input.
 		except:
 			output({"type": "error", "string": "ERROR"})
 
-def dateIn(dateHandler: dict = {}) -> str: # Date input.
+def dateIn(dHandler: dict = {}) -> str: # Date input.
 	handler = {}
 
 	# Strings.
@@ -152,7 +152,7 @@ def dateIn(dateHandler: dict = {}) -> str: # Date input.
 	handler["verbose"] = False
 
 	# Updates the handler.
-	handler.update(dateHandler)
+	handler.update(dHandler)
 
 	# Checks types and values.
 	if not type(handler["request"]) == str:
@@ -166,15 +166,15 @@ def dateIn(dateHandler: dict = {}) -> str: # Date input.
 		handler["verbose"] = False
 
 	# String handler.
-	strHandler = {}
-	strHandler["request"] = handler["request"]
-	strHandler["added"] = handler["added"]
-	strHandler["allowedChars"] = ["-"]
-	strHandler["space"] = False
-	strHandler["fixedLength"] = 10
+	sHandler = {}
+	sHandler["request"] = handler["request"]
+	sHandler["added"] = handler["added"]
+	sHandler["allowedChars"] = ["-"]
+	sHandler["space"] = False
+	sHandler["fixedLength"] = 10
 
 	while True:
-		answer = strIn(strHandler)
+		answer = strIn(sHandler)
 
 		if handler["verbose"]:
 			output({"type": "verbose", "string": "VERBOSE, INPUT: " + answer})
@@ -190,7 +190,7 @@ def dateIn(dateHandler: dict = {}) -> str: # Date input.
 		
 		output({"type": "error", "string": "DATE FORMAT ERROR"})
 
-def boolIn(boolHandler: dict = {}) -> bool: # Bool input.
+def boolIn(bHandler: dict = {}) -> bool: # Bool input.
 	handler = {}
 
 	# Strings.
@@ -201,7 +201,7 @@ def boolIn(boolHandler: dict = {}) -> bool: # Bool input.
 	handler["verbose"] = False
 
 	# Updates the handler.	
-	handler.update(boolHandler)
+	handler.update(bHandler)
 
 	# Checks types and values.
 	if not type(handler["request"]) == str:
@@ -213,12 +213,12 @@ def boolIn(boolHandler: dict = {}) -> bool: # Bool input.
 		handler["verbose"] = False
 
 	# String handler.
-	strHandler = {}
-	strHandler["request"] = handler["request"]
-	strHandler["added"] = handler["added"]
-	strHandler["allowedAnswers"] = ["y", "n"]
-	strHandler["noSpace"] = True
-	answer = strIn(strHandler)
+	sHandler = {}
+	sHandler["request"] = handler["request"]
+	sHandler["added"] = handler["added"]
+	sHandler["allowedAnswers"] = ["y", "n"]
+	sHandler["noSpace"] = True
+	answer = strIn(sHandler)
 
 	if handler["verbose"]:
 		output({"type": "verbose", "string": "VERBOSE, INPUT: " + answer})
@@ -229,7 +229,7 @@ def boolIn(boolHandler: dict = {}) -> bool: # Bool input.
 	else:
 		return False
 
-def numIn(numberHandler: dict = {}) -> "int, float": # Number input.
+def numIn(nHandler: dict = {}) -> "int, float": # Number input.
 	# Automatically recognizes wether the input is a float or an integer.
 
 	handler = {}
@@ -249,7 +249,7 @@ def numIn(numberHandler: dict = {}) -> "int, float": # Number input.
 	handler["round"] = -1 # Rounding number.
 
 	# Updated the handler.
-	handler.update(numberHandler)
+	handler.update(nHandler)
 
 	# Checks types and values.
 	if not type(handler["request"]) == str:
@@ -318,7 +318,7 @@ def numIn(numberHandler: dict = {}) -> "int, float": # Number input.
 
 # LISTS HANDLING
 
-def listCh(listHandler: dict = {}): # List choice.
+def listCh(lHandler: dict = {}): # List choice.
 	handler = {}
 
 	# Strings.
@@ -329,13 +329,13 @@ def listCh(listHandler: dict = {}): # List choice.
 	handler["list"] = [] # The list from which to choose the output.
 
 	# Updates the handler.
-	handler.update(listHandler)
+	handler.update(lHandler)
 
 	# Number handler.
-	numberHandler = {}
-	numberHandler["request"] = handler["request"]
-	numberHandler["added"] = handler["added"]
-	numberHandler["allowedTypes"] = ["int"]
+	nHandler = {}
+	nHandler["request"] = handler["request"]
+	nHandler["added"] = handler["added"]
+	nHandler["allowedTypes"] = ["int"]
 
 
 	# Checks types and values.
@@ -355,8 +355,8 @@ def listCh(listHandler: dict = {}): # List choice.
 	
 	else:
 		print("\n".join([str(handler["list"].index(item)) + ": " + str(item) for item in handler["list"]]))
-		numberHandler["allowedRange"] = [0, len(handler["list"]) - 1]
+		nHandler["allowedRange"] = [0, len(handler["list"]) - 1]
 		
-		answer = handler["list"][numIn(numberHandler)]
+		answer = handler["list"][numIn(nHandler)]
 			
 	return answer

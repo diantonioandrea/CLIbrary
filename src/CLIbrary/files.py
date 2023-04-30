@@ -4,7 +4,7 @@ from .outputs import *
 
 # FILES HANDLING
 
-def aLoad(fileHandler: dict): # Automatic loading.
+def aLoad(fHandler: dict): # Automatic loading.
 	from .settings import data
 
 	handler = {}
@@ -16,7 +16,7 @@ def aLoad(fileHandler: dict): # Automatic loading.
 	handler["ignoreMissing"] = False
 
 	# Updates the handler.
-	handler.update(fileHandler)
+	handler.update(fHandler)
 
 	# Checks types and values.
 	if not type(handler["path"]) == str:
@@ -33,7 +33,7 @@ def aLoad(fileHandler: dict): # Automatic loading.
 	except(FileNotFoundError):
 		data = None
 		if not handler["ignoreMissing"]:
-			output({"type": "error", "string": "\'" + fileHandler["path"] + data.setting_fileExtension + "\' NOT FOUND"})
+			output({"type": "error", "string": "\'" + fHandler["path"] + data.setting_fileExtension + "\' NOT FOUND"})
 
 	except:
 		data = None
@@ -41,7 +41,7 @@ def aLoad(fileHandler: dict): # Automatic loading.
 
 	return data
 	
-def aDump(fileHandler: dict) -> None: # Automatic dumping.
+def aDump(fHandler: dict) -> None: # Automatic dumping.
 	from .settings import data
 	
 	handler = {}
@@ -53,7 +53,7 @@ def aDump(fileHandler: dict) -> None: # Automatic dumping.
 	handler["data"] = None
 
 	# Updates the handler.
-	handler.update(fileHandler)
+	handler.update(fHandler)
 
 	# Checks types and values.
 	if not type(handler["path"]) == str:

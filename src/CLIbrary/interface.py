@@ -8,11 +8,10 @@ from .outputs import *
 
 # COMMANDS HANDLING
 
-def cmdIn(commandHandler: dict = {}) -> dict: # Command input.
-	from .settings import style
+def cmdIn(cHandler: dict = {}) -> dict: # Command input.
+	from .settings import style, commands
 
 	handler = {}
-	answer = {}
 
 	# Strings.
 	handler["request"] = "Command" # The input request.
@@ -22,12 +21,13 @@ def cmdIn(commandHandler: dict = {}) -> dict: # Command input.
 
 	# Lists.
 	handler["allowedCommands"] = ["exit"] # The allowed commands. "exit" must be here.
+	handler["history"]= [] # Command history.
 
 	# Bools.
 	handler["verbose"] = False # Verbosity.
 
 	# Updates the handler.
-	handler.update(commandHandler)
+	handler.update(cHandler)
 
 	# Checks types and values.
 	if not type(handler["request"]) == str:
@@ -45,6 +45,12 @@ def cmdIn(commandHandler: dict = {}) -> dict: # Command input.
 		handler["allowedCommands"].append("exit")
 	if "help" not in handler["allowedCommands"] and handler["helpPath"]:
 		handler["allowedCommands"].append("help")
+	if not type(handler["history"]) == list:
+		handler["history"] = []
+	if "history" not in handler["allowedCommands"] and len(handler["history"]):
+		handler["allowedCommands"].append("history")
+	if "history" in handler["allowedCommands"] and not commands.setting_enableHistory:
+		handler["allowedCommands"].remove("history")
 
 	if not type(handler["verbose"]) == bool:
 		handler["verbose"] = False
@@ -58,32 +64,45 @@ def cmdIn(commandHandler: dict = {}) -> dict: # Command input.
 
 	while True:
 		try:
-			rawAnswer = cmdInput(handler)
+			command = cmdInput(handler)
 
 			if not style.setting_caseSensitive: # Case-sensitiveness.
-				rawAnswer = rawAnswer.lower()
+				command = command.lower()
 			
 			if handler["verbose"]:
-				output({"type": "verbose", "string": "VERBOSE, INPUT: " + rawAnswer})
+				output({"type": "verbose", "string": "VERBOSE, INPUT: " + command})
 
-			instructions = rawAnswer.split(" ")
+			instructions = command.split(" ")
 
 			if "-" not in instructions[0]: # Checks the first word.
-				answer["command"] = instructions[0]
+				handler["command"] = instructions[0]
 
 			else:
 				output({"type": "error", "string": "SYNTAX ERROR"})
 				continue
 
-			if answer["command"] not in handler["allowedCommands"] and rawAnswer != "": # Checks the commands list.
+			if handler["command"] not in handler["allowedCommands"] and command != "": # Checks the commands list.
 				output({"type": "error", "string": "UNKNOWN OR UNAVAILABLE COMMAND"})
 				continue
 
-			if answer["command"] == "help": # Prints the help.
+			if handler["command"] == "help": # Prints the help.
+				# Fixes history not showing when issuing help as first command.
+				if "history" not in handler["allowedCommands"] and commands.setting_enableHistory:
+					handler["allowedCommands"].append("history")
+
+				handler["history"].append("help")
 				helpPrint(handler)
 				continue
 
-			answer["sdOpts"], answer["ddOpts"] = optionsParser(instructions)
+			if handler["command"] == "history": # Prints the history of commands.
+				handler["history"].append("history")
+
+				# zsh-like format.
+				spaces = len(str(len(handler["history"]))) # Ugly but it works.
+				print("\n".join("{}{}. {}".format(" " * (spaces - len(str(index + 1))), index + 1, handler["history"][index]) for index in range(len(handler["history"]))))
+				continue
+
+			handler["sdOpts"], handler["ddOpts"] = optionsParser(instructions)
 		
 		except(IndexError):
 			output({"type": "error", "string": "SYNTAX ERROR"})
@@ -92,8 +111,9 @@ def cmdIn(commandHandler: dict = {}) -> dict: # Command input.
 		except(EOFError, KeyboardInterrupt): # Handles keyboard interruptions.
 			output({"type": "error", "string": "KEYBOARD ERROR"})
 			continue
-
-		return answer
+		
+		handler["history"].append(command)
+		return handler # Returns the updated handler.
 
 # UTILITIES
 
@@ -101,6 +121,9 @@ def cmdInput(handler: dict = {}) -> str:
 	from .settings import commands
 
 	buffer = ""
+
+	# History handling.
+	index = 0
 
 	# Completion.
 	completion = ""
@@ -120,8 +143,28 @@ def cmdInput(handler: dict = {}) -> str:
 			print() # New line.
 			return " ".join(buffer.split())
 		
-		elif key in [keys.UP, keys.DOWN, keys.LEFT, keys.RIGHT]: # Ignores arrows.
+		elif key in [keys.LEFT, keys.RIGHT]: # Ignores arrows.
 			continue
+
+		elif key == keys.UP and len(handler["history"]):
+			index -= 1
+
+			try:
+				buffer = handler["history"][index]
+
+			except(IndexError):
+				index = -1
+				buffer = handler["history"][index]
+
+		elif key == keys.DOWN and len(handler["history"]):
+			index += 1
+
+			try:
+				buffer = handler["history"][index]
+
+			except(IndexError):
+				index = 0
+				buffer = handler["history"][index]
 		
 		elif key == keys.BACKSPACE: # handles deletion.
 			buffer = buffer[:-1]

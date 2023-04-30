@@ -39,7 +39,10 @@ These projects have been built with **CLIbrary** and they should serve as exampl
 
 ### CLIbrary
 
-**CLIbrary** is *a comprehensive Python library of standard CLI utilities for convenient command, I/O, and file handling*. This means it is a set of functions that simplifies writing programs based on it by providing a coherent environment.
+A comprehensive Python library of standard CLI utilities for convenient command, I/O, and file handling.
+
+**CLIbrary** is a comprehensive Python library that makes command line usage, input/output, and file handling easier and more efficient. *It provides a wide range of tools for interacting with a shell*, including essential utilities for *command line parsing and I/O, file manipulations, tab completion, and command hinting*. With these tools, **CLIbrary** makes it easy to integrate powerful command-line functionality into any Python project.  
+Additionally, it now also provides a *history feature for tracking and re-executing previous commands*.  
 
 **CLIbrary** provides functions to:
 * Manage a CLI interface through command-and-options handling.
@@ -62,11 +65,12 @@ Note that, although every function has a default handler, it is recommended to p
 As of version 1.2.1, CLIbrary has some "global options" to allow even more personalization.  
 Available options are:
 
-1. `CLIbrary.style.setting_darkMode`, bool: Enables global dark mode. Dafault: `False`.
-2. `CLIbrary.style.setting_plainMode`, bool: Disables styling. Default: `False`.
-3. `CLIbrary.style.setting_caseSensitive`, bool: Enables case-sensitiveness. Default: `False`.
-4. `CLIbrary.data.setting_fileExtension`, str: Defines a file extension for *CLIbrary.aDump* and *CLIbrary.aLoad*. Default: `".pickle"`
-5. `CLIbrary.commands.setting_enableCompletion`, bool: Enables command completion. Default: `True`
+* `CLIbrary.style.setting_darkMode`, bool: Enables global dark mode. Dafault: `False`.
+* `CLIbrary.style.setting_plainMode`, bool: Disables styling. Default: `False`.
+* `CLIbrary.style.setting_caseSensitive`, bool: Enables case-sensitiveness. Default: `False`.
+* `CLIbrary.data.setting_fileExtension`, str: Defines a file extension for *CLIbrary.aDump* and *CLIbrary.aLoad*. Default: `".pickle"`.
+* `CLIbrary.commands.setting_enableCompletion`, bool: Enables command completion. Default: `True`.
+* `CLIbrary.commands.setting_enableHistory`, bool: Enables command history and navigation. Default: `True`.
 
 ### Import CLIbrary
 
@@ -97,7 +101,7 @@ CLIbrary.FUNCTION_NAME()
 ### CLI
 
 ``` python
-CLIbrary.cmdIn(commandHandler: dict = {}) -> dict
+CLIbrary.cmdIn(cHandler: dict = {}) -> dict
 ```
 
 *cmdIn* stands for *Command Input* as this function allows the user to input command as in a CLI interface.  
@@ -108,7 +112,10 @@ The handler for this function makes use of the following parameters:
 * added, str: A set of characters to be automatically added to the prompt. Default is ": ".
 * style, str[^1]: A particular colour style to be applied to the prompt.
 * verbose, bool.
-* allowedCommands, list: A list of all the allowed commands for the CLI interface.
+* allowedCommands, list: A list of all the allowed commands for the CLI interface. There are some default commands:
+	* `exit`: Mandatory commands which handles exiting from main program.
+	* `help`: Enabled on helpPath being different from `""`.
+	* `history`: Enabled on history being different from `[]` and on `CLIbrary.commands.setting_enableHistory` set as `True`.
 * helpPath, str: The path to the help JSON. This enables the *help* command.
 
 This function returns a dictionary with the following keys:
@@ -209,7 +216,7 @@ This is an example from **openBriefcase**'s accounts help JSON[^3]:
 ### Loading
 
 ``` python
-CLIbrary.aLoad(fileHandler: dict)
+CLIbrary.aLoad(fHandler: dict)
 ``` 
 
 *aLoad* stands for *Automatic Loading* as this function loads informations from files without user confirmation.
@@ -221,7 +228,7 @@ The handler for this function makes use of the following parameters:
 ### Dumping
 
 ``` python
-CLIbrary.aDump(fileHandler: dict) -> None
+CLIbrary.aDump(fHandler: dict) -> None
 ```
 
 *aDump* stands for *Automatic Dumping* as this function dumps informations to files without user confirmation.
@@ -237,7 +244,7 @@ The handler for this function makes use of the following parameters:
 ### Strings
 
 ``` python
-CLIbrary.strIn(stringHandler: dict = {}) -> str
+CLIbrary.strIn(sHandler: dict = {}) -> str
 ```
 
 *strIn* stands for *String Input* as this function's purpose is receiving string inputs.
@@ -263,7 +270,7 @@ The returned value isn't case sensitive.
 ### Numbers
 
 ``` python
-CLIbrary.numIn(numberHandler: dict = {}) -> "int, float"
+CLIbrary.numIn(nHandler: dict = {}) -> "int, float"
 ```
 
 *numIn* stands for *Number Input* as this function's purpose is receiving numeric inputs.
@@ -298,7 +305,7 @@ The handler for this function makes use of the following parameters:
 ### Dates
 
 ``` python
-CLIbrary.dateIn(dateHandler: dict = {}) -> str
+CLIbrary.dateIn(dHandler: dict = {}) -> str
 ```
 
 *dateIn* stands for *Date Input* as this function's purpose is receiving date[^4] inputs.
@@ -316,7 +323,7 @@ The handler for this function makes use of the following parameters:
 ### List handling
 
 ``` python
-CLIbrary.listCh(listHandler: dict = {})
+CLIbrary.listCh(lHandler: dict = {})
 ```
 
 *listCh* stands for *List Choice* as this function returns the choosen element from a list.
