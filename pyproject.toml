@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling", "colorama", "datetime", "setuptools", "getkey"]
+requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
