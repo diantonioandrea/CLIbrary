@@ -1,6 +1,14 @@
-![PyPI](https://img.shields.io/pypi/v/CLIbrary)
+![GitHub](https://img.shields.io/github/license/diantonioandrea/CLIbrary)
+
+![PyPI](https://img.shields.io/pypi/v/CLIbrary?label=CLIbrary%20on%20pypi)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/CLIbrary)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/CLIbrary)
+
+![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/diantonioandrea/CLIbrary)
 ![GitHub last commit](https://img.shields.io/github/last-commit/diantonioandrea/CLIbrary)
 ![GitHub Release Date](https://img.shields.io/github/release-date/diantonioandrea/CLIbrary)
+
+
 
 # CLIbrary
 
