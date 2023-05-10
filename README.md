@@ -8,7 +8,7 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/diantonioandrea/CLIbrary)
 ![GitHub Release Date](https://img.shields.io/github/release-date/diantonioandrea/CLIbrary)
 
-
+![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/diantonioandrea/CLIbrary/latest)
 
 # CLIbrary
 
